@@ -1,0 +1,30 @@
+{
+  "name": "jjb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "karma.config.js",
+  "dependencies": {
+    "browserify": "^13.0.1",
+    "jasmine-core": "^2.4.1",
+    "karma-browserify": "^5.0.5",
+    "karma-jasmine": "^1.0.2",
+    "karma-chrome-launcher": "^1.0.1",
+    "phantomjs-prebuilt": "^2.1.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "watchify": "^3.7.0",
+    "karma": "^0.13.22"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "bootstrap": "^3.3.6",
+    "browser-sync": "^2.13.0",
+    "gulp-less": "^3.1.0",
+    "gulp-postcss": "^6.1.1",
+    "less": "^2.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
