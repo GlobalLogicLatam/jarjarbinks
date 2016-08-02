@@ -1,0 +1,14 @@
+{
+  "name": "jarjarbinks",
+  "description": "Device manager",
+  "main": "",
+  "authors": [],
+  "license": "ISC",
+  "homepage": "",
+  "devDependencies": {
+    "jquery": "^3.1.0",
+    "sammy": "^0.7.6",
+    "mustache.js": "mustache#^2.2.1",
+    "bootstrap": "^3.3.7"
+  }
+}
