@@ -1,16 +1,12 @@
-function HomeController(SammyContext){
+function HomeController(){
 
   let route = {
   	get: function(urlParams) {
-  		SammyContext
-  			.render('./routes/home/home.template.mustache', { name: 'Seccion de home' })
-	      .swap();
-	    }
+	  	return { name: 'Value from home controller' };
+	  }
   };
-
-  route[SammyContext.verb](SammyContext.params);
 
   return route;
 }
 
-module.exports = HomeController
+module.exports = HomeController()

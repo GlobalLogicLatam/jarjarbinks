@@ -2,14 +2,9 @@ function DevicesController(SammyContext){
 
   let route = {
   	get: function(urlParams) {
-  		SammyContext
-  			.render('./routes/device/device.template.mustache')
-	      .swap();
+  		return { name: 'Value from device controller' };
 	  }
-
   };
-
-  route[SammyContext.verb](SammyContext.params);
 
   return route;
 }

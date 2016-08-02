@@ -2,13 +2,11 @@ function LoginController(SammyContext){
 
   let route = {
   	get: function(urlParams) {
-  		SammyContext.render('./routes/login/login.template.mustache', { name: 'Seccion de login' })
-	      // swap the DOM with the new content
-	      .swap();
+			return { name: 'Value from login controller' };
   	}
   };
 
-  route[SammyContext.verb](SammyContext.params);
+  return route;
 }
 
 module.exports = LoginController
