@@ -87,6 +87,10 @@ gulp.task('serve', function(cb) {
   // Watch changes for html.
   gulp.watch('app/**/*.html', ['html', browserSync.reload])
   .on('error', showError);
+
+  // Watch changes for html.
+  gulp.watch('app/**/*.js', ['bundle', browserSync.reload])
+  .on('error', showError);
   
   return true;
 });

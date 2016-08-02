@@ -5,16 +5,27 @@ require("script!mustache");
 require("script!sammy.mustache");
 
 function App() {
-	var app = Sammy('#app-container', function() {
-	  // include a plugin
+	var app = Sammy('#content-wrapper', function(sammyApp) {
+
+	  // Include mustache plugin
 	  this.use('Mustache');
 
-	  // Initialize router
+	  // Changes element wrapper to avoid show nav element when user is on login view.
+	  this.around(function(cb){
+	  	if(this.path == '/#/login'){
+	  		sammyApp.element_selector = '#app-wrapper';
+	  	}
+	  	cb();
+	  });
+
+	  // Set routes
 	  router(this);
 	});
 
 	// start the application
 	app.run('#/');
+
+	return app;
 }
 
 module.exports = App()
