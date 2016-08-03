@@ -4,7 +4,8 @@ function Router(SammyContext) {
 		{
 			url: '#/',
 			template: './routes/home/home.template.mustache',
-			controller: './routes/home/home.controller'
+			controller: './routes/home/home.controller',
+			controllerAs: 'home'
 		},
 		{
 			url: '#/login',
@@ -19,25 +20,44 @@ function Router(SammyContext) {
 	];
 
   config.forEach(function(r){
-  	let verb = r.verb || 'any';
-  	let req = require.context('./', true, /^\.\/.*\.controller$/);
+  	var req = require.context('./', true, /^\.\/.*\.controller$/);
   	
   	// Fetch template
-  	SammyContext[verb](r.url, function(context){
-  		Promise.all([
+  	SammyContext.get(r.url, function(context){
+			Promise.all([
   			// Load template
   			context.load(r.template),
   			// Execute controller
-  			req(r.controller)[context.verb](context.params)
+  			req(r.controller)
 			]).then(function(res){
-				let ctrl = res[1];
-				
+				// Instanciate controller
+				let ctrl = new res[1](context.params);
+
+				// Running init() to execute async functions
+				return Promise.all([
+					ctrl.init()
+				]).then(function(){
+					return ctrl;
+				});
+
+			}).then(function(ctrl){
 				// Extending context with controller return
-				Object.assign(context, ctrl);
+				if(r.controllerAs){
+					context[r.controllerAs] = {};
+					Object.assign(context[r.controllerAs], ctrl);
+				} else {
+					Object.assign(context, ctrl);
+				}
 
 				// Render parcial and show in wrapper.
-				context.partial(r.template);
+				context.partial(r.template).then(function(){
+					// Execute link after render in order to bind elements.
+					ctrl.link();
+				});
+			}).catch(function(err){
+				console.error('Fail executing route: ', err);
 			});
+
   	});
   });
 }

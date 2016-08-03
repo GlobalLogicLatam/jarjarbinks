@@ -1,12 +1,25 @@
-function HomeController(){
+function HomeController(urlParams){
+	var self = this;
+	
+	self.name = 'John';
 
-  let route = {
-  	get: function(urlParams) {
-	  	return { name: 'Value from home controller' };
-	  }
-  };
+	self.totto = function(){
+		console.log('click!');
+	}
 
-  return route;
+	self.link = function(){
+		$('p').on('click', self.totto);
+	};
+
+	self.init = function(){
+		// Emulate a service call
+		return new Promise(function(resolve, reject){
+			setTimeout(function() {
+        self.name = 'Patrick';
+        resolve();
+      	}, 5000);
+		});
+	};
 }
 
-module.exports = HomeController()
+module.exports = HomeController;
