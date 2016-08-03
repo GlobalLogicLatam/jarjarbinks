@@ -1,33 +1,38 @@
 <link type="text/css" rel="stylesheet" href="./../../css/login/login.css">
 <section class="container login">
-	<section class="brand">
+	<section class="login__brand">
 		<div class="row">
 			<div class="col-xs-12">
-				<img class="login__logo" src="./../../images/jjb-logo.png" alt="logo" width="150">
+				<img class="login__brand__logo" src="./../../images/jjb-logo.png" alt="logo" width="150">
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<img class="login__text-logo" src="./../../images/jjb-text-logo.png" alt="text-logo" width="200">
+				<img class="login__brand__text-logo" src="./../../images/jjb-text-logo.png" alt="text-logo" width="200">
 			</div>
 		</div>
 	</section>
 	<section class="row login__form">
 		<div class="col-xs-12">
-			<form name="" class="" actian="#">
+			<form name="" class="" >
+				<p class="text-danger">{{ login.error }}</p>
+
 				<div class="form-group">
-					<div class="form-group">
-						<input type="text" class="form-control text-placeholder" id="username" placeholder="Usuario" required>
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control text-placeholder" id="password" placeholder="Contrase&ntilde;a" required>
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn jjb-primary">Iniciar Sesi&oacute;n</button>
-					</div>
+					<input type="text" class="form-control" id="username" placeholder="Usuario" required>
+					<img class="login__form__icon login__form__icon-username" src="./../../images/ic_user.svg" alt="ic_username">
 				</div>
-			</form>
-			<p class="text-error">{{ login.error }}</p>
+
+				<div class="form-group">
+					<input type="password" class="form-control" id="password" placeholder="Contrase&ntilde;a" required>
+					<img class="login__form__icon login__form__icon-password" src="./../../images/ic_password.svg" alt="ic_password">
+
+				</div>
+
+				<div class="form-group">
+					<button  type="submit" class="btn btn-primary">Iniciar Sesi&oacute;n</button>
+				</div>
+
+			</form>			
 		</div>
 	</section>
 </section>
