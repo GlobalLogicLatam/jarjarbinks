@@ -879,9 +879,19 @@
 .jjb-primary{
 	background: @primary-green;
 	color: white;
+	.btn:active &,
+	.btn:hover &,
+	.btn:focus &,
+	.btn:active:focus &{
+		color:white;
+	}
 }
 //Texts
 .text{
+	&-placeholder{
+		color:@placeholder-color;
+	}
+	
 	&-error{
 		color: @brand-danger;
 		font-size:11px;		
