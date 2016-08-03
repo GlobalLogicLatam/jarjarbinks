@@ -85,7 +85,7 @@ gulp.task('serve', function(cb) {
     .on('error', showError);
 
   // Watch changes for html.
-  gulp.watch('app/**/*.html', ['html', browserSync.reload])
+  gulp.watch(['app/**/*.html', 'app/**/*.mustache'], ['html', browserSync.reload])
   .on('error', showError);
 
   // Watch changes for html.
