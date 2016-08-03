@@ -1,4 +1,4 @@
-function DevicesController(SammyContext){
+function DevicesController(){
 
   let route = {
   	get: function(urlParams) {
@@ -9,4 +9,4 @@ function DevicesController(SammyContext){
   return route;
 }
 
-module.exports = DevicesController
+module.exports = DevicesController()
