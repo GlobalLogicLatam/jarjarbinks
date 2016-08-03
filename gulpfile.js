@@ -10,10 +10,12 @@ var sourcemaps    = require('gulp-sourcemaps');
 
 var config = {
   path: {
-    less: './app/less/',
-    output_folder: './dist/',
-    output_folder_css: './dist/css/',
-    node_modules: './node_modules/'
+    less:                 './app/less/',
+    output_folder:        './dist/',
+    output_folder_css:    './dist/css/',
+    output_folder_images: './dist/images/',
+    output_folder_fonts:  './dist/fonts/',
+    node_modules:         './node_modules/'
   }
 };
 
@@ -55,11 +57,25 @@ gulp.task('less', function () {
     .pipe(gulp.dest(config.path.output_folder_css));
 });
 
+// Moves html and mustache partials files to dist folder
 gulp.task('html', function () {
-	return gulp.src(['./app/**/*.html', './app/**/*.mustache'])    
-		.pipe(gulp.dest(config.path.output_folder));
+  return gulp.src(['./app/**/*.html', './app/**/*.mustache'])    
+    .pipe(gulp.dest(config.path.output_folder));
 });
 
+// Moves images files to dist folder
+gulp.task('images', function () {
+  return gulp.src('./app/images/**/')    
+    .pipe(gulp.dest(config.path.output_folder_images));
+});
+
+// Moves fonts files to dist folder
+gulp.task('fonts', function () {
+  return gulp.src('./app/fonts/**/')    
+    .pipe(gulp.dest(config.path.output_folder_fonts));
+});
+
+// Delete everything in /dist
 gulp.task('clean-dist', function () {
   return gulp.src('dist/')
     .pipe(clean());
@@ -74,7 +90,7 @@ gulp.task('bundle', function() {
 });
 
 gulp.task('serve', function(cb) {
-  runSequence('clean-dist', ['html', 'bootstrap-less','less'], 'bundle', 'browser-sync', cb);
+  runSequence('clean-dist', ['html', 'images', 'fonts', 'bootstrap-less','less'], 'bundle', 'browser-sync', cb);
   
   // Watch for changes on css core.
   gulp.watch('app/less/**/*.less', ['bootstrap-less', browserSync.reload])
@@ -86,6 +102,14 @@ gulp.task('serve', function(cb) {
 
   // Watch changes for html.
   gulp.watch(['app/**/*.html', 'app/**/*.mustache'], ['html', browserSync.reload])
+  .on('error', showError);
+  
+  // Watch changes for images.
+  gulp.watch(['app/images/**/*.*'], ['images', browserSync.reload])
+  .on('error', showError);
+  
+  // Watch changes for fonts.
+  gulp.watch(['app/fonts/**/*.*'], ['fonts', browserSync.reload])
   .on('error', showError);
 
   // Watch changes for html.

@@ -1,4 +1,4 @@
-function LoginController(SammyContext){
+function LoginController(){
 
   let route = {
   	get: function(urlParams) {
@@ -9,4 +9,4 @@ function LoginController(SammyContext){
   return route;
 }
 
-module.exports = LoginController
+module.exports = LoginController()
