@@ -1,16 +1,34 @@
+<link type="text/css" rel="stylesheet" href="./../../css/login/login.css">
 <section class="container login">
-	<div class="row">
+	<section class="brand">
+		<div class="row">
+			<div class="col-xs-12">
+				<img src="" alt="logo">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<span>Jar Jar<span> <span>Binks</span>
+			</div>
+		</div>
+	</section>
+	<section class="row login__form">
 		<div class="col-xs-12">
 			<form name="" class="" actian="#">
 				<div class="form-group">
-					<input type="text" name="user" placeholder="Username">
-					<input type="text" name="user" placeholder="Username">
-					<button type="submit" class="btn btn-primary">Enviar</button>
-					<button type="submit" class="btn btn-danger">Cancelar</button>
+					<div class="form-group">
+						<input type="text" class="form-control" id="username" placeholder="Usuario" required>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="password" placeholder="Contrase&ntilde;a" required>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn jjb-primary">Iniciar Sesi&oacute;n</button>
+					</div>
 				</div>
 			</form>
-			<p>Login value: {{ name }}</p>
+			<p class="text-error">{{ name }}</p>
 		</div>
-	</div>
+	</section>
 </section>
 
