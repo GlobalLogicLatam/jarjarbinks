@@ -1,8 +1,29 @@
 @import './../../less/variables.less';
 
 .login{
-	background-image: url('./../../assets/images/login-bg.png') cover;
-	padding:0px 15%;
+	background-image: url('./../../images/login-bg.png');
+	background-size:cover;
+	padding:20% 10%;
+	width:100%;
+	height:100vh;
+	#username{
+		background:url('./../../images/ic_user.svg')  no-repeat scroll 10px 3px;
+		background-color:white;
+		background-size: 9%;
+		padding-left:40px;
+	}
+	#password{
+		background:url('./../../images/ic_password.svg')  no-repeat scroll 10px 3px;
+		background-color:white;
+		background-size: 9%;
+		padding-left:45px;	
+	}
+	&__logo{
+		margin-bottom: 10%;
+	}
+	&__text-logo{
+		margin-bottom: 15%;
+	}
 	.brand{
 		text-align: center;
 	}
