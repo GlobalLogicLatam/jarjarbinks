@@ -4,15 +4,14 @@ function LoginController(urlParams){
 	//Public methods and attributes
 	Object.assign(self, {
 		link: 	link,
-		init: 	init,
-		error:  'Usuario / Contraseña invalido.'
+		init: 	init
 	});
-
+	var error = "";
 	return self;	
 
 	function logIn(){
 		event.preventDefault();
-		var formData = $("form").serialize();
+		var formData = $("form").serialize();		
 		console.log(formData);
 	}	
 
