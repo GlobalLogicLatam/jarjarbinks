@@ -16,6 +16,7 @@ function HomeController(urlParams){
 
 	// To make calls to apis. It may returns a promise.
 	function init(){
+		//Emulate a service call
 		return new Promise(function(resolve, reject){
 			setTimeout(function() {
         self.name = 'Patrick';

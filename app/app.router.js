@@ -10,12 +10,14 @@ function Router(SammyContext) {
 		{
 			url: '#/login',
 			template: './routes/login/login.template.mustache',
-			controller: './routes/login/login.controller'
+			controller: './routes/login/login.controller',
+			controllerAs: 'login'
 		},
 		{
 			url: '#/devices',
 			template: './routes/device/device.template.mustache',
-			controller: './routes/device/device.controller'
+			controller: './routes/device/device.controller',
+			controllerAs: 'devices'
 		}
 	];
 
