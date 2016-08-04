@@ -1,0 +1,10 @@
+{
+  "short_name": "Jar Jar Binks",
+  "name": "Jar Jar Binks",
+  "theme_color": "#2e2e2e",
+  "start_url":"/",
+  "scope":"/",
+  "icons": [],
+  "display": "standalone",
+  "orientation": "portrait"
+}
