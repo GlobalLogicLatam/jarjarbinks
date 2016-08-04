@@ -1,17 +1,21 @@
 function HomeController(urlParams){
-	var self = this;
+	let self = this;
 	
-	self.name = 'John';
+	// Public methods and attributes
+	Object.assign(self, {
+		link: link,
+		init: init
+	});
 
-	self.totto = function(){
-		console.log('click!');
-	}
+	return self;
 
-	self.link = function(){
-		$('p').on('click', self.totto);
+	// To bind elements
+	function link(){
+		
 	};
 
-	self.init = function(){
+	// To make calls to apis. It may returns a promise.
+	function init(){
 		//Emulate a service call
 		return new Promise(function(resolve, reject){
 			setTimeout(function() {
