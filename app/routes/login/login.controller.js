@@ -1,16 +1,23 @@
-function LoginController(){
-	var self = this;
-	self.error = 'Usuario / Contraseña invalido';
-	self.clickme = function (){
-		console.log("loggggin");
-	}
-	let route = {
-		get: function(urlParams) {
-			return { login: self };
-		}
+function LoginController(urlParams){
+	let self = this;
+	
+	// Public methods and attributes
+	Object.assign(self, {
+		link: link,
+		init: init
+	});
+
+	return self;
+
+	// To bind elements
+	function link(){
+		
 	};
 
-	return route;
+	// To make calls to apis. It may returns a promise.
+	function init(){
+		
+	};
 }
 
-module.exports = LoginController()
+module.exports = LoginController
