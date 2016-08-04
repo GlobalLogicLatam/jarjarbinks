@@ -1,4 +1,9 @@
+
+
 function LoginController(urlParams){
+
+	var exampleService = require("./../../services/exampleService")();
+	
 	let self = this;
 	
 	//Public methods and attributes
@@ -6,13 +11,23 @@ function LoginController(urlParams){
 		link: 	link,
 		init: 	init
 	});
-	var error = "";
+
 	return self;	
 
 	function logIn(){
 		event.preventDefault();
-		var formData = $("form").serialize();		
-		console.log(formData);
+		var formData = $("form").serialize();
+		$('form').validate({
+			rules:{
+				username:{
+					required:true
+				},
+				password:{
+					required:true
+				}
+			}
+		});	
+		exampleService.showExample("example text");
 	}	
 
 	// To bind elements
