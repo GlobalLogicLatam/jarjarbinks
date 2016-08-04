@@ -12,7 +12,7 @@ function HomeController(urlParams){
 	};
 
 	self.init = function(){
-		// Emulate a service call
+		//Emulate a service call
 		return new Promise(function(resolve, reject){
 			setTimeout(function() {
         self.name = 'Patrick';

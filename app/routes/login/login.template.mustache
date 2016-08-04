@@ -1,26 +1,35 @@
 <link type="text/css" rel="stylesheet" href="./../../css/login/login.css">
 <section class="flex-container">
 	<div class="login">
-	
+
 		<img class="login__logo" src="./../../images/jjb-logo.png" alt="logo">
 		<img class="login__text-logo" src="./../../images/jjb-text-logo.png" alt="text-logo">
 
 		<div class="login-form">
-			<form name="" class="" >
+			<form action="" id="form" method="post" name="form">
 				<p class="text-danger login-form__error">{{ login.error }}</p>
-				<p class="text-danger login-form__error">{{ name }}</p>
 				<div class="form-group login-form__group">
-					<input type="text" class="form-control login-form__input" placeholder="Usuario" required>
+					<input type="text" name="username" class="form-control login-form__input" placeholder="Usuario" required>
 					<img class="login-form__icon" src="./../../images/ic_user.svg" alt="ic_username">
+					<div class="help-block">
+						<span class="text-danger  login-form__error">
+							Debe ingresar un usuario.
+						</span>
+					</div>
 				</div>
 				<div class="form-group login-form__group">
-					<input type="password" class="form-control login-form__input" placeholder="Contrase&ntilde;a" required>
+					<input type="password" name="password" class="form-control login-form__input" placeholder="Contrase&ntilde;a" required>
 					<img class="login-form__icon" src="./../../images/ic_password.svg" alt="ic_password">
+					<div class="help-block">
+						<span class="text-danger  login-form__error">
+							Debe ingresar una contrase&ntilde;a.
+						</span>
+					</div>
 				</div>
 				<div class="form-group">
-					<button  type="submit" class="btn btn-primary btn-block">Iniciar Sesi&oacute;n</button>
+					<button  type="submit" id="submitBtn" class="btn btn-primary btn-block">Iniciar Sesi&oacute;n</button>
 				</div>
-			</form>		
+			</form>					
 		</div>
 	</div>
 </section>
