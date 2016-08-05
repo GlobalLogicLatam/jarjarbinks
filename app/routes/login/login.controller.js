@@ -2,8 +2,8 @@
 
 function LoginController(urlParams){
 
-	var authenticationService = require("./../../services/authenticationService")();
-	
+	var authenticationService = require("./../../services/authenticationService")();		
+
 	let self = this, form = "";
 	//Public methods and attributes
 	Object.assign(self, {
@@ -13,7 +13,6 @@ function LoginController(urlParams){
 	});
 
 	return self;	
-
 
 	//PUBLIC FUNCTIONS
 	// To bind elements
@@ -46,7 +45,7 @@ function LoginController(urlParams){
 		event.preventDefault();			
 		$('#loginError').html('');			
 		//convert data into json	
-		let formData  =  ConvertFormToJSON(form);
+		let formData  =  form.formToJson();
 		$.when(authenticationService.logIn(formData))
 		.then(function success(response){
 			console.log(response);
@@ -55,16 +54,6 @@ function LoginController(urlParams){
 			$('#loginError').html(error);
 		});
 	}	
-
-	//Convert formdata to json
-	function ConvertFormToJSON(form){
-		var array = form.serializeArray();
-		var json = {};
-		array.forEach(function(item) {
-			json[item.name] = item.value;
-		});		
-		return json;
-	}
 }
 
 module.exports = LoginController

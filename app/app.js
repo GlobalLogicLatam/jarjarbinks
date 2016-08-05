@@ -5,6 +5,7 @@ require("script!validation_additional_methods");
 require("script!sammy");
 require("script!mustache");
 require("script!sammy.mustache");
+require("./components/formToJson/formToJson")(); //convert form data into json
 
 function App() {
 	var app = Sammy('#content-wrapper', function(sammyApp) {
