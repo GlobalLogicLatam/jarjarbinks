@@ -21,7 +21,7 @@ function LoginController(urlParams){
 	function link(){
 		form = $('form');
 		customErrorElement = $('#loginError');
-		
+
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
@@ -34,6 +34,8 @@ function LoginController(urlParams){
 				username: "Debe ingresar un usuario.",
 				password: "Debe ingresar una contraseña."
 			},
+			onkeyup: false,
+			invalidHandler: invalidForm,
 			submitHandler: logIn
 		});		
 	};
@@ -56,6 +58,9 @@ function LoginController(urlParams){
 			customErrorElement.html(error.error_message);
 		});
 	}	
+	function invalidForm(){		
+		customErrorElement.html('');
+	}
 }
 
 module.exports = LoginController
