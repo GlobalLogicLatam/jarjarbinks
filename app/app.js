@@ -10,14 +10,16 @@ require("./components/sammyFormIgnore/formIgnore")(); //Sammy form submit ignore
 
 function App() {
 	var app = Sammy('#content-wrapper', function(sammyApp) {
-
+		var nav_el = $('.js-nav');
 	  // Include mustache plugin
 	  this.use('Mustache');
 
 	  // Changes element wrapper to avoid show nav element when user is on login view.
 	  this.around(function(cb){
 	  	if(this.path == '/#/login'){
-	  		sammyApp.element_selector = '#app-wrapper';
+	  		nav_el.hide();
+	  	} else {
+	  		nav_el.show();
 	  	}
 	  	cb();
 	  });

@@ -38,14 +38,14 @@ function Router(SammyContext) {
 
 				// Rejecting old promise to avoid render an old view.
 				if(rejectPreviousPromise){
-					rejectPreviousPromise('Promise was canceled because another route was executed.', 'info');
+					rejectPreviousPromise('Promise was canceled because another route was executed.');
 				}
 				
 				// Running init() to execute async functions
 				return new Promise(function(resolve, reject){
 					rejectPreviousPromise = reject;
 					Promise
-						.all([ctrl.init()])
+						.all([ctrl.init(context)])
 						.then(function(){
 							resolve(ctrl);
 						});

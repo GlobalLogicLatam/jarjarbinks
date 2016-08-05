@@ -36,7 +36,7 @@ function createServer(openBrowser){
 
 
 gulp.task('browser-sync', function() {
-  createServer(true);
+  createServer(false);
 });
 
 gulp.task('restart-server', function() {

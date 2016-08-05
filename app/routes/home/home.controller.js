@@ -21,7 +21,7 @@ function HomeController(urlParams){
 			setTimeout(function() {
         self.name = 'Patrick';
         resolve();
-      	}, 5000);
+      	}, 1500);
 		});
 	};
 }

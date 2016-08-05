@@ -1,12 +1,9 @@
-
-
 function LoginController(urlParams){
-
 	var authenticationService = require("./../../services/authenticationService")();		
-
 	let self = this,
 	form = "",
 	customErrorElement= "";
+
 	//Public methods and attributes
 	Object.assign(self, {
 		link: 	link,
@@ -36,10 +33,10 @@ function LoginController(urlParams){
 			submitHandler: logIn
 		});		
 	};
-
+	var sammyContext;
 	// To make calls to apis. It may returns a promise.
-	function init(){
-		
+	function init(context){
+		sammyContext = context;
 	};
 
 	//PRIVATE FUNCTIONS
@@ -50,7 +47,8 @@ function LoginController(urlParams){
 		let formData  =  form.serializeObject();
 		$.when(authenticationService.logIn(formData))
 		.then(function success(){
-			//redirect to main page.
+			console.log('sammyContext: ', sammyContext);
+			sammyContext.redirect('#/devices');
 		}, 	function error(error){
 			customErrorElement.html(error.error_message);
 		});

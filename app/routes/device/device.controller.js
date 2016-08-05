@@ -1,12 +1,24 @@
-function DevicesController(){
+function DeviceController(urlParams){	
+	let self = this;
 
-  let route = {
-  	get: function(urlParams) {
-  		return { name: 'Value from device controller' };
-	  }
-  };
+	//Public methods and attributes
+	Object.assign(self, {
+		link: 	link,
+		init: 	init
+	});
 
-  return route;
+	return self;	
+
+	// //PUBLIC FUNCTIONS
+	// To bind elements
+	function link(){
+				
+	};
+
+	// To make calls to apis. It may returns a promise.
+	function init(){
+		
+	};
 }
 
-module.exports = DevicesController()
+module.exports = DeviceController;
