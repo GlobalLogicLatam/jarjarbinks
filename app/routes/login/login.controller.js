@@ -4,7 +4,9 @@ function LoginController(urlParams){
 
 	var authenticationService = require("./../../services/authenticationService")();		
 
-	let self = this, form = "";
+	let self = this,
+	form = "",
+	customErrorMsg= "";
 	//Public methods and attributes
 	Object.assign(self, {
 		link: 	link,
@@ -18,7 +20,7 @@ function LoginController(urlParams){
 	// To bind elements
 	function link(){
 		form = $('form');
-
+		customErrorMsg = $('#loginError');
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
@@ -43,7 +45,7 @@ function LoginController(urlParams){
 	//PRIVATE FUNCTIONS
 	function logIn(){
 		event.preventDefault();			
-		$('#loginError').html('');			
+		customErrorMsg.html('');			
 		//convert data into json	
 		let formData  =  form.formToJson();
 		$.when(authenticationService.logIn(formData))
@@ -51,7 +53,7 @@ function LoginController(urlParams){
 			console.log(response);
 		}, 	function error(error){
 			console.log(error);
-			$('#loginError').html(error);
+			customErrorMsg.html(error);
 		});
 	}	
 }

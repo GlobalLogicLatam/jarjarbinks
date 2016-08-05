@@ -8,13 +8,10 @@ function authenticationService(){
 	return self;
 
 	function logIn(user){
-		console.log("entre en service", user);
-		var $q = $.Deferred();
-		var errorMsg = "Usuario / Contraseña invalido.",
-		successMsg = "Enviado!",
-		prmsg ="este mensaje fue para pr!!!";
-
-		console.log("service","username: " + user.username , "password: " + user.password);
+		var $q = $.Deferred(),
+		errorMsg = "Usuario / Contraseña invalido.",
+		successMsg = "Enviado!";
+		
 		if(user.username !== "error" && user.password !== "error"){
 			return $q.resolve(successMsg);
 		} else {
