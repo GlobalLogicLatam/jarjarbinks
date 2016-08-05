@@ -11,7 +11,6 @@ function authenticationService(){
 		var $q = $.Deferred(),
 		errorMsg = "Usuario / Contraseña invalido.",
 		successMsg = "Enviado!";
-		
 		if(user.username !== "error" && user.password !== "error"){
 			return $q.resolve(successMsg);
 		} else {

@@ -6,7 +6,7 @@ function LoginController(urlParams){
 
 	let self = this,
 	form = "",
-	customErrorMsg= "";
+	customErrorElement= "";
 	//Public methods and attributes
 	Object.assign(self, {
 		link: 	link,
@@ -20,7 +20,7 @@ function LoginController(urlParams){
 	// To bind elements
 	function link(){
 		form = $('form');
-		customErrorMsg = $('#loginError');
+		customErrorElement = $('#loginError');
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
@@ -45,15 +45,15 @@ function LoginController(urlParams){
 	//PRIVATE FUNCTIONS
 	function logIn(){
 		event.preventDefault();			
-		customErrorMsg.html('');			
+		customErrorElement.html('');			
 		//convert data into json	
-		let formData  =  form.formToJson();
+		let formData  =  form.serializeObject();
 		$.when(authenticationService.logIn(formData))
 		.then(function success(response){
 			console.log(response);
 		}, 	function error(error){
 			console.log(error);
-			customErrorMsg.html(error);
+			customErrorElement.html(error);
 		});
 	}	
 }

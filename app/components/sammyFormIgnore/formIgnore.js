@@ -26,9 +26,8 @@ plugin for easier re-usability.
     app.defaultCheckFormSubmission = this._checkFormSubmission; 
     app._checkFormSubmission = function (form) { 
       var $form, path, verb; 
-      $form = $(form); 
-      path = $form.attr("action"); 
-      verb = this._getFormVerb($form); 
+      path = form.action; 
+      verb = form.method.toLowerCase();
       if (verb === "get" && !path.startsWith("#")){ 
         return false; 
       } 

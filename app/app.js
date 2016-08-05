@@ -5,7 +5,7 @@ require("script!validation_additional_methods");
 require("script!sammy");
 require("script!mustache");
 require("script!sammy.mustache");
-require("./components/formToJson/formToJson")(); //convert form data into json
+require("./components/serializeObject/serializeObject")(); //convert data into json
 require("./components/sammyFormIgnore/formIgnore")(); //Sammy form submit ignore
 
 function App() {
