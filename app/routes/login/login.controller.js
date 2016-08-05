@@ -49,11 +49,10 @@ function LoginController(urlParams){
 		//convert data into json	
 		let formData  =  form.serializeObject();
 		$.when(authenticationService.logIn(formData))
-		.then(function success(response){
-			console.log(response);
+		.then(function success(){
+			//redirect to main page.
 		}, 	function error(error){
-			console.log(error);
-			customErrorElement.html(error);
+			customErrorElement.html(error.error_message);
 		});
 	}	
 }

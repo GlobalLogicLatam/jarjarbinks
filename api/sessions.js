@@ -5,7 +5,7 @@ function SessionController() {
 	}
 	
 	function post(req, res, next){
-		let data = req.body;
+		var data = req.body;
 		
 		if(data.username == 'error'){
 			res.writeHead(401, 'Unauthorized', {"Content-Type": "application/json"});
