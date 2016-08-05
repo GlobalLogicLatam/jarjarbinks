@@ -2,10 +2,11 @@
 
 function LoginController(urlParams){
 
-	var authenticationService = require("./../../services/authenticationService")();
-	
-	let self = this;
-	
+	var authenticationService = require("./../../services/authenticationService")();		
+
+	let self = this,
+	form = "",
+	customErrorElement= "";
 	//Public methods and attributes
 	Object.assign(self, {
 		link: 	link,
@@ -15,11 +16,11 @@ function LoginController(urlParams){
 
 	return self;	
 
-	function logIn(){
-		let form = $('form');
-		$('#loginError').html('');
-		event.preventDefault();		
-		let formData  =  ConvertFormToJSON(form);
+	//PUBLIC FUNCTIONS
+	// To bind elements
+	function link(){
+		form = $('form');
+		customErrorElement = $('#loginError');
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
@@ -32,32 +33,8 @@ function LoginController(urlParams){
 				username: "Debe ingresar un usuario.",
 				password: "Debe ingresar una contraseña."
 			},
-			submitHandler: function() {
-				$.when(authenticationService.logIn(formData))
-				.then(function success(response){
-						console.log(response);
-					}, 	function error(error){
-						console.log(error);
-						$('#loginError').html(error);
-				});
-			}
-		});			
-	}	
-
-	//Convert formdata to json
-	function ConvertFormToJSON(form){
-		var array = jQuery(form).serializeArray();
-		var json = {};
-		jQuery.each(array, function() {
-			json[this.name] = this.value || '';
-		});
-		return json;
-	}
-
-	// To bind elements
-	function link(){
-		$('form').on("submit", logIn);
-		self.error = "";
+			submitHandler: logIn
+		});		
 	};
 
 	// To make calls to apis. It may returns a promise.
@@ -65,6 +42,19 @@ function LoginController(urlParams){
 		
 	};
 
+	//PRIVATE FUNCTIONS
+	function logIn(){
+		event.preventDefault();			
+		customErrorElement.html('');			
+		//convert data into json	
+		let formData  =  form.serializeObject();
+		$.when(authenticationService.logIn(formData))
+		.then(function success(){
+			//redirect to main page.
+		}, 	function error(error){
+			customErrorElement.html(error.error_message);
+		});
+	}	
 }
 
 module.exports = LoginController
