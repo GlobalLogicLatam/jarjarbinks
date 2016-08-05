@@ -2,7 +2,7 @@ var gulp          = require('gulp');
 var postcss       = require('gulp-postcss');
 var less          = require('gulp-less');
 var autoprefixer  = require('autoprefixer');
-var browserSync   = require('browser-sync');
+var browserSync   = require('browser-sync').create();
 var webpack       = require('webpack-stream');
 var clean         = require('gulp-clean');
 var runSequence   = require('run-sequence');
@@ -23,13 +23,28 @@ function showError(err) {
   console.log('Error: ', err);
 }
 
-gulp.task('browser-sync', function() {
-	browserSync({
-		server : {
+function createServer(openBrowser){
+  browserSync.init({
+    server : {
       baseDir: config.path.output_folder,
     },
-		ghostMode: false
-	});
+    open: openBrowser,
+    ghostMode: false,
+    middleware: require('./api/router')
+  });
+}
+
+
+gulp.task('browser-sync', function() {
+  createServer(true);
+});
+
+gulp.task('restart-server', function() {
+	Promise
+    .all([browserSync.exit()])
+    .then(function(){
+      createServer(false);
+    })
 });
 
 gulp.task('bootstrap-less', function () {
@@ -114,6 +129,10 @@ gulp.task('serve', function(cb) {
 
   // Watch changes for html.
   gulp.watch('app/**/*.js', ['bundle', browserSync.reload])
+  .on('error', showError);
+  
+  // Watch changes for html.
+  gulp.watch('api/**/*.js', ['restart-server'])
   .on('error', showError);
   
   return true;
