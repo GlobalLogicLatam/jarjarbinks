@@ -9,7 +9,8 @@ function authenticationService(){
 
 	function logIn(user){
 		var errorMsg = "Usuario / Contraseña invalido.",
-		successMsg = "Enviado!";
+		successMsg = "Enviado!",
+		prmsg ="este mensaje fue para pr!!!";
 
 		console.log("username: " + user.username , "password: " + user.password);
 		if(user.username !== "error" && user.password !== "error"){
