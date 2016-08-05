@@ -29,7 +29,7 @@ function LoginController(urlParams){
 				password: "required"				
 			},
 			messages:{
-				username: "Debe ingresar un uaasdsuario.",
+				username: "Debe ingresar un usuario.",
 				password: "Debe ingresar una contraseña."
 			},
 			submitHandler: function() {
