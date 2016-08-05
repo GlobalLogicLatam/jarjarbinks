@@ -21,6 +21,7 @@ function LoginController(urlParams){
 	function link(){
 		form = $('form');
 		customErrorElement = $('#loginError');
+		
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
