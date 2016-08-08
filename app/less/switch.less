@@ -1,0 +1,43 @@
+.switch {
+	cursor: pointer;
+	width: @switch-width;
+	height: @switch-height;
+	
+	&__knob {
+		width: 100%;
+		height: 100%;
+		display: inline-block;
+		position: relative;
+		border-radius: 50px;
+		background: @switch-unchecked-color;
+		transition: all .3s ease-in;
+		&:after {
+			content: '';
+			position: absolute;
+			width: calc(@switch-height - (@switch-margin*2));
+			height: calc(@switch-height - (@switch-margin*2));
+			background: white;
+			top: @switch-margin;
+			left: @switch-margin;
+			border-radius: 50%;
+			transition: all .3s ease-in;
+		}
+	}
+
+	&__input {
+		display: none;
+	}
+
+	&__input:checked {
+		& + .switch__knob {
+			background: @switch-checked-color;
+			transition: all .3s ease-in;
+		}
+		& + .switch__knob:after {
+			left: calc(@switch-width - @switch-height + @switch-margin);
+			transition: all .3s ease-in;
+		}
+
+	}
+
+}
