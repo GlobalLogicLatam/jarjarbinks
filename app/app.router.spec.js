@@ -1,17 +1,21 @@
-describe('Route', function() {
-	var app = require('./app.js')();
-	var body;
+var app = require('./app')();
 
-	beforeEach(function(done) {
+describe('Route', function() {
+	var body;
+	
+	beforeEach(function() {
     body = $('body');
     body.append('<div id="content-wrapper" class="app-wrapper"></div>');
-    app.run('#/login');
-		setTimeout(function() {
-      done();
-    }, 0);
   });
-	
-	describe('#/login', function() { 
+
+	describe('#/login', function() {
+		beforeEach(function(done) {
+	    app.run('#/login');
+			setTimeout(function() {
+	      done();
+	    }, 0);
+	  });
+		
 		it('should has a form', function(done) {
 			var form = body.find('form');
 

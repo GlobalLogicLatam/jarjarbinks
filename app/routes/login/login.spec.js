@@ -1,5 +1,6 @@
-describe('Login controller', function() { 	
-	var app = require('../../app')();
+var app = require('../../app')();
+
+describe('Login controller', function() {
 	var body;
 
 	beforeEach(function(done) {
@@ -12,7 +13,7 @@ describe('Login controller', function() {
     // Render template with controller returns
     // Run controller.link
 
-		setTimeout(function() {
+	setTimeout(function() {
       done();
     }, 0);
   });
