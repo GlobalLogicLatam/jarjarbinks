@@ -1,5 +1,5 @@
 function LoginController(urlParams){
-	var authenticationService = require("./../../services/authenticationService")();		
+	var authenticationService = require("./../../services/authenticationService")();
 	let self = this,
 	form = "",
 	customErrorElement= "";

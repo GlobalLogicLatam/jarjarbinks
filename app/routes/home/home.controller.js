@@ -1,5 +1,4 @@
 function HomeController(urlParams) {
-    let navbar = require("./../../components/navBar/navBar")();
     let self = this;
 
     // Public methods and attributes
