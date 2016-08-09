@@ -23,34 +23,28 @@ function Router(SammyContext) {
 
 	var rejectPreviousPromise;
   config.forEach(function(r){
-  	var req = require.context('./', true, /^\.\/.*\.controller$/);
+  	var req = require.context('./', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/);
 
   	// Fetch template
   	SammyContext.get(r.url, function(context){
-			Promise.all([
-  			// Load template
-  			context.load(r.template),
-  			// Execute controller
-  			req(r.controller)
-			]).then(function(res){
-				// Instanciate controller
-				let ctrl = new res[1](context.params);
+  		var Ctrl = req(r.controller);
+  		var ctrl = new Ctrl(context.params);
+  		var tmpl = req(r.template);
 
-				// Rejecting old promise to avoid render an old view.
-				if(rejectPreviousPromise){
-					rejectPreviousPromise('Promise was canceled because another route was executed.');
-				}
+  		if(rejectPreviousPromise){
+				rejectPreviousPromise('Promise was canceled because another route was executed.');
+			}
 				
-				// Running init() to execute async functions
-				return new Promise(function(resolve, reject){
-					rejectPreviousPromise = reject;
-					Promise
-						.all([ctrl.init(context)])
-						.then(function(){
-							resolve(ctrl);
-						});
-				});
-				
+			// Running init() to execute async functions
+			new Promise(function(resolve, reject){
+				// Reject old promise if it was not finish yet.
+				rejectPreviousPromise = reject;
+
+				Promise
+					.all([ctrl.init(context)])
+					.then(function(){
+						resolve(ctrl);
+					});
 			}).then(function(ctrl){
 				// Extending context with controller return
 				if(r.controllerAs){
@@ -60,11 +54,13 @@ function Router(SammyContext) {
 					Object.assign(context, ctrl);
 				}
 
-				// Render parcial and show in wrapper.
-				context.partial(r.template).then(function(){
-					// Execute link after render in order to bind elements.
-					ctrl.link();
-				});
+				// Rendering template
+				var content = Mustache.render(tmpl, context);
+				context.$element().html(content);
+
+				// Call link controller function to bind elements.
+				ctrl.link();
+
 			}).catch(function(err){
 				console.error('Fail executing route: ', err);
 			});

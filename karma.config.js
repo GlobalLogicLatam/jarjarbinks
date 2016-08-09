@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Sun Jun 12 2016 10:05:42 GMT-0300 (Hora estándar de Argentina)
+var webpackConfig = require('./webpack.config.js');
 
 module.exports = function(config) {
   config.set({
@@ -10,29 +10,29 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'browserify'],
+    frameworks: ['jasmine-jquery', 'jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'app/**/*.spec.js',                  
+      'app/**/*.spec.js',
+      {
+        pattern: 'app/**/*.mustache',
+        served: true,
+        included: false
+      }
     ],
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
-    browserify: {
-        watch: true,
-        debug: true
-    },
+    webpack: webpackConfig,
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'app/**/*.spec.js': ['browserify']
+      'app/**/*.spec.js': ['webpack']
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -61,6 +61,9 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+    proxies: {
+      '/': 'http://localhost:3000/',
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

@@ -1,6 +1,6 @@
 function LoginController(urlParams){
-	var authenticationService = require("./../../services/authenticationService")();
-	let self = this,
+	let authenticationService = require("./../../services/authenticationService")(),
+	self = this,
 	form = "",
 	customErrorElement= "";
 
@@ -18,6 +18,7 @@ function LoginController(urlParams){
 	function link(){
 		form = $('form');
 		customErrorElement = $('#loginError');
+
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
@@ -30,6 +31,8 @@ function LoginController(urlParams){
 				username: "Debe ingresar un usuario.",
 				password: "Debe ingresar una contraseña."
 			},
+			onkeyup: false,
+			invalidHandler: invalidForm,
 			submitHandler: logIn
 		});		
 	};
@@ -47,12 +50,14 @@ function LoginController(urlParams){
 		let formData  =  form.serializeObject();
 		$.when(authenticationService.logIn(formData))
 		.then(function success(){
-			console.log('sammyContext: ', sammyContext);
 			sammyContext.redirect('#/devices');
 		}, 	function error(error){
 			customErrorElement.html(error.error_message);
 		});
 	}	
+	function invalidForm(){		
+		customErrorElement.html('');
+	}
 }
 
 module.exports = LoginController
