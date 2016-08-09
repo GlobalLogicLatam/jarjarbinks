@@ -1,6 +1,6 @@
 function LoginController(urlParams){
-	var authenticationService = require("./../../services/authenticationService")();		
-	let self = this,
+	let authenticationService = require("./../../services/authenticationService")(),
+	self = this,
 	form = "",
 	customErrorElement= "";
 
@@ -47,7 +47,6 @@ function LoginController(urlParams){
 		let formData  =  form.serializeObject();
 		$.when(authenticationService.logIn(formData))
 		.then(function success(){
-			console.log('sammyContext: ', sammyContext);
 			sammyContext.redirect('#/devices');
 		}, 	function error(error){
 			customErrorElement.html(error.error_message);
