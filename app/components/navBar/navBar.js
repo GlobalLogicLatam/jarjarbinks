@@ -93,8 +93,10 @@ function NavBar(){
     function checkUrl() {
         if (!!self.ignoreUrls.find(url => url === window.location.hash)) {
             self.backButton.children().addClass('hidden');
+            self.backButton.prop("disabled",true);
         } else {
             self.backButton.children().removeClass('hidden');
+            self.backButton.prop("disabled",false);
         }
 
         if (!!self.hideOnUrls.find(url => url === window.location.hash)) {
