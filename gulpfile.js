@@ -23,6 +23,7 @@ var config = {
 
 function showError(err) {
   console.log('Error: ', err);
+  this.emit('end');
 }
 
 function createServer(openBrowser){
@@ -56,9 +57,12 @@ gulp.task('bootstrap-less', function () {
 
 	return gulp.src(config.path.less + 'bootstrap.less')
     .pipe(sourcemaps.init())
-    .pipe(less())
+    .pipe(less().on('error', function(e){
+      showError.call(this, e);
+    }))
 		.pipe(postcss(processors))
     .pipe(sourcemaps.write('./maps'))
+    
 		.pipe(gulp.dest(config.path.output_folder_css));
 });
 
@@ -68,7 +72,9 @@ gulp.task('less', function () {
 	];
 	return gulp.src(['./app/routes/**/*.less'])
     .pipe(sourcemaps.init())
-    .pipe(less())
+    .pipe(less().on('error', function(e){
+      showError.call(this, e);
+    }))
     .pipe(postcss(processors))
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(config.path.output_folder_css));
