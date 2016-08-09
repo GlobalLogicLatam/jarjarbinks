@@ -13,8 +13,8 @@ function App() {
 
 	  // Changes element wrapper to avoid show nav element when user is on login view.
 	  this.around(function(cb){
-	  	NavBar.ignoreBackButton(['#/','/#/login']);
-        NavBar.hideOn(['#/','/#/login']);
+	  	NavBar.ignoreBackButton(['#/','#/login']);
+        NavBar.hideOn(['#/','#/login']);
 	  	cb();
 	  });
 
