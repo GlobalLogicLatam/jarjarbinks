@@ -7,6 +7,8 @@ var webpack       = require('webpack-stream');
 var clean         = require('gulp-clean');
 var runSequence   = require('run-sequence');
 var sourcemaps    = require('gulp-sourcemaps');
+var KarmaServer   = require('karma').Server;
+
 
 var config = {
   path: {
@@ -102,6 +104,13 @@ gulp.task('bundle', function() {
       webpack(require('./webpack.config'))
     )
     .pipe(gulp.dest(config.path.output_folder));
+});
+
+gulp.task('test', function (done) {
+  new KarmaServer({
+    configFile: __dirname + '/karma.config.js',
+    singleRun: false
+  }, done).start();
 });
 
 gulp.task('serve', function(cb) {
