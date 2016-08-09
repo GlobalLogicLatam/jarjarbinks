@@ -19,6 +19,13 @@ function Router(SammyContext) {
 			controller: './routes/device/device.controller',
 			controllerAs: 'devices'
 		}
+        ,
+        {
+            url: '#/note',
+            template: './routes/note/note.template.mustache',
+            controller: './routes/note/note.controller',
+            controllerAs: 'note'
+        }
 	];
 
 	var rejectPreviousPromise;

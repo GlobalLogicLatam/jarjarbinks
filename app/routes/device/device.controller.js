@@ -1,5 +1,6 @@
 function DeviceController(urlParams){	
 	let self = this;
+    NavBar.setTitle("Devices");
 
 	//Public methods and attributes
 	Object.assign(self, {
