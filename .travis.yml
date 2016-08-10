@@ -16,4 +16,6 @@ install:
   - npm install -g bower
   - npm install
   - bower install
-script: gulp test
+script:
+  - gulp serve
+  - karma start --single-run
