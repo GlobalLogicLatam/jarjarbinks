@@ -1,72 +1,74 @@
-function Router(SammyContext) {
+function Router( SammyContext ) {
 
-	let config = [
-		{
-			url: '#/',
-			template: './routes/home/home.template.mustache',
-			controller: './routes/home/home.controller',
-			controllerAs: 'home'
-		},
-		{
-			url: '#/login',
-			template: './routes/login/login.template.mustache',
-			controller: './routes/login/login.controller',
-			controllerAs: 'login'
-		},
-		{
-			url: '#/devices',
-			template: './routes/device/device.template.mustache',
-			controller: './routes/device/device.controller',
-			controllerAs: 'devices'
-		}
-	];
+  let config = [
+    {
+      url: '#/',
+      template: './routes/home/home.template.mustache',
+      controller: './routes/home/home.controller',
+      controllerAs: 'home'
+    },
+    {
+      url: '#/login',
+      template: './routes/login/login.template.mustache',
+      controller: './routes/login/login.controller',
+      controllerAs: 'login'
+    },
+    {
+      url: '#/devices',
+      template: './routes/device/device.template.mustache',
+      controller: './routes/device/device.controller',
+      controllerAs: 'devices'
+    }
+  ];
 
-	var rejectPreviousPromise;
-  config.forEach(function(r){
-  	var req = require.context('./', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/);
+  var rejectPreviousPromise;
+  config.forEach( function setUrl( r ) {
+    var req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
-  	// Fetch template
-  	SammyContext.get(r.url, function(context){
-  		var Ctrl = req(r.controller);
-  		var ctrl = new Ctrl(context.params);
-  		var tmpl = req(r.template);
+    // Fetch template
+    SammyContext.get( r.url, function routeHandler( context ) {
+      var Ctrl = req( r.controller ),
+        ctrl = new Ctrl( context.params ),
+        tmpl = req( r.template ),
+        renderedHtml;
 
-  		if(rejectPreviousPromise){
-				rejectPreviousPromise('Promise was canceled because another route was executed.');
-			}
-				
-			// Running init() to execute async functions
-			new Promise(function(resolve, reject){
-				// Reject old promise if it was not finish yet.
-				rejectPreviousPromise = reject;
+      if ( rejectPreviousPromise ) {
+        rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
+      }
 
-				Promise
-					.all([ctrl.init(context)])
-					.then(function(){
-						resolve(ctrl);
-					});
-			}).then(function(ctrl){
-				// Extending context with controller return
-				if(r.controllerAs){
-					context[r.controllerAs] = {};
-					Object.assign(context[r.controllerAs], ctrl);
-				} else {
-					Object.assign(context, ctrl);
-				}
+      // Running init() to execute async functions
+      new Promise( function handler1( resolve, reject ) {
+        // Reject old promise if it was not finish yet.
+        rejectPreviousPromise = reject;
 
-				// Rendering template
-				var content = Mustache.render(tmpl, context);
-				context.$element().html(content);
+        Promise
+          .all( [ ctrl.init( context ) ] )
+          .then( function handler2() {
+            resolve( ctrl );
+          } );
+      } ).then( function handler3( ctrl ) {
+        // Extending context with controller return
+        if ( r.controllerAs ) {
+          context[ r.controllerAs ] = {};
+          Object.assign( context[ r.controllerAs ], ctrl );
+        } else {
+          Object.assign( context, ctrl );
+        }
 
-				// Call link controller function to bind elements.
-				ctrl.link();
+        // Rendering template
+        renderedHtml = Mustache.render( tmpl, context );
+        context.$element().html( renderedHtml );
 
-			}).catch(function(err){
-				console.error('Fail executing route: ', err);
-			});
+        // Call link controller function to bind elements.
+        ctrl.link();
 
-  	});
-  });
+      } ).catch( function errorHandler( err ) {
+        //  eslint-disable-next-line no-console
+        console.error( 'Fail executing route: ', err );
+      } );
+
+    } );
+  } );
 }
 
 module.exports = Router
