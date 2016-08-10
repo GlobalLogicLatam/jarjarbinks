@@ -3,11 +3,13 @@ module.exports = {
   "env": {
     "browser": true,
     "commonjs": true,
-    "node": true
+    "node": true,
+    'es6': true
   },
   "globals": {
     'jQuery': true,
     '$': true,
-    'Sammy': true
+    'Sammy': true,
+    'Mustache': true,
   }
 };
