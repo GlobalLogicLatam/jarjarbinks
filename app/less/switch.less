@@ -1,24 +1,23 @@
 .switch {
 	cursor: pointer;
-	width: @switch-width;
-	height: @switch-height;
 	
 	&__knob {
-		width: 100%;
-		height: 100%;
+		width: @switch-width;
+		height: @switch-height;
 		display: inline-block;
 		position: relative;
 		border-radius: 50px;
 		background: @switch-unchecked-color;
 		transition: all .3s ease-in;
+		vertical-align: middle;
 		&:after {
 			content: '';
 			position: absolute;
-			width: calc(@switch-height - (@switch-margin*2));
-			height: calc(@switch-height - (@switch-margin*2));
-			background: white;
-			top: @switch-margin;
-			left: @switch-margin;
+			width: calc(@switch-height - (@knob-margin*2));
+			height: calc(@switch-height - (@knob-margin*2));
+			background: @switch-knob-color;
+			top: @knob-margin;
+			left: @knob-margin;
 			border-radius: 50%;
 			transition: all .3s ease-in;
 		}
@@ -34,7 +33,7 @@
 			transition: all .3s ease-in;
 		}
 		& + .switch__knob:after {
-			left: calc(@switch-width - @switch-height + @switch-margin);
+			left: calc(@switch-width - @switch-height + @knob-margin);
 			transition: all .3s ease-in;
 		}
 
