@@ -62,7 +62,7 @@ gulp.task('bootstrap-less', function () {
     }))
 		.pipe(postcss(processors))
     .pipe(sourcemaps.write('./maps'))
-    
+
 		.pipe(gulp.dest(config.path.output_folder_css));
 });
 
@@ -82,19 +82,19 @@ gulp.task('less', function () {
 
 // Moves html and mustache partials files to dist folder
 gulp.task('html', function () {
-  return gulp.src(['./app/**/*.html', './app/**/*.mustache'])    
+  return gulp.src(['./app/**/*.html', './app/**/*.mustache'])
     .pipe(gulp.dest(config.path.output_folder));
 });
 
 // Moves images files to dist folder
 gulp.task('images', function () {
-  return gulp.src('./app/images/**/')    
+  return gulp.src('./app/images/**/')
     .pipe(gulp.dest(config.path.output_folder_images));
 });
 
 // Moves fonts files to dist folder
 gulp.task('fonts', function () {
-  return gulp.src('./app/fonts/**/')    
+  return gulp.src('./app/fonts/**/')
     .pipe(gulp.dest(config.path.output_folder_fonts));
 });
 
@@ -117,7 +117,7 @@ gulp.task('bundle', function() {
 gulp.task('test', function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.config.js',
-    singleRun: false
+    singleRun: true
   }, done).start();
 });
 
@@ -137,7 +137,7 @@ gulp.task('eslint', () => {
 
 gulp.task('serve', function(cb) {
   runSequence('clean-dist', ['html', 'images', 'fonts', 'bootstrap-less','less'], 'bundle', 'browser-sync', cb);
-  
+
   // Watch for changes on css core.
   gulp.watch('app/less/**/*.less', ['bootstrap-less', browserSync.reload])
     .on('error', showError);
@@ -149,11 +149,11 @@ gulp.task('serve', function(cb) {
   // Watch changes for html.
   gulp.watch(['app/**/*.html', 'app/**/*.mustache'], ['html', browserSync.reload])
   .on('error', showError);
-  
+
   // Watch changes for images.
   gulp.watch(['app/images/**/*.*'], ['images', browserSync.reload])
   .on('error', showError);
-  
+
   // Watch changes for fonts.
   gulp.watch(['app/fonts/**/*.*'], ['fonts', browserSync.reload])
   .on('error', showError);
@@ -161,10 +161,10 @@ gulp.task('serve', function(cb) {
   // Watch changes for html.
   gulp.watch('app/**/*.js', ['eslint', 'bundle', browserSync.reload])
   .on('error', showError);
-  
+
   // Watch changes for html.
   gulp.watch('api/**/*.js', ['restart-server'])
   .on('error', showError);
-  
+
   return true;
 });
