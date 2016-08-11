@@ -15,7 +15,7 @@ module.exports = {
       { test: /\.mustache$/, loader: 'raw' }
     ]
   },
-  entry: "./app/init",
+  entry: './app/init',
   output: {
     filename: 'app.bundle.js'
   }
