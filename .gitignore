@@ -1,6 +1,7 @@
 bower_components/
 node_modules/
 dist/
+coverage/
 jarjarbinks.sublime-*
 /.idea/
 /jarjarbinks.iml
