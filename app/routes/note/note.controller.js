@@ -4,6 +4,8 @@
 function NoteController(urlParams){
     let self = this;
     NavBar.setTitle("Nota");
+    NavBar.addActionButton( {icon:'glyphicon-trash', action: () => alert( 'Hola mundo' ) } );
+    NavBar.open();
 
     //Public methods and attributes
     Object.assign(self, {

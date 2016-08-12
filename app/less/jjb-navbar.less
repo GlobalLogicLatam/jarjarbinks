@@ -1,24 +1,39 @@
 .jjb-navbar{
   background-color: @brand-primary;
 
-  &--back{
-    float: left;
+  .item{
     color : @white;
     padding: @navbar-padding-vertical @navbar-padding-horizontal;
     font-size: @font-size-large;
     line-height: @line-height-computed;
     height: @navbar-height;
-    width: @navbar-width;
+  }
+
+  &--back{
+    float: left;
     background: transparent;
     border: none;
+    width: @navbar-width;
+    .item;
   }
 
   &--title{
     float:left;
-    color : @white;
-    line-height: @line-height-computed;
-    height: @navbar-height;
-    font-size: @font-size-large;
-    padding: @navbar-padding-vertical @navbar-padding-horizontal;
+    .item;
+  }
+
+  &--action-buttons{
+    .item;
+    float: right;
+    margin-bottom: 0;
+    li {
+      padding: 0 @navbar-padding-horizontal;
+      float: right;
+      list-style: none;
+      a{
+        color : @white;
+        text-decoration: none;
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@ function App() {
 
 	  // Changes element wrapper to avoid show nav element when user is on login view.
 	  this.around(function checkIfLogin(cb){
-        NavBar.hideOn( ['#/','#/login'] );
+        //NavBar.hideOn( ['#/','#/login'] );
 	  	cb();
 	  });
 
