@@ -2,10 +2,12 @@
  * Created by gaston on 8/9/16.
  */
 function NoteController(urlParams){
-    let self = this;
-    NavBar.setTitle("Nota");
-    NavBar.addActionButton( {icon:'glyphicon-trash', action: () => alert( 'Hola mundo' ) } );
-    NavBar.open();
+    let self = this,
+      navBar = require( '../../components/navBar/navBar' )();
+
+    navBar.setTitle("Nota");
+    navBar.addActionButton( {icon:'glyphicon-trash', action: () => alert( 'Hola mundo' ) } );
+    navBar.open();
 
     //Public methods and attributes
     Object.assign(self, {

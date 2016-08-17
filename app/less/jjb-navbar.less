@@ -1,28 +1,20 @@
 .jjb-navbar{
   background-color: @brand-primary;
 
-  .item{
-    color : @white;
-    padding: @navbar-padding-vertical @navbar-padding-horizontal;
-    font-size: @font-size-large;
-    line-height: @line-height-computed;
-    height: @navbar-height;
-  }
-
-  &--back{
+  &__back{
     float: left;
     background: transparent;
     border: none;
-    width: @navbar-width;
+    width: @navbar-item-width;
     .item;
   }
 
-  &--title{
+  &__title{
     float:left;
     .item;
   }
 
-  &--action-buttons{
+  &__action-buttons{
     .item;
     float: right;
     margin-bottom: 0;
