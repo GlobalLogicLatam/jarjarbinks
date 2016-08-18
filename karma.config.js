@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Sun Jun 12 2016 10:05:42 GMT-0300 (Hora estándar de Argentina)
+var webpackConfig = require('./webpack.config.js');
 
 module.exports = function(config) {
   config.set({
@@ -10,34 +10,40 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'browserify'],
+    frameworks: ['jasmine-jquery', 'jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'app/**/*.spec.js',                  
+      'app/init.spec.js'
     ],
 
     // list of files to exclude
     exclude: [
     ],
 
-    browserify: {
-        watch: true,
-        debug: true
-    },
+    // Webpack configuration
+    webpack: Object.assign(webpackConfig, {
+      devtool: 'inline-source-map',
+      module: Object.assign(webpackConfig.module, {
+        postLoaders: [ { // delays coverage til after tests are run, fixing transpiled source coverage error
+          test: /\.js$/,
+          include: /app/,
+          exclude: /spec\.js$/,
+          loader: 'istanbul-instrumenter' } ]
+      } )
+    } ),
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'app/**/*.spec.js': ['browserify']
+      'app/init.spec.js': ['webpack', 'sourcemap']
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
@@ -61,10 +67,18 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+    proxies: {
+      '/': 'http://localhost:3000/',
+    },
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

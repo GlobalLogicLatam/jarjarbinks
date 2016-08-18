@@ -1,12 +1,9 @@
-
-
 function LoginController(urlParams){
-
-	var authenticationService = require("./../../services/authenticationService")();		
-
-	let self = this,
+	let authenticationService = require("./../../services/authenticationService")(),
+	self = this,
 	form = "",
 	customErrorElement= "";
+
 	//Public methods and attributes
 	Object.assign(self, {
 		link: 	link,
@@ -21,6 +18,7 @@ function LoginController(urlParams){
 	function link(){
 		form = $('form');
 		customErrorElement = $('#loginError');
+
 		form.validate({
 			errorClass: "error text-danger",
 			errorElement: 'span',
@@ -33,13 +31,15 @@ function LoginController(urlParams){
 				username: "Debe ingresar un usuario.",
 				password: "Debe ingresar una contraseña."
 			},
+			onkeyup: false,
+			invalidHandler: invalidForm,
 			submitHandler: logIn
 		});		
 	};
-
+	var sammyContext;
 	// To make calls to apis. It may returns a promise.
-	function init(){
-		
+	function init(context){
+		sammyContext = context;
 	};
 
 	//PRIVATE FUNCTIONS
@@ -50,11 +50,14 @@ function LoginController(urlParams){
 		let formData  =  form.serializeObject();
 		$.when(authenticationService.logIn(formData))
 		.then(function success(){
-			//redirect to main page.
+			sammyContext.redirect('#/devices');
 		}, 	function error(error){
 			customErrorElement.html(error.error_message);
 		});
 	}	
+	function invalidForm(){		
+		customErrorElement.html('');
+	}
 }
 
 module.exports = LoginController

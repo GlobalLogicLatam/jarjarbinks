@@ -9,7 +9,7 @@ function authenticationService(){
 
 	function logIn(user){
 		var $q = $.Deferred();		
-		$.when($.post( "/api/sessions",{ username: user.username, password: user.password}))
+		$.post( "/api/sessions",{ username: user.username, password: user.password})
 		.then(function success(){
 			return $q.resolve();
 		},
