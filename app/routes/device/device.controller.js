@@ -1,5 +1,5 @@
 function DeviceController(urlParams){
-  var navBar = require( '../../components/navBar/navBar' )();
+  var navBar = require( '../../components/navBar/navBar' );
 	let self = this;
 
   navBar.open(
