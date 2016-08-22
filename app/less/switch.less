@@ -1,0 +1,42 @@
+.switch {
+	cursor: pointer;
+	
+	&__knob {
+		width: @switch-width;
+		height: @switch-height;
+		display: inline-block;
+		position: relative;
+		border-radius: 50px;
+		background: @switch-unchecked-color;
+		transition: all .3s ease-in;
+		vertical-align: middle;
+		&:after {
+			content: '';
+			position: absolute;
+			width: calc(@switch-height - (@knob-margin*2));
+			height: calc(@switch-height - (@knob-margin*2));
+			background: @switch-knob-color;
+			top: @knob-margin;
+			left: @knob-margin;
+			border-radius: 50%;
+			transition: all .3s ease-in;
+		}
+	}
+
+	&__input {
+		display: none;
+	}
+
+	&__input:checked {
+		& + .switch__knob {
+			background: @switch-checked-color;
+			transition: all .3s ease-in;
+		}
+		& + .switch__knob:after {
+			left: calc(@switch-width - @switch-height + @knob-margin);
+			transition: all .3s ease-in;
+		}
+
+	}
+
+}
