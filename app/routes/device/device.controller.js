@@ -5,10 +5,10 @@ function DeviceController(urlParams){
   navBar.open(
     {
       title: 'Devices',
-      backActions: Promise.resolve( () => alert( 'volviendo' ) ),
+      optionButton: { icon: 'glyphicon-menu-hamburger', action: () => { console.log( 'abriendo un menu' ); } },
       actionButtons: [
-        { icon: 'glyphicon-filter', action: () => alert( 'Hola mundo' ) },
-        { icon: 'glyphicon-calendar', action: () => alert( 'Hola mundo' ) }
+        { icon: 'glyphicon-filter', action: () => { console.log( 'Hola mundo' ); } },
+        { icon: 'glyphicon-calendar', action: () => { console.log( 'Hola mundo' ); } }
       ]
     }
   );

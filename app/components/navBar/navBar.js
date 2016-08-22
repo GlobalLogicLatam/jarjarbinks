@@ -2,68 +2,70 @@
  * Created by gaston on 8/8/16.
  */
 
-/* TODO agregar $.fn
-  Promise.all
- */
-
 var navInst = undefined;
-/**
- *
- * @constructor
- */
 
-//eslint-disable-next-line
-module.exports = (navInst ? navInst : navInst = NavBar());
-
+module.exports = navInst ? navInst : navInst = NavBar();
 
 /**
- * Init navbar
  * @returns {NavBar}
+ * @constructor
  */
 function NavBar() {
   let self = this;
   var config;
 
-  Object.assign(self,{
+  Object.assign( self, {
     addBackAction: addBackAction,
-    addOptionsButton: addOptionsButton,
+    addOptionButton: addOptionButton,
     setTitle: setTitle,
     hide: hide,
     show: show,
     addActionButton: addActions,
     open: open,
     reset: resetNavBar
-  });
+  } );
 
   init();
   return self;
 
+  /**
+   * Init NavBar
+   */
   function init() {
 
     let navEle = $( '.jjb-navbar' );
 
     config = {
       nav: navEle,
-      backButton: navEle.find( '.jjb-navbar__back' ),
-      actionsButtons: navEle.find( '.jjb-navbar__action-buttons' ),
-      actionsOptions: null
+      navHeader: navEle.find( '.navbar-header' ),
+      actionsButtonsContainer: navEle.find( '.jjb-navbar__action-buttons' ),
+      actionsButtons: [],
+      actionsOptions: null,
+      backButton: {
+        icon: 'glyphicon-arrow-left',
+        action: onBack
+      }
     };
 
-    config.backButton.click( onBack );
     hide();
   }
 
   /**
-   * Init NavBar
-   * @param options
+   * Open NavBar
+   * @param options with config for buttons
    */
   function open( options ) {
     resetNavBar();
     if ( options && options.title ) {
       setTitle( options.title );
     }
-    if ( options && options.backActions ) {
-      addBackAction( options.backActions );
+    if ( options && options.optionButton ) {
+      addOptionButton( options.optionButton );
+    } else {
+      addOptionButton( config.backButton );
+    }
+    if ( options && options.backAction ) {
+      addBackAction( options.backAction );
     }
     if ( options && options.actionButtons ) {
       addActions( options.actionButtons );
@@ -71,8 +73,20 @@ function NavBar() {
     show();
   }
 
-  function addOptionsButton( fn ) {
-
+  /**
+   * Add an action button to the left in the nav.
+   * Only one button can be on the left, if you add more than one, the last will be replace.
+   * @param menuButton
+   */
+  function addOptionButton( menuButton ) {
+    let optionButton;
+    config.navHeader.find( '.jjb-navbar__option' ).remove();
+    optionButton = $(
+      `<button class="jjb-navbar__option">
+        <span class="glyphicon ${menuButton.icon}" aria-hidden="true"></span>
+      </button>` );
+    optionButton.click( menuButton.action );
+    config.navHeader.prepend( optionButton );
   }
 
   /**
@@ -85,6 +99,7 @@ function NavBar() {
     } else {
       addActionButton( actions );
     }
+
   }
 
   /**
@@ -92,10 +107,11 @@ function NavBar() {
    * @param actionButton
    */
   function addActionButton( actionButton ) {
-    let li = $( document.createElement( 'li' )),
+    let li = $( '<li></li>' ),
       button = createButton( actionButton );
     li.append( button );
-    config.actionsButtons.append( li );
+    config.actionsButtonsContainer.append( li );
+    config.actionsButtons.push( actionButton );
   }
 
   /**
@@ -104,13 +120,12 @@ function NavBar() {
    * @returns {*|jQuery|HTMLElement}
    */
   function createButton( actionButton ) {
-    let a = $( document.createElement( 'a' ) ),
-      span = $( document.createElement( 'span' ) );
-    span.addClass( 'glyphicon ' + actionButton.icon );
-    a.append( span );
-    a.attr( 'href', '#' );
-    a.click( actionButton.action );
-    return a;
+    let action = $(
+      `<a>
+        <span class="glyphicon  ${actionButton.icon}"></span>
+       </a>` );
+    action.click( actionButton.action );
+    return action;
   }
 
   /**
@@ -125,11 +140,6 @@ function NavBar() {
    */
   function show() {
     config.nav.removeClass( 'hidden' );
-    if( config.optionsButton ){
-      showBackButton();
-    } else {
-      hideBackButton();
-    }
   }
 
   /**
@@ -188,18 +198,10 @@ function NavBar() {
   function resetNavBar() {
     hide();
     config.back = noop;
-    config.actionsButtons.empty();
-    hideBackButton();
-  }
-
-  function hideBackButton() {
-    config.backButton.children().addClass( 'hidden' );
-    config.backButton.prop( 'disabled', true );
-  }
-
-  function showBackButton() {
-    config.backButton.children().removeClass( 'hidden' );
-    config.backButton.prop( 'disabled', false );
+    config.actionsButtonsContainer.empty();
+    config.navHeader.find( '.jjb-navbar__option' ).remove();
+    config.actionsButtons = [];
+    config.actionsOptions = null;
   }
 }
 
