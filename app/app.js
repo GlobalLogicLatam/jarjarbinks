@@ -11,21 +11,10 @@ require( './components/sammyFormIgnore/formIgnore' )();
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
-    var nav_el = $( '.js-nav' );
-
-    // Changes element wrapper to avoid show nav element when user is on login view.
-    this.around( function checkIfLogin( cb ) {
-      if ( this.path == '/#/login' ) {
-        nav_el.hide();
-      } else {
-        nav_el.show();
-      }
-      cb();
-    } );
-
     // Set routes
     router( this );
   } );
+
 
   return sammy;
 }

@@ -1,3 +1,5 @@
+var navigationHelper = require( './components/navigationHelper/navigationHelper' );
+
 function Router( SammyContext ) {
 
   let config = [
@@ -35,7 +37,6 @@ function Router( SammyContext ) {
       if ( rejectPreviousPromise ) {
         rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
       }
-
       // Running init() to execute async functions
       new Promise( function handler1( resolve, reject ) {
         // Reject old promise if it was not finish yet.
@@ -68,6 +69,9 @@ function Router( SammyContext ) {
       } );
 
     } );
+  } );
+  SammyContext.around( function navHelper( cb ) {
+    navigationHelper( SammyContext, this, cb );
   } );
 }
 
