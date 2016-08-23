@@ -42,9 +42,8 @@ class List {
     if ( _id = hasId( req.urlParams ) ) {
       item = find_item( this.list, _id );
       Object.assign(item.value, data);
-      console.log('item: ', item);
-      res_value = this.list[ item.key ];
 
+      res_value = this.list[ item.key ];
       res.writeHead( 200, { 'Content-Type': 'application/json' } );
     } else {
       res_value = {};
