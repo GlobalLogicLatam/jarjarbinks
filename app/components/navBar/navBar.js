@@ -90,7 +90,9 @@ function NavBar() {
   }
 
   /**
-   * Add an action button to nav bar
+   * Add an action button or an array of actions to insert nav bar.
+   * You can pass a object like {icon:'icon', action: function},
+   * or an array of the same object like [{icon:'icon', action: function},...]
    * @param actions
    */
   function addActions( actions ) {
