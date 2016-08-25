@@ -1,7 +1,7 @@
 var app = require('../../app')();
 
 describe('Login controller', function() {
-	var body;
+	var body, authenticationService;
 
 	beforeEach(function(done) {
     body = $('body');
@@ -17,4 +17,5 @@ describe('Login controller', function() {
       done();
     }, 0);
   });
-}); 
+      afterEach (function() { testPerson = undefined;    });
+});

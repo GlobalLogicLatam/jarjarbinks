@@ -2,37 +2,23 @@ var navigationHelper = require( './components/navigationHelper/navigationHelper'
 
 function Router( SammyContext ) {
 
-  let config = [
-    {
-      url: '#/',
-      template: './routes/home/home.template.mustache',
-      controller: './routes/home/home.controller',
-      controllerAs: 'home'
-    },
-    {
-      url: '#/login',
-      template: './routes/login/login.template.mustache',
-      controller: './routes/login/login.controller',
-      controllerAs: 'login'
-    },
-    {
-      url: '#/devices',
-      template: './routes/device/device.template.mustache',
-      controller: './routes/device/device.controller',
-      controllerAs: 'devices'
-    }
-  ];
+  const config = require( './app.router.config' ),
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
-  var rejectPreviousPromise;
+  let rejectPreviousPromise,
+    previous_controller = {};
+
   config.forEach( function setUrl( r ) {
-    var req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
-      var Ctrl = req( r.controller ),
-        ctrl = new Ctrl( context.params ),
+      let Ctrl = req( r.controller ),
         tmpl = req( r.template ),
-        renderedHtml;
+        renderedHtml,
+        ctrl;
+
+      ctrl = new Ctrl( context.params );
+      previous_controller = ctrl;
 
       if ( rejectPreviousPromise ) {
         rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
@@ -63,12 +49,22 @@ function Router( SammyContext ) {
         // Call link controller function to bind elements.
         ctrl.link();
 
+        return ctrl;
+
       } ).catch( function errorHandler( err ) {
-        //  eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.error( 'Fail executing route: ', err );
       } );
 
     } );
+
+    // Execute unlink before change to the new route.
+    SammyContext.before( r.url, function() {
+      if ( previous_controller.unlink ) {
+        previous_controller.unlink();
+      }
+    } );
+
   } );
   SammyContext.around( function navHelper( cb ) {
     navigationHelper( SammyContext, this, cb );

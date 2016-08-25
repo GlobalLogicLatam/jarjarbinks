@@ -1,15 +1,12 @@
-function DevicesController() {
+let List = require( './list' ),
+  devices = new Array();
 
-	return {
-		get: get
-	}
-	
-	function get(urlParams, req, res, next){
-		response.writeHead(200, {"Content-Type": "application/json"});
+class DevicesController extends List {
 
-		var json = JSON.stringify({});
-		response.end(json);
-	}
+  constructor() {
+    super( devices );
+  }
+
 }
 
 module.exports = DevicesController;
