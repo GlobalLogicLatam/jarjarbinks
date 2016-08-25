@@ -1,31 +1,12 @@
 function Router( SammyContext ) {
 
-  let config = [
-    {
-      url: '#/',
-      template: './routes/home/home.template.mustache',
-      controller: './routes/home/home.controller',
-      controllerAs: 'home'
-    },
-    {
-      url: '#/login',
-      template: './routes/login/login.template.mustache',
-      controller: './routes/login/login.controller',
-      controllerAs: 'login'
-    },
-    {
-      url: '#/devices',
-      template: './routes/device/device.template.mustache',
-      controller: './routes/device/device.controller',
-      controllerAs: 'devices'
-    }
-    ],
-    rejectPreviousPromise,
+  const config = require( './app.router.config' ),
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
+
+  let rejectPreviousPromise,
     previous_controller = {};
 
   config.forEach( function setUrl( r ) {
-
-    let req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
