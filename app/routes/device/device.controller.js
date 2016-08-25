@@ -4,6 +4,7 @@ function DeviceController() {
 	//Public methods and attributes
   Object.assign( self, {
     link: link,
+    unlink: unlink,
     init: init,
     name: 'myName'
   } );
@@ -19,6 +20,11 @@ function DeviceController() {
 	// To make calls to apis. It may returns a promise.
   function init() {
 
+  }
+
+  function unlink() {
+    // eslint-disable-next-line no-console
+    console.log( 'Unlink device!!' );
   }
 }
 
