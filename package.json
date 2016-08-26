@@ -19,6 +19,7 @@
     "gulp-postcss": "^6.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "guppy-pre-commit": "^0.3.0",
+    "inject-loader": "^2.0.1",
     "istanbul-instrumenter-loader": "^0.2.0",
     "jasmine": "^2.4.1",
     "karma": "^1.1.2",

@@ -14,9 +14,6 @@ function App() {
     // Set routes
     router( this );
   } );
-
-
   return sammy;
 }
-
 module.exports = App;

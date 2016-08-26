@@ -1,15 +1,12 @@
 var navigationHelper = require( './components/navigationHelper/navigationHelper' );
 
 function Router( SammyContext ) {
-
   const config = require( './app.router.config' ),
     req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
-
   let rejectPreviousPromise,
     previous_controller = {};
 
   config.forEach( function setUrl( r ) {
-
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
       let Ctrl = req( r.controller ),
@@ -19,7 +16,6 @@ function Router( SammyContext ) {
 
       ctrl = new Ctrl( context.params );
       previous_controller = ctrl;
-
       if ( rejectPreviousPromise ) {
         rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
       }
@@ -27,7 +23,6 @@ function Router( SammyContext ) {
       new Promise( function handler1( resolve, reject ) {
         // Reject old promise if it was not finish yet.
         rejectPreviousPromise = reject;
-
         Promise
           .all( [ ctrl.init( context ) ] )
           .then( function handler2() {
@@ -41,34 +36,26 @@ function Router( SammyContext ) {
         } else {
           Object.assign( context, ctrl );
         }
-
         // Rendering template
         renderedHtml = Mustache.render( tmpl, context );
         context.$element().html( renderedHtml );
-
         // Call link controller function to bind elements.
         ctrl.link();
-
-        return ctrl;
-
       } ).catch( function errorHandler( err ) {
         // eslint-disable-next-line no-console
         console.error( 'Fail executing route: ', err );
       } );
-
     } );
 
     // Execute unlink before change to the new route.
-    SammyContext.before( r.url, function() {
+    SammyContext.before( r.url, function unlink() {
       if ( previous_controller.unlink ) {
         previous_controller.unlink();
       }
     } );
-
   } );
   SammyContext.around( function navHelper( cb ) {
     navigationHelper( SammyContext, this, cb );
   } );
 }
-
 module.exports = Router

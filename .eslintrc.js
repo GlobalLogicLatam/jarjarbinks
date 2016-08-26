@@ -11,6 +11,11 @@ module.exports = {
     '$': true,
     'Sammy': true,
     'Mustache': true,
+    'describe': true,
+    'beforeEach': true,
+    '$j': true,
+    'it': true,
+    'expect': true
   },
   'plugins': [
     'classes'

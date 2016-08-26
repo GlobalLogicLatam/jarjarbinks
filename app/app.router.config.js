@@ -18,5 +18,4 @@ const routes = [
     controllerAs: 'devices'
   }
 ];
-
 module.exports = routes;

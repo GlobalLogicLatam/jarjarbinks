@@ -1,11 +1,9 @@
-var app = require('../../app')();
+describe( 'Login controller', function describe() {
+  var body;
 
-describe('Login controller', function() {
-	var body, authenticationService;
-
-	beforeEach(function(done) {
-    body = $('body');
-    body.append('<div id="content-wrapper" class="app-wrapper"></div>');
+  beforeEach( function before( done ) {
+    body = $( 'body' );
+    body.append( '<div id="content-wrapper" class="app-wrapper"></div>' );
 
     // Fetch template
     // Fetch controller
@@ -13,9 +11,8 @@ describe('Login controller', function() {
     // Render template with controller returns
     // Run controller.link
 
-	setTimeout(function() {
+    setTimeout( function timeout() {
       done();
-    }, 0);
-  });
-      afterEach (function() { testPerson = undefined;    });
-});
+    }, 0 );
+  } );
+} );
