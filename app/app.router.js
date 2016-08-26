@@ -33,6 +33,7 @@ function Router( SammyContext ) {
             resolve( ctrl );
           } );
       } ).then( function handler3( ctrl ) {
+
         // Extending context with controller return
         if ( r.controllerAs ) {
           context[ r.controllerAs ] = {};
@@ -48,8 +49,6 @@ function Router( SammyContext ) {
         // Call link controller function to bind elements.
         ctrl.link();
 
-        return ctrl;
-
       } ).catch( function errorHandler( err ) {
         // eslint-disable-next-line no-console
         console.error( 'Fail executing route: ', err );
@@ -58,7 +57,7 @@ function Router( SammyContext ) {
     } );
 
     // Execute unlink before change to the new route.
-    SammyContext.before( r.url, function() {
+    SammyContext.before( r.url, function unlink() {
       if ( previous_controller.unlink ) {
         previous_controller.unlink();
       }
