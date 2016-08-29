@@ -6,11 +6,6 @@ describe( 'Route', function unit_test() {
   beforeEach( function beforeEachRoute() {
 
     // Iniciate the app.
-    require( 'script!jquery' );
-    require( 'script!jquery_validation' );
-    require( 'script!validation_additional_methods' );
-    require( 'script!sammy' );
-    require( 'script!mustache' );
     body = $j( 'body' ).append( '<div id="content-wrapper" class="app-wrapper"></div>' );
     app = Sammy( '#content-wrapper', function appSammyHandler() {
       router( this );
