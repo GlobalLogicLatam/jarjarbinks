@@ -12,7 +12,8 @@ module.exports = {
     loaders: [
       // Transpile any JavaScript file:
       // { test: /\.js$/, loader: 'webpack-traceur?experimental' }
-      { test: /\.mustache$/, loader: 'raw' }
+      { test: /\.mustache$/, loader: 'raw' },
+      { test: /\.js$/, exclude: /spec\.js$/, loader: 'istanbul-instrumenter' }
     ]
   },
   entry: './app/init',
