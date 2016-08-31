@@ -8,20 +8,18 @@ require( 'script!mustache' );
 require( './components/serializeObject/serializeObject' )();
 // Sammy form submit ignore
 require( './components/sammyFormIgnore/formIgnore' )();
+var navBar = require( './components/navBar/navBar' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
-    var nav_el = $( '.js-nav' );
 
     // Changes element wrapper to avoid show nav element when user is on login view.
     this.around( function checkIfLogin( cb ) {
-      if ( this.path == '/#/login' ) {
-        nav_el.hide();
-      } else {
-        nav_el.show();
-      }
       cb();
     } );
+
+    // reset navBar before change the url
+    this.before( navBar.reset );
 
     // Set routes
     router( this );

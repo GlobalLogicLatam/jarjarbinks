@@ -1,18 +1,18 @@
-function HomeController(urlParams){
-	let self = this;
-	
-	// Public methods and attributes
-	Object.assign(self, {
-		link: link,
-		init: init
-	});
+function HomeController(urlParams) {
+    let self = this;
 
-	return self;
+    // Public methods and attributes
+    Object.assign(self, {
+        link: link,
+        init: init
+    });
 
-	// To bind elements
-	function link(){
-		
-	};
+    return self;
+
+    // To bind elements
+    function link() {
+
+    };
 
 	// To make calls to apis. It may returns a promise.
 	function init(){
