@@ -45,6 +45,7 @@
     height: calc(@card-height - (@card-height * .5));
     position: relative;
     text-align: center;
+    user-select: none;
 
     &-avatar {
       width: 100%;
@@ -52,6 +53,9 @@
       border-radius: 50%;
       position: absolute;
       left: 0;
+      user-select: none;
+      pointer-events: none;
+
     }
   }
 
@@ -61,6 +65,7 @@
     flex: 1;
     margin-right: 1.2em;
     overflow: hidden;
+    user-select: none;
   }
 
   &__title, &__subtitle, &__footer {
@@ -128,13 +133,63 @@
     }
   }
 
-  &__options:after {
-    content: '\2807';
-    font-size: calc(@card-height / 3.5);
-    padding-left: 6px;
+  &__dropdown-button {
+    position: relative;
+    &:after {
+      content: '\2807';
+      font-size: calc(@card-height / 3.5);
+      padding-left: 6px;
+      font-style: normal;
+      cursor: pointer;
+      color: @card-options-icon-color;
+    }
+  }
+
+  &__dropdown {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    width: 200px;
+    right: 5px;
+    top: 5px;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    z-index: 2;
+
+    &--open {
+      .card__dropdown, .card__dropdown-background {
+        display: block;
+        opacity: 1;
+      }
+    }
+
+    &-background {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+      z-index: 1;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+  }
+
+  &__option {
+    list-style-type: none;
+    height: 40px;
+    line-height: 3;
+    padding: 0 0 0 10px;
     font-style: normal;
     cursor: pointer;
-    color: @card-options-icon-color;
+    &:hover, &:active {
+      background-color: @card-options-background-color;
+    }
   }
 
   &.card-selected {

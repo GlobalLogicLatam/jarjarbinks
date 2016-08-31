@@ -8,7 +8,10 @@ require( 'script!mustache' );
 require( './components/serializeObject/serializeObject' )();
 // Sammy form submit ignore
 require( './components/sammyFormIgnore/formIgnore' )();
-
+// Card behaviour controller
+require( './components/card/card' )();
+require( './components/card/note_card' )();
+require( './components/card/device_card' )();
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
     var nav_el = $( '.js-nav' );
