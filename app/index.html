@@ -9,13 +9,17 @@
 	<link rel="manifest" type="text/manifest" href="./../manifest.json">
 </head>
 <body>
-	<nav class="js-nav">
-		<a href="#/">Home</a>
-		<a href="#/login">Login</a>
-		<a href="#/devices">Devices</a>
+	<nav class="navbar jjb-navbar hidden">
+		<div class="container-fluid">
+      <div class="navbar-header">
+        <span class="jjb-navbar__title"></span>
+        <ul class="jjb-navbar__action-buttons">
+        </ul>
+      </div>
+		</div>
 	</nav>
 	<div id="content-wrapper" class="app-wrapper"></div>
-	
+
 	<script type="text/javascript" src="app.bundle.js"></script>
 </body>
 </html>

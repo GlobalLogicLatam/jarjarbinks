@@ -10,6 +10,7 @@ function Router( SammyContext ) {
 
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
+
       let Ctrl = req( r.controller ),
         tmpl = req( r.template ),
         renderedHtml,

@@ -15,7 +15,14 @@ const routes = [
     url: '#/devices',
     template: './routes/device/device.template.mustache',
     controller: './routes/device/device.controller',
-    controllerAs: 'devices'
+    controllerAs: 'devices',
+    navOperations: {
+      states: {
+        default: [ 'back', 'calendar', 'filter' ],
+        selected: [ 'cancel', 'edit', 'delete' ],
+        multipleSelected: [ 'cancel', 'delete' ]
+      }
+    }
   }
 ];
 

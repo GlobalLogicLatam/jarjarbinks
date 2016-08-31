@@ -1,4 +1,3 @@
-var router = require( './app.router' );
 require( 'script!jquery' );
 require( 'script!jquery_validation' );
 require( 'script!validation_additional_methods' );
@@ -12,19 +11,20 @@ require( './components/sammyFormIgnore/formIgnore' )();
 require( './components/card/card' )();
 require( './components/card/note_card' )();
 require( './components/card/device_card' )();
+
+const router = require( './app.router' ),
+  navBar = require( './components/navBar/navBar' );
+
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
-    var nav_el = $( '.js-nav' );
 
     // Changes element wrapper to avoid show nav element when user is on login view.
     this.around( function checkIfLogin( cb ) {
-      if ( this.path == '/#/login' ) {
-        nav_el.hide();
-      } else {
-        nav_el.show();
-      }
       cb();
     } );
+
+    // reset navBar before change the url
+    this.before( navBar.reset );
 
     // Set routes
     router( this );
