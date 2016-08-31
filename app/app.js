@@ -1,4 +1,3 @@
-var router = require( './app.router' );
 require( 'script!jquery' );
 require( 'script!jquery_validation' );
 require( 'script!validation_additional_methods' );
@@ -8,7 +7,13 @@ require( 'script!mustache' );
 require( './components/serializeObject/serializeObject' )();
 // Sammy form submit ignore
 require( './components/sammyFormIgnore/formIgnore' )();
-var navBar = require( './components/navBar/navBar' );
+// Card behaviour controller
+require( './components/card/card' )();
+require( './components/card/note_card' )();
+require( './components/card/device_card' )();
+
+const router = require( './app.router' ),
+  navBar = require( './components/navBar/navBar' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {

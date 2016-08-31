@@ -1,14 +1,23 @@
-function DeviceController(urlParams){
-  var navBar = require( '../../components/navBar/navBar' );
-	let self = this;
+function DeviceController() {
+  const navBar = require( '../../components/navBar/navBar' );
+  let self = this;
 
   navBar.open(
     {
       title: 'Devices',
-      optionButton: { icon: 'glyphicon-menu-hamburger', action: () => { console.log( 'abriendo un menu' ); } },
+      optionButton: { icon: 'glyphicon-menu-hamburger', action: () => {
+        // eslint-disable-next-line no-console
+        console.log( 'abriendo un menu' );
+      } },
       actionButtons: [
-        { icon: 'glyphicon-filter', action: () => { console.log( 'Hola mundo' ); } },
-        { icon: 'glyphicon-calendar', action: () => { console.log( 'Hola mundo' ); } }
+        { icon: 'glyphicon-filter', action: () => {
+          // eslint-disable-next-line no-console
+          console.log( 'Hola mundo' );
+        } },
+        { icon: 'glyphicon-calendar', action: () => {
+          // eslint-disable-next-line no-console
+          console.log( 'Hola mundo' );
+        } }
       ]
     }
   );

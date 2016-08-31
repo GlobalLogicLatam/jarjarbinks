@@ -1,12 +1,13 @@
 /**
  * Created by gaston on 8/9/16.
  */
-function NoteController( urlParams ) {
+function NoteController() {
   let self = this,
     navBar = require( '../../components/navBar/navBar' );
 
   navBar.setTitle( 'Nota' );
   navBar.addActionButton( { icon: 'glyphicon-trash', action: () => alert( 'Hola mundo' ) } );
+  // eslint-disable-next-line no-console
   navBar.addBackAction( () => console.log( 'volviendo...' ) );
   navBar.open();
 
