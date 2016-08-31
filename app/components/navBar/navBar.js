@@ -1,7 +1,7 @@
 /**
  * Created by gaston on 8/8/16.
  */
-
+//var actionsButtons = require( './actions.js' ),
 var navInst = undefined;
 
 module.exports = navInst ? navInst : navInst = NavBar();
@@ -15,6 +15,10 @@ function NavBar() {
   var config;
 
   Object.assign( self, {
+    addRoute: addRoute,
+    render: renderNavbar,
+
+
     addBackAction: addBackAction,
     addOptionButton: addOptionButton,
     setTitle: setTitle,
@@ -32,6 +36,49 @@ function NavBar() {
    * Init NavBar
    */
   function init() {
+    config = {
+      routes: {}
+    }
+  }
+
+  function addRoute( route ) {
+
+    if ( !route.navOperations || !route.navOperations.states ) {
+      return;
+    }
+
+    //TODO create the buttons
+    config.routes[ route.url ] = route.navOperations.states;
+  }
+
+  function renderNavbar() {
+    config.routes[ location.hash ]
+  }
+
+  function createButton( actionButton ) {
+    let htmlButton = `<a><span class="glyphicon glyphicon-${actionButton.icon}"></span></a>`,
+      action;
+    if ( !actionButton.customHtml ) {
+      htmlButton = actionButton.customHtml;
+    }
+    action = $( htmlButton );
+    if ( actionButton.callback ) {
+      actionButton.callback = () => {};
+    }
+
+    action.click( () => {
+      actionButton.promise = Promise.all( [ actionButton.callback ] );
+    } );
+
+    return action;
+  }
+
+  /** ==============================================================
+   * */
+  /**
+   * Init NavBar
+   */
+  /*function init() {
 
     let navEle = $( '.jjb-navbar' );
 
@@ -48,7 +95,7 @@ function NavBar() {
     };
 
     hide();
-  }
+  }*/
 
   /**
    * Open NavBar
@@ -121,14 +168,14 @@ function NavBar() {
    * @param actionButton
    * @returns {*|jQuery|HTMLElement}
    */
-  function createButton( actionButton ) {
+  /*function createButton( actionButton ) {
     let action = $(
       `<a>
         <span class="glyphicon  ${actionButton.icon}"></span>
        </a>` );
     action.click( actionButton.action );
     return action;
-  }
+  }*/
 
   /**
    * Hide NavBar
@@ -170,11 +217,11 @@ function NavBar() {
    * Function for back button
    * @returns {Promise}
    */
-  function onBack() {
+  /*function onBack() {
     return config.back().then( function backPage() {
       window.history.back();
     } ).then( resetNavBar );
-  }
+  }*/
 
   /**
    * Function without operation

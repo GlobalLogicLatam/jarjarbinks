@@ -10,6 +10,7 @@ function Router( SammyContext ) {
 
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
+
       let Ctrl = req( r.controller ),
         tmpl = req( r.template ),
         renderedHtml,
@@ -58,7 +59,7 @@ function Router( SammyContext ) {
     } );
 
     // Execute unlink before change to the new route.
-    SammyContext.before( r.url, function() {
+    SammyContext.before( r.url, function beforeChange() {
       if ( previous_controller.unlink ) {
         previous_controller.unlink();
       }
