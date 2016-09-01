@@ -1,17 +1,8 @@
-function DeviceController(urlParams){
-  var navBar = require( '../../components/navBar/navBar' );
-	let self = this;
+function DeviceController( urlParams ) {
+  let self = this;
 
-  navBar.open(
-    {
-      title: 'Devices',
-      optionButton: { icon: 'glyphicon-menu-hamburger', action: () => { console.log( 'abriendo un menu' ); } },
-      actionButtons: [
-        { icon: 'glyphicon-filter', action: () => { console.log( 'Hola mundo' ); } },
-        { icon: 'glyphicon-calendar', action: () => { console.log( 'Hola mundo' ); } }
-      ]
-    }
-  );
+  //TODO do somethings with this
+  urlParams;
 
 	//Public methods and attributes
   Object.assign( self, {

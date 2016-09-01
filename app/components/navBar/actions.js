@@ -28,7 +28,43 @@ const actions = {
     customHtml: '<a href="#/calendar"><span class="glyphicon glyphicon-calendar"></span></a>',
     icon: 'remove',
     callback: () => {}
+  },
+  /**
+   * Filter button
+   */
+  filter: {
+    icon: 'filter',
+    callback: () => {}
+  },
+  /**
+   * Add button
+   */
+  add: {
+    icon: 'plus',
+    callback: () => {}
+  },
+  /**
+   * Delete button
+   */
+  delete: {
+    icon: 'trash',
+    callback: () => {}
+  },
+  /**
+   * Edit button
+   */
+  edit: {
+    icon: 'pencil',
+    callback: () => {}
+  },
+  /**
+   * Info button
+   */
+  info: {
+    icon: 'info-sign',
+    callback: () => {}
   }
 };
+
 
 module.exports = actions;

@@ -1,28 +1,55 @@
 .jjb-navbar{
   background-color: @brand-primary;
+  color : @white;
+  font-size: @font-size-large;
 
-  &__option{
-    float: left;
-    background: transparent;
-    border: none;
-    width: @navbar-item-width;
-    .item;
+  &__items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    ul {
+      flex-grow: 1;
+      padding: 0;
+      margin: 0;
+      height: @navbar-height;
+    }
   }
 
   &__title{
-    float:left;
-    .item;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
   }
 
   &__action-buttons{
-    .item;
-    float: right;
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+
+    &--left{
+      justify-content: flex-start;
+    }
+
+    &--right{
+      justify-content: flex-end;
+    }
+
+    .glyphicon {
+      height: @navbar-height;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding-left: @navbar-item-padding;
+      padding-right: @navbar-item-padding;
+    }
+
     li {
-      padding: 0 @navbar-padding-horizontal;
-      float: right;
       list-style: none;
-      a{
+      a {
+        height: @navbar-height;
         color : @white;
         text-decoration: none;
       }
