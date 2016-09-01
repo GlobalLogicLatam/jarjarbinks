@@ -1,8 +1,5 @@
-function DeviceController( urlParams ) {
+function DeviceController() {
   let self = this;
-
-  //TODO do somethings with this
-  urlParams;
 
 	//Public methods and attributes
   Object.assign( self, {

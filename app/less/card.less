@@ -1,0 +1,216 @@
+.card {
+  height: @card-height;
+  border-radius: 2px;
+  background-color: @card-bg-color;
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  margin: 7px 10px;
+  max-width: 750px;
+
+  &__icon {
+    width: 100%;
+    height: 100%;
+    display: block;
+    top: 0;
+    border-radius: 50%;
+    line-height: 2;
+    font-size: 1.5em;
+    color: white;
+
+    &.glyphicon-lock {
+      display: none;
+      background-color: @lock-icon-bg-color;
+    }
+
+    &.glyphicon-unlock {
+      display: none;
+      background-color: @unlock-icon-bg-color;
+      &:before {
+        content: "\e034";
+      }
+    }
+
+    &.glyphicon-ok {
+      display: none;
+      background-color: @selected-icon-bg-color;
+      z-index: 1;
+    }
+  }
+
+  &__image {
+    margin: 10px;
+    width: calc(@card-height - (@card-height * .5));
+    height: calc(@card-height - (@card-height * .5));
+    position: relative;
+    text-align: center;
+    user-select: none;
+
+    &-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      user-select: none;
+      pointer-events: none;
+
+    }
+  }
+
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 1.2em;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  &__title, &__subtitle, &__footer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: @card-title-font-size;
+  }
+
+  &__subtitle {
+    font-size: @card-subtitle-font-size;
+    color: @card-options-icon-color;
+  }
+
+  &__footer {
+    font-size: @card-footer-font-size;
+    color: @card-options-icon-color;
+  }
+
+  &__description {
+    font-size: @card-description-font-size;
+    color: @card-options-icon-color;
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative;
+    /* use this value to count block height */
+    line-height: 1.2em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 2.4em;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: justify;
+
+    &:before {
+      /* points in the end */
+      content: '...';
+      /* absolute position */
+      position: absolute;
+      /* set position to right bottom corner of block */
+      right: 0;
+      bottom: 0;
+      line-height: 1.3;
+      background-color: white;
+      padding-left: 3px;
+      color: @card-options-icon-color;
+    }
+
+    &:after {
+      /* points in the end */
+      content: '';
+      /* absolute position */
+      position: absolute;
+      /* set position to right bottom corner of text */
+      right: 0;
+      /* set width and height */
+      width: 1em;
+      height: 1em;
+      margin-top: 0.2em;
+      /* bg color = bg color under block */
+      background: white;
+    }
+  }
+
+  &__dropdown-button {
+    position: relative;
+    &:after {
+      content: '\2807';
+      font-size: calc(@card-height / 3.5);
+      padding-left: 6px;
+      font-style: normal;
+      cursor: pointer;
+      color: @card-options-icon-color;
+    }
+  }
+
+  &__dropdown {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    width: 200px;
+    right: 5px;
+    top: 5px;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    z-index: 2;
+
+    &--open {
+      .card__dropdown, .card__dropdown-background {
+        display: block;
+        opacity: 1;
+      }
+    }
+
+    &-background {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+      z-index: 1;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+  }
+
+  &__option {
+    list-style-type: none;
+    height: 40px;
+    line-height: 3;
+    padding: 0 0 0 10px;
+    font-style: normal;
+    cursor: pointer;
+    &:hover, &:active {
+      background-color: @card-options-background-color;
+    }
+  }
+
+  &.card-selected {
+    background-color: #b2dfdb;
+    .glyphicon-ok {
+      display: block;
+    }
+
+    .card__description:before, .card__description:after {
+      background-color: #b2dfdb;
+    }
+  }
+
+  &.device-locked {
+    .glyphicon-lock {
+      display: block;
+    }
+  }
+  &.device-unlocked {
+    .glyphicon-unlock {
+      display: block;
+    }
+  }
+}

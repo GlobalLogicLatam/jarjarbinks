@@ -1,11 +1,8 @@
 /**
  * Created by gaston on 8/9/16.
  */
-function NoteController( urlParams ) {
+function NoteController() {
   let self = this;
-
-  //TODO do somethings with this
-  urlParams;
 
   //Public methods and attributes
   Object.assign( self, {
