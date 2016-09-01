@@ -1,7 +1,8 @@
 function Router( SammyContext ) {
 
   const config = require( './app.router.config' ),
-    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ ),
+    navBar = require( './components/navBar/navBar' );
 
   let rejectPreviousPromise,
     previous_controller = {};
@@ -56,6 +57,9 @@ function Router( SammyContext ) {
       } );
 
     } );
+
+    //set route to nav bar
+    navBar.addRoute( r );
 
     // Execute unlink before change to the new route.
     SammyContext.before( r.url, function unlink() {

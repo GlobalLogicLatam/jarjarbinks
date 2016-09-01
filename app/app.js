@@ -25,7 +25,8 @@ function App() {
 
     // reset navBar before change the url
     this.before( navBar.reset );
-
+    // set navBar after change the url
+    this.after( navBar.render );
     // Set routes
     router( this );
   } );
