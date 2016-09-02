@@ -9,6 +9,7 @@
 // Core variables and mixins
 @import "variables.less";
 @import "@{source-path}mixins.less";
+@import "jjb-mixins.less";
 
 // Reset and dependencies
 @import "@{source-path}normalize.less";
@@ -24,14 +25,21 @@
 @import "@{source-path}forms.less";
 @import "@{source-path}buttons.less";
 @import "base.less";
+@import 'jjb-navbar.less';
+
+// Utility classes
+@import "@{source-path}utilities.less";
+
+
 // Components
 @import "switch.less";
+@import "card.less";
 // @import "component-animations.less";
 // @import "dropdowns.less";
 // @import "button-groups.less";
 // @import "input-groups.less";
 // @import "navs.less";
-// @import "navbar.less";
+@import "@{source-path}navbar.less";
 // @import "breadcrumbs.less";
 // @import "pagination.less";
 // @import "pager.less";
@@ -54,6 +62,3 @@
 // @import "popovers.less";
 // @import "carousel.less";
 
-// Utility classes
-// @import "utilities.less";
-// @import "responsive-utilities.less";

@@ -2,13 +2,16 @@ var navigationHelper = require( './components/navigationHelper/navigationHelper'
 
 function Router( SammyContext ) {
   const config = require( './app.router.config' ),
-    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ ),
+    navBar = require( './components/navBar/navBar' );
+
   let rejectPreviousPromise,
     previous_controller = {};
 
   config.forEach( function setUrl( r ) {
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
+
       let Ctrl = req( r.controller ),
         tmpl = req( r.template ),
         renderedHtml,
@@ -46,6 +49,9 @@ function Router( SammyContext ) {
         console.error( 'Fail executing route: ', err );
       } );
     } );
+
+    //set route to nav bar
+    navBar.addRoute( r );
 
     // Execute unlink before change to the new route.
     SammyContext.before( r.url, function unlink() {

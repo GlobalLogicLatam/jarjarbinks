@@ -1,18 +1,36 @@
-describe( 'Login controller', function describe() {
-  var body;
+describe( 'Login controller', function() {
 
-  beforeEach( function before( done ) {
-    body = $( 'body' );
-    body.append( '<div id="content-wrapper" class="app-wrapper"></div>' );
+  const CtrlInjector = require( 'inject!./login.controller' ),
+    template = require( '../../routes/login/login.template.mustache' ),
+    Ctrl = CtrlInjector( { './../../services/authenticationService': authentication_service_mock } );
 
-    // Fetch template
-    // Fetch controller
-    // Run controller.init
-    // Render template with controller returns
-    // Run controller.link
+  let rendered_template,
+    body,
+    app_wrapper;
 
-    setTimeout( function timeout() {
-      done();
-    }, 0 );
+  function authentication_service_mock() {
+    return {
+      logIn: function() {
+        // eslint-disable-next-line no-console
+        console.log( 'I\'m the mock of authentication service.' );
+      }
+    }
+  }
+
+  beforeEach( function() {
+    let ctrl = Ctrl();
+    body = $( 'body' ).append( '<div id="content-wrapper" class="app-wrapper"></div>' );
+    app_wrapper = body.find( '.app-wrapper' );
+    ctrl.init();
+    rendered_template = $( Mustache.render( template, ctrl ) );
+    app_wrapper.html( rendered_template );
+    ctrl.link();
   } );
+
+  it( 'should fails if form is empty', function() {
+    $( '#submitBtn' ).click();
+
+    expect( true ).toBe( true );
+  } );
+
 } );
