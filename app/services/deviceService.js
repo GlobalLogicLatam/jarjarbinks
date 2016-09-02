@@ -13,7 +13,14 @@ function deviceService() {
   }
 
   function post( device ) {
-    return $.post( '/api/devices', JSON.stringify( device ) );
+    // return $.postJSON( '/api/devices', JSON.stringify( device ) );
+    return $.ajax( {
+      url: '/api/devices',
+      type: 'POST',
+      data: JSON.stringify( device ),
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    } );
   }
 }
 
