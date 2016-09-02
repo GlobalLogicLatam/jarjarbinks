@@ -1,10 +1,10 @@
 const routes = [
-  {
-    url: '#/',
-    template: './routes/home/home.template.mustache',
-    controller: './routes/home/home.controller',
-    controllerAs: 'home'
-  },
+  // {
+  //   url: '#/',
+  //   template: './routes/home/home.template.mustache',
+  //   controller: './routes/home/home.controller',
+  //   controllerAs: 'home'
+  // },
   {
     url: '#/login',
     template: './routes/login/login.template.mustache',
@@ -12,7 +12,7 @@ const routes = [
     controllerAs: 'login'
   },
   {
-    url: '#/devices',
+    url: '#/',
     template: './routes/device/device.template.mustache',
     controller: './routes/device/device.controller',
     controllerAs: 'devices',
