@@ -16,7 +16,7 @@ function NoteController() {
   function link( sammyContext ) {
     $( '.js-note-card' )
       .noteCard( {} )
-      .on( 'click', function() {
+      .on( 'click', function redirect() {
         sammyContext.redirect( `#/notes/${this.dataset.id}` );
       } );
   }

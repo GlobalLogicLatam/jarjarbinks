@@ -1,4 +1,4 @@
-let deviceService = require( '../../services/deviceService' ),
+let deviceService = require( '../../services/device.service' ),
   publisher = require( '../../components/publisher/publisher' );
 
 function DeviceController() {
@@ -15,8 +15,12 @@ function DeviceController() {
 
 	// //PUBLIC FUNCTIONS
 	// To bind elements
-  function link() {
-    $( '.js-card' ).deviceCard( {} );
+  function link( sammyContext ) {
+    $( '.js-card' )
+      .deviceCard( {} )
+      .on( 'click', function redirect() {
+        sammyContext.redirect( '#/notes' );
+      } );
   }
 
 	// To make calls to apis. It may returns a promise.
