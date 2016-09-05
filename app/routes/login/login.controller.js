@@ -1,4 +1,4 @@
-let authenticationService = require( './../../services/authenticationService' )();
+let authenticationService = require( './../../services/authentication.service' )();
 
 function LoginController() {
   let self = {},
@@ -18,7 +18,7 @@ function LoginController() {
 	//PUBLIC FUNCTIONS
 	// To bind elements
   function link() {
-    let form = $( 'form' );
+    form = $( 'form' );
 
     customErrorElement = $( '#loginError' );
 
