@@ -12,23 +12,25 @@ require( './components/card/card' )();
 require( './components/card/note_card' )();
 require( './components/card/device_card' )();
 
-const router = require( './app.router' ),
-  navBar = require( './components/navBar/navBar' );
+const router = require( './app.router' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
+    let navBar = require( './components/navBar/navBar' )( this );
 
     // Changes element wrapper to avoid show nav element when user is on login view.
     this.around( function checkIfLogin( cb ) {
       cb();
     } );
 
-    // reset navBar before change the url
-    this.before( navBar.reset );
-    // set navBar after change the url
-    this.after( navBar.render );
     // Set routes
     router( this );
+
+    // reset navBar before change the url
+    this.before( navBar.reset );
+
+    // set navBar after change the url
+    this.after( navBar.render );
   } );
 
   return sammy;

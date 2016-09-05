@@ -1,11 +1,11 @@
 function Router( SammyContext ) {
 
   const config = require( './app.router.config' ),
-    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ ),
-    navBar = require( './components/navBar/navBar' );
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
   let rejectPreviousPromise,
-    previous_controller = {};
+    previous_controller = {},
+    current_route;
 
   config.forEach( function setUrl( r ) {
 
@@ -58,8 +58,9 @@ function Router( SammyContext ) {
 
     } );
 
-    //set route to nav bar
-    navBar.addRoute( r );
+    // Decorate sammy route with custom configuration.
+    current_route = SammyContext.lookupRoute( 'get', r.url );
+    current_route.config = r;
 
     // Execute unlink before change to the new route.
     SammyContext.before( r.url, function unlink() {
@@ -69,6 +70,7 @@ function Router( SammyContext ) {
     } );
 
   } );
+
 }
 
 module.exports = Router
