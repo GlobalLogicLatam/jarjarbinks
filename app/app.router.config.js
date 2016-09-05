@@ -32,6 +32,18 @@ const routes = [
         multipleSelected: [ 'cancel', 'delete' ]
       }
     }
+  },
+  {
+    url: '#/notes/:id',
+    template: './routes/note/note.template.mustache',
+    controller: './routes/note/note.controller',
+    controllerAs: 'notes',
+    navOptions: {
+      title: 'Notes',
+      states: {
+        default: [ 'back', 'edit', 'delete' ]
+      }
+    }
   }
 ];
 

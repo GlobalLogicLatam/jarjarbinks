@@ -8,8 +8,8 @@ function noteService() {
 
   return self;
 
-  function get() {
-    return $.get( '/api/notes' );
+  function get( params ) {
+    return $.get( `/api/notes/${params.id}` );
   }
 
   function post( note ) {

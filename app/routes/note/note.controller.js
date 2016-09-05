@@ -22,7 +22,7 @@ function NoteController() {
   }
 
   // To make calls to apis. It may returns a promise.
-  function init() {
+  function init( sammyContext ) {
     // Temporary call to create devices.
     noteService
       .post( {
@@ -39,7 +39,7 @@ function NoteController() {
       } );
 
     return noteService
-      .get()
+      .get( sammyContext.params )
       .then( function show_notes( notes ) {
         self.list = notes;
       } );
