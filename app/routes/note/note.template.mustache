@@ -1,1 +1,31 @@
-<p>Note name: {{ name }}</p>
+<ul class="list-unstyled">
+  {{#notes.list}}
+  <li>
+    <!-- Notes -->
+    <div class="js-note-card card" data-id="{{ _id }}">
+      <div class="card__image">
+        <img class="card__image-avatar" src="{{ createdBy.avatar }}" alt="{{ createdBy.name }} {{ createdBy.lastname }}" onerror="this.onerror=null; this.src='./../../images/jjb-logo.png';">
+        <i class="card__icon glyphicon glyphicon-ok"></i>
+      </div>
+      <div class="card__content-wrapper">
+        <span class="card__title">
+          {{ title }}
+        </span>
+        <span class="card__subtitle">
+          {{ createdBy.name }} {{ createdBy.lastname }} | Fecha {{ date }}
+        </span>
+        <span class="card__description">
+          {{ description }}
+        </span>
+      </div>
+      <i class="card__dropdown-button">
+          <ul class="card__dropdown">
+            <li class="js-edit-button card__option">Editar</li>
+            <li class="js-delete-button card__option">Eliminar</li>
+          </ul>
+          <div class="card__dropdown-background"></div>
+      </i>
+    </div>
+  </li>
+  {{/notes.list}}
+</ul>

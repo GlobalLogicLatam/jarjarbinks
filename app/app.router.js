@@ -17,7 +17,7 @@ function Router( SammyContext ) {
         renderedHtml,
         ctrl;
 
-      ctrl = new Ctrl( context.params );
+      ctrl = new Ctrl( );
       previous_controller = ctrl;
 
       if ( rejectPreviousPromise ) {
@@ -49,7 +49,7 @@ function Router( SammyContext ) {
         context.$element().html( renderedHtml );
 
         // Call link controller function to bind elements.
-        ctrl.link();
+        ctrl.link( context );
 
       } ).catch( function errorHandler( err ) {
         // eslint-disable-next-line no-console
