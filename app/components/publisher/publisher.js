@@ -9,16 +9,27 @@ class Publisher {
     topics = [];
   }
 
-  publish( topic, args ) {
+  publish( topic, args, success_cb, failure_cb ) {
+    let topic_func_returns = [];
+
     if ( !topics[ topic ] ) {
       return false;
     }
 
-    topics[ topic ].map( function execute_func( item ) {
-      item.func.call( null, args )
+    // Execute all functions and catch results.
+    topics[ topic ].map( function get_funcs( item ) {
+      topic_func_returns.push( item.func( args ) );
     } );
 
-    return true;
+    // Execute publish callbacks to inform how and when it finished.
+    Promise
+      .all( topic_func_returns )
+      .then( function success_handler( responses ) {
+        success_cb( responses );
+      } )
+      .catch( function failure_handler( e ) {
+        failure_cb( e );
+      } );
   }
 
   subscribe( topic, func ) {

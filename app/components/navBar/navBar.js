@@ -11,8 +11,9 @@ module.exports = navInst ? navInst : navInst = NavBar();
  * @constructor
  */
 function NavBar() {
-  let self = this;
-  var config;
+  let self = this,
+    config,
+    publisher = require( '../../components/publisher/publisher' );
 
   Object.assign( self, {
     addRoute: addRoute,
@@ -107,8 +108,16 @@ function NavBar() {
     }
 
     action.click( () => {
-      //actionButton.promise = Promise.all( [ actionButton.callback ] );
-      actionButton.callback();
+      publisher.publish( 'button.back', 'Totto',
+        function success_callback( promise_results ) {
+          // eslint-disable-next-line no-console
+          console.log( 'Publish success: ', promise_results );
+
+          actionButton.callback();
+        }, function failure_callback( promise_error ) {
+          // eslint-disable-next-line no-console
+          console.log( 'Publish error: ', promise_error );
+        } );
     } );
 
     return action;

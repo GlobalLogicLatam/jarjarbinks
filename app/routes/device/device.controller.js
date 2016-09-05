@@ -1,4 +1,5 @@
-let deviceService = require( '../../services/deviceService' );
+let deviceService = require( '../../services/deviceService' ),
+  publisher = require( '../../components/publisher/publisher' );
 
 function DeviceController() {
   let self = this;
@@ -20,6 +21,18 @@ function DeviceController() {
 
 	// To make calls to apis. It may returns a promise.
   function init() {
+
+    publisher.subscribe( 'button.back', function event_handler( ) {
+      let res = confirm( 'Are you sure you want to go back?' );
+      return new Promise( function promise_handler( resolve, reject ) {
+        if ( res ) {
+          resolve( 'user accept.' );
+        } else {
+          reject( 'user reject.' );
+        }
+      } );
+    } );
+
     // Temporary call to create devices.
     deviceService
       .post( {
