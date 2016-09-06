@@ -2,37 +2,25 @@ var navigationHelper = require( './components/navigationHelper/navigationHelper'
 
 function Router( SammyContext ) {
 
-  let config = [
-    {
-      url: '#/',
-      template: './routes/home/home.template.mustache',
-      controller: './routes/home/home.controller',
-      controllerAs: 'home'
-    },
-    {
-      url: '#/login',
-      template: './routes/login/login.template.mustache',
-      controller: './routes/login/login.controller',
-      controllerAs: 'login'
-    },
-    {
-      url: '#/devices',
-      template: './routes/device/device.template.mustache',
-      controller: './routes/device/device.controller',
-      controllerAs: 'devices'
-    }
-  ];
+  const config = require( './app.router.config' ),
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
-  var rejectPreviousPromise;
+  let rejectPreviousPromise,
+    previous_controller = {},
+    current_route;
+
   config.forEach( function setUrl( r ) {
-    var req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
-      var Ctrl = req( r.controller ),
-        ctrl = new Ctrl( context.params ),
+
+      let Ctrl = req( r.controller ),
         tmpl = req( r.template ),
-        renderedHtml;
+        renderedHtml,
+        ctrl;
+
+      ctrl = new Ctrl( );
+      previous_controller = ctrl;
 
       if ( rejectPreviousPromise ) {
         rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
@@ -48,6 +36,7 @@ function Router( SammyContext ) {
             resolve( ctrl );
           } );
       } ).then( function handler3( ctrl ) {
+
         // Extending context with controller return
         if ( r.controllerAs ) {
           context[ r.controllerAs ] = {};
@@ -61,14 +50,26 @@ function Router( SammyContext ) {
         context.$element().html( renderedHtml );
 
         // Call link controller function to bind elements.
-        ctrl.link();
+        ctrl.link( context );
 
       } ).catch( function errorHandler( err ) {
-        //  eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.error( 'Fail executing route: ', err );
       } );
 
     } );
+
+    // Decorate sammy route with custom configuration.
+    current_route = SammyContext.lookupRoute( 'get', r.url );
+    current_route.config = r;
+
+    // Execute unlink before change to the new route.
+    SammyContext.before( r.url, function unlink() {
+      if ( previous_controller.unlink ) {
+        previous_controller.unlink();
+      }
+    } );
+
   } );
   SammyContext.around( function navHelper( cb ) {
     navigationHelper( SammyContext, this, cb );

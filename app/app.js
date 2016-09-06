@@ -1,4 +1,3 @@
-var router = require( './app.router' );
 require( 'script!jquery' );
 require( 'script!jquery_validation' );
 require( 'script!validation_additional_methods' );
@@ -8,11 +7,25 @@ require( 'script!mustache' );
 require( './components/serializeObject/serializeObject' )();
 // Sammy form submit ignore
 require( './components/sammyFormIgnore/formIgnore' )();
+// Card behaviour controller
+require( './components/card/card' )();
+require( './components/card/note_card' )();
+require( './components/card/device_card' )();
+
+const router = require( './app.router' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
+    let navBar = require( './components/navBar/navBar' )( this );
+
     // Set routes
     router( this );
+
+    // reset navBar before change the url
+    this.before( navBar.reset );
+
+    // set navBar after change the url
+    this.after( navBar.render );
   } );
 
 

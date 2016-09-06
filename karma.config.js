@@ -1,8 +1,8 @@
 // Karma configuration
-var webpackConfig = require('./webpack.config.js');
+var webpackConfig = require( './webpack.config.js' );
 
-module.exports = function(config) {
-  config.set({
+module.exports = function config( config ) {
+  config.set( {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine-jquery', 'jasmine'],
+    frameworks: [ 'jasmine-jquery', 'jasmine' ],
 
 
     // list of files / patterns to load in the browser
@@ -23,27 +23,20 @@ module.exports = function(config) {
     ],
 
     // Webpack configuration
-    webpack: Object.assign(webpackConfig, {
-      devtool: 'inline-source-map',
-      module: Object.assign(webpackConfig.module, {
-        postLoaders: [ { // delays coverage til after tests are run, fixing transpiled source coverage error
-          test: /\.js$/,
-          include: /app/,
-          exclude: /spec\.js$/,
-          loader: 'istanbul-instrumenter' } ]
-      } )
+    webpack: Object.assign( webpackConfig, {
+      devtool: 'inline-source-map'
     } ),
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'app/init.spec.js': ['webpack', 'sourcemap']
+      'app/init.spec.js': [ 'webpack', 'sourcemap' ]
     },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: [ 'progress', 'coverage' ],
 
 
     // web server port
@@ -65,15 +58,15 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: [ 'Chrome' ],
 
     proxies: {
       '/': 'http://localhost:3000/',
     },
 
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+      type: 'html',
+      dir: 'coverage/'
     },
 
     // Continuous Integration mode
@@ -83,5 +76,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
+  } )
 }
