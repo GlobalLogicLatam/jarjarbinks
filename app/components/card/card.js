@@ -4,7 +4,8 @@ function card() {
     //this = $(".js-card")
     let self = this;
     // Open Card Options Menu
-    this.find( '.card__dropdown-button' ).on( 'click', function() {
+    this.find( '.card__dropdown-button' ).on( 'click', function( e ) {
+      e.stopPropagation();
       $( this ).addClass( 'card__dropdown--open' );
     } );
 
