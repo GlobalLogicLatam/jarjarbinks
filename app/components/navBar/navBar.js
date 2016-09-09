@@ -36,14 +36,14 @@ function NavBar( sammyContext ) {
    * Init NavBar
    */
   function init() {
-    let navEle = $( '.jjb-navbar' );
+    let navEle = $( '.js-jjb-navbar' );
 
     config = {
       nav: navEle,
-      navTitle: navEle.find( '.jjb-navbar__title' ),
+      navTitle: navEle.find( '.js-jjb-navbar__title' ),
       routes: {},
       buttons: {},
-      buttonsSelector: '.jjb-navbar__action-buttons--'
+      buttonsSelector: '.js-jjb-navbar__action-buttons-'
     };
 
     initButtons();
