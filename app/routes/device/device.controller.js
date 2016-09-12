@@ -2,7 +2,8 @@ let deviceService = require( '../../services/device.service' ),
   publisher = require( '../../components/publisher/publisher' );
 
 function DeviceController() {
-  let self = this;
+  let self = this,
+    subscribed = [];
 
 	//Public methods and attributes
   Object.assign( self, {
@@ -26,16 +27,18 @@ function DeviceController() {
 	// To make calls to apis. It may returns a promise.
   function init() {
 
-    publisher.subscribe( 'button.back', function event_handler( ) {
-      let res = confirm( 'Are you sure you want to go back?' );
-      return new Promise( function promise_handler( resolve, reject ) {
-        if ( res ) {
-          resolve( 'user accept.' );
-        } else {
-          reject( 'user reject.' );
-        }
-      } );
-    } );
+    subscribed.push(
+      publisher.subscribe( 'button.back', function event_handler( ) {
+        let res = confirm( 'Are you sure you want to go back?' );
+        return new Promise( function promise_handler( resolve, reject ) {
+          if ( res ) {
+            resolve( 'user accept.' );
+          } else {
+            reject( 'user reject.' );
+          }
+        } );
+      } )
+    );
 
     // Temporary call to create devices.
     deviceService
@@ -60,8 +63,10 @@ function DeviceController() {
   }
 
   function unlink() {
-    // eslint-disable-next-line no-console
-    console.log( 'Unlink device!!' );
+    // Unsubscribe handlers
+    subscribed.map( function unsubscribe( id ) {
+      publisher.unsubscribe( id );
+    } )
   }
 }
 
