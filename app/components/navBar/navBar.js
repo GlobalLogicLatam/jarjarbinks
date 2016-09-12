@@ -77,8 +77,7 @@ function NavBar() {
   }
 
   function clearButtons() {
-    $( config.buttonsSelector + 'left' ).empty();
-    $( config.buttonsSelector + 'right' ).empty();
+    $( '.js-jjb-navbar__items' ).find( 'li' ).detach();
   }
 
   function renderState( state ) {
@@ -98,13 +97,8 @@ function NavBar() {
   function createButton( actionButton ) {
     let htmlButton = `<a><span class="glyphicon glyphicon-${actionButton.icon}"></span></a>`,
       action;
-    if ( actionButton.customHtml ) {
-      htmlButton = actionButton.customHtml;
-    }
-    action = $( htmlButton );
-    if ( actionButton.callback ) {
-      actionButton.callback = () => {};
-    }
+
+    action = $( actionButton.customHtml || htmlButton );
 
     action.click( () => {
       //actionButton.promise = Promise.all( [ actionButton.callback ] );
