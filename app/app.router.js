@@ -1,11 +1,13 @@
+var navigationHelper = require( './components/navigationHelper/navigationHelper' );
+
 function Router( SammyContext ) {
 
   const config = require( './app.router.config' ),
-    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ ),
-    navBar = require( './components/navBar/navBar' );
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
   let rejectPreviousPromise,
-    previous_controller = {};
+    previous_controller = {},
+    current_route;
 
   config.forEach( function setUrl( r ) {
 
@@ -17,13 +19,12 @@ function Router( SammyContext ) {
         renderedHtml,
         ctrl;
 
-      ctrl = new Ctrl( context.params );
+      ctrl = new Ctrl( );
       previous_controller = ctrl;
 
       if ( rejectPreviousPromise ) {
         rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
       }
-
       // Running init() to execute async functions
       new Promise( function handler1( resolve, reject ) {
         // Reject old promise if it was not finish yet.
@@ -49,7 +50,7 @@ function Router( SammyContext ) {
         context.$element().html( renderedHtml );
 
         // Call link controller function to bind elements.
-        ctrl.link();
+        ctrl.link( context );
 
       } ).catch( function errorHandler( err ) {
         // eslint-disable-next-line no-console
@@ -58,8 +59,9 @@ function Router( SammyContext ) {
 
     } );
 
-    //set route to nav bar
-    navBar.addRoute( r );
+    // Decorate sammy route with custom configuration.
+    current_route = SammyContext.lookupRoute( 'get', r.url );
+    current_route.config = r;
 
     // Execute unlink before change to the new route.
     SammyContext.before( r.url, function unlink() {
@@ -68,6 +70,9 @@ function Router( SammyContext ) {
       }
     } );
 
+  } );
+  SammyContext.around( function navHelper( cb ) {
+    navigationHelper( SammyContext, this, cb );
   } );
 }
 

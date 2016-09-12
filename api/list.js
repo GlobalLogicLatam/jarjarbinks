@@ -4,11 +4,11 @@ class List {
     this.list = list;
   }
 
-  get( req, res, next ) {
+  get( req, res ) {
     let res_value,
-      _id;
+      _id = hasId( req.urlParams );
 
-    if ( _id = hasId( req.urlParams ) ) {
+    if ( _id ) {
       res_value = find_item( this.list, _id ).value;
     } else {
       res_value = this.list;
@@ -23,25 +23,25 @@ class List {
     res.end( JSON.stringify( res_value ) );
   }
 
-  post( req, res, next ) {
+  post( req, res ) {
     let data = req.body;
 
     data._id = this.list.length + 1;
-    this.list.push(data);
+    this.list.push( data );
 
     res.writeHead( 200, { 'Content-Type': 'application/json' } );
     res.end( JSON.stringify( data ) );
   }
 
-  put( req, res, next ) {
+  put( req, res ) {
     let data = req.body,
-      _id,
+      _id = hasId( req.urlParams ),
       item,
       res_value;
 
-    if ( _id = hasId( req.urlParams ) ) {
+    if ( _id ) {
       item = find_item( this.list, _id );
-      Object.assign(item.value, data);
+      Object.assign( item.value, data );
 
       res_value = this.list[ item.key ];
       res.writeHead( 200, { 'Content-Type': 'application/json' } );
@@ -53,7 +53,7 @@ class List {
     res.end( JSON.stringify( res_value ) );
   }
 
-  delete( req, res, next ) {
+  delete( req, res ) {
     let res_value,
       _id,
       array_item;
@@ -85,7 +85,7 @@ class List {
 
 // Evaluates if first param is a number. Url should be like http//:host/controllerName/:id
 function hasId( urlParams ) {
-  let n =  Number.parseInt( urlParams[ 0 ] );
+  let n = Number.parseInt( urlParams[ 0 ] );
 
   if ( Number.isInteger( n ) ) {
     return n;
