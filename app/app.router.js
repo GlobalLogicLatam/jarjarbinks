@@ -2,11 +2,11 @@ var navigationHelper = require( './components/navigationHelper/navigationHelper'
 
 function Router( SammyContext ) {
   const config = require( './app.router.config' ),
-    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ ),
-    navBar = require( './components/navBar/navBar' );
+    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
 
   let rejectPreviousPromise,
-    previous_controller = {};
+    previous_controller = {},
+    current_route;
 
   config.forEach( function setUrl( r ) {
     // Fetch template
@@ -17,7 +17,7 @@ function Router( SammyContext ) {
         renderedHtml,
         ctrl;
 
-      ctrl = new Ctrl( context.params );
+      ctrl = new Ctrl( );
       previous_controller = ctrl;
       if ( rejectPreviousPromise ) {
         rejectPreviousPromise( 'Promise was canceled because another route was executed.' );
@@ -43,15 +43,17 @@ function Router( SammyContext ) {
         renderedHtml = Mustache.render( tmpl, context );
         context.$element().html( renderedHtml );
         // Call link controller function to bind elements.
-        ctrl.link();
+        ctrl.link( context );
+
       } ).catch( function errorHandler( err ) {
         // eslint-disable-next-line no-console
         console.error( 'Fail executing route: ', err );
       } );
     } );
 
-    //set route to nav bar
-    navBar.addRoute( r );
+    // Decorate sammy route with custom configuration.
+    current_route = SammyContext.lookupRoute( 'get', r.url );
+    current_route.config = r;
 
     // Execute unlink before change to the new route.
     SammyContext.before( r.url, function unlink() {

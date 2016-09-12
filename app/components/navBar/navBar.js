@@ -4,18 +4,24 @@
 var actionsButtons = require( './actions.js' ),
   navInst = undefined;
 
-module.exports = navInst ? navInst : navInst = NavBar();
+function NavBarSingleton( sammyContext ) {
+  if ( !navInst ) {
+    navInst = NavBar( sammyContext );
+  }
+
+  return navInst;
+}
 
 /**
  * @returns {NavBar}
  * @constructor
  */
-function NavBar() {
-  let self = this;
-  var config;
+function NavBar( sammyContext ) {
+  let self = this,
+    config,
+    publisher = require( '../../components/publisher/publisher' );
 
   Object.assign( self, {
-    addRoute: addRoute,
     render: renderNavbar,
     renderState: renderState,
     reset: reset,
@@ -43,18 +49,6 @@ function NavBar() {
     initButtons();
   }
 
-  function addRoute( route ) {
-    if ( !route.navOptions ) {
-      return;
-    }
-
-    config.routes[ route.url ] = {
-      title: route.navOptions.title || '',
-      states: route.navOptions.states
-    };
-
-  }
-
   function initButtons() {
     for ( let key in actionsButtons ) {
       config.buttons[ key ] = actionsButtons[ key ];
@@ -63,10 +57,15 @@ function NavBar() {
   }
 
   function renderNavbar() {
-    let route = config.routes[ location.hash ];
-    if ( route ) {
-      renderState( route.states.default );
-      config.navTitle.html( route.title );
+    let current_route,
+      navOptions;
+
+    current_route = sammyContext.lookupRoute( 'get', location.hash );
+    navOptions = current_route.config.navOptions;
+
+    if ( navOptions ) {
+      renderState( navOptions.states.default );
+      config.navTitle.html( navOptions.title );
       show();
     }
   }
@@ -107,8 +106,16 @@ function NavBar() {
     }
 
     action.click( () => {
-      //actionButton.promise = Promise.all( [ actionButton.callback ] );
-      actionButton.callback();
+      publisher.publish( 'button.back', 'Totto',
+        function success_callback( promise_results ) {
+          // eslint-disable-next-line no-console
+          console.log( 'Publish success: ', promise_results );
+
+          actionButton.callback();
+        }, function failure_callback( promise_error ) {
+          // eslint-disable-next-line no-console
+          console.log( 'Publish error: ', promise_error );
+        } );
     } );
 
     return action;
@@ -128,3 +135,5 @@ function NavBar() {
     config.nav.removeClass( 'hidden' );
   }
 }
+
+module.exports = NavBarSingleton;

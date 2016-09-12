@@ -15,7 +15,8 @@ module.exports = {
     'beforeEach': true,
     '$j': true,
     'it': true,
-    'expect': true
+    'expect': true,
+    'spyOn': true
   },
   'plugins': [
     'classes'
