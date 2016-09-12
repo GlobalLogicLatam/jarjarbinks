@@ -11,7 +11,6 @@ function DeviceController() {
     unlink: unlink,
     init: init
   } );
-
   return self;
 
 	// //PUBLIC FUNCTIONS
@@ -23,8 +22,7 @@ function DeviceController() {
         sammyContext.redirect( '#/notes' );
       } );
   }
-
-	// To make calls to apis. It may returns a promise.
+  // To make calls to apis. It may returns a promise.
   function init() {
 
     subscribed.push(
@@ -61,7 +59,6 @@ function DeviceController() {
         self.list = devices;
       } );
   }
-
   function unlink() {
     // Unsubscribe handlers
     subscribed.map( function unsubscribe( id ) {
@@ -69,5 +66,4 @@ function DeviceController() {
     } )
   }
 }
-
 module.exports = DeviceController;

@@ -27,9 +27,6 @@ function App() {
     // set navBar after change the url
     this.after( navBar.render );
   } );
-
-
   return sammy;
 }
-
 module.exports = App;

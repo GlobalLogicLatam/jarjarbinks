@@ -1,7 +1,6 @@
 function navigationHelper( sammyContext, routeContext, callback ) {
   var nav_el = $( '.js-nav' ),
     default_uri = '#/login';
-
   // Handler for invalid route
   function routeNotFoundHandler() {
     routeContext.redirect( default_uri );
@@ -14,7 +13,7 @@ function navigationHelper( sammyContext, routeContext, callback ) {
   function checkIfLogin() {
     nav_el.hide();
     if ( routeContext.path != '/#/login' ) {
-      // If Session exists redirect to Home, if not to Login
+    // If Session exists redirect to Home, if not to Login
       if ( isSessionActive() ) {
         default_uri = '#/';
         nav_el.show();
@@ -26,7 +25,5 @@ function navigationHelper( sammyContext, routeContext, callback ) {
   }
   checkIfLogin();
   sammyContext.notFound = routeNotFoundHandler;
-
 }
-
 module.exports = navigationHelper;
