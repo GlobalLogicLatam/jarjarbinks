@@ -5,3 +5,4 @@ coverage/
 jarjarbinks.sublime-*
 /.idea/
 /jarjarbinks.iml
+npm-debug.log

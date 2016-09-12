@@ -1,13 +1,12 @@
 .card {
-  height: @card-height;
+  padding: 10px;
   border-radius: 2px;
   background-color: @card-bg-color;
   display: flex;
   align-items: center;
   position: relative;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-  margin: 7px 10px;
-  max-width: 750px;
+  margin: 7px 0;
 
   &__icon {
     width: 100%;
@@ -40,7 +39,7 @@
   }
 
   &__image {
-    margin: 10px;
+    margin-right: 10px;
     width: calc(@card-height - (@card-height * .5));
     height: calc(@card-height - (@card-height * .5));
     position: relative;
@@ -63,7 +62,6 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-right: 1.2em;
     overflow: hidden;
     user-select: none;
   }
@@ -138,7 +136,7 @@
     &:after {
       content: '\2807';
       font-size: calc(@card-height / 3.5);
-      padding-left: 6px;
+      padding-left: 16px;
       font-style: normal;
       cursor: pointer;
       color: @card-options-icon-color;
