@@ -1,6 +1,6 @@
 function card() {
 
-  $.fn.card = function( config ) {
+  $.fn.card = function card_component( config ) {
     //this = $(".js-card")
     let self = this;
     // Open Card Options Menu

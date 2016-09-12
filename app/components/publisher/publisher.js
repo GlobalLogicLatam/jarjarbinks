@@ -9,7 +9,7 @@ class Publisher {
     topics = [];
   }
 
-  publish( topic, args, success_cb, failure_cb ) {
+  publish( topic, args ) {
     let topic_func_returns = [];
 
     if ( !topics[ topic ] ) {
@@ -22,14 +22,8 @@ class Publisher {
     } );
 
     // Execute publish callbacks to inform how and when it finished.
-    Promise
-      .all( topic_func_returns )
-      .then( function success_handler( responses ) {
-        success_cb( responses );
-      } )
-      .catch( function failure_handler( e ) {
-        failure_cb( e );
-      } );
+    return Promise
+      .all( topic_func_returns );
   }
 
   subscribe( topic, func ) {

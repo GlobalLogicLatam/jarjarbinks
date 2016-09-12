@@ -52,7 +52,7 @@ function NavBar( sammyContext ) {
   function initButtons() {
     for ( let key in actionsButtons ) {
       config.buttons[ key ] = actionsButtons[ key ];
-      config.buttons[ key ].html = createButton( config.buttons[ key ] );
+      config.buttons[ key ].html = createButton( key, config.buttons[ key ] );
     }
   }
 
@@ -76,8 +76,7 @@ function NavBar( sammyContext ) {
   }
 
   function clearButtons() {
-    $( config.buttonsSelector + 'left' ).empty();
-    $( config.buttonsSelector + 'right' ).empty();
+    $( '.js-jjb-navbar__items' ).find( 'li' ).detach();
   }
 
   function renderState( state ) {
@@ -94,27 +93,27 @@ function NavBar( sammyContext ) {
   }
 
 
-  function createButton( actionButton ) {
-    let htmlButton = `<a><span class="glyphicon glyphicon-${actionButton.icon}"></span></a>`,
+  function createButton( buttonName, actionButtonConfig ) {
+    let htmlButton = `<a><span class="glyphicon glyphicon-${actionButtonConfig.icon}"></span></a>`,
       action;
-    if ( actionButton.customHtml ) {
-      htmlButton = actionButton.customHtml;
-    }
-    action = $( htmlButton );
-    if ( actionButton.callback ) {
-      actionButton.callback = () => {};
-    }
+
+    action = $( actionButtonConfig.customHtml || htmlButton );
 
     action.click( () => {
-      publisher.publish( 'button.back', 'Totto',
-        function success_callback( promise_results ) {
+      Promise.all( [ publisher.publish( `button.${buttonName}`, {} ) ] )
+        .then( function success_callback( promise_results ) {
           // eslint-disable-next-line no-console
-          console.log( 'Publish success: ', promise_results );
+          console.log( 'Publish success: ', `button.${buttonName}` );
+          // eslint-disable-next-line no-console
+          console.log( 'promise_results: ', promise_results );
 
-          actionButton.callback();
-        }, function failure_callback( promise_error ) {
+          actionButtonConfig.callback();
+        } )
+        .catch( function failure_callback( promise_error ) {
           // eslint-disable-next-line no-console
-          console.log( 'Publish error: ', promise_error );
+          console.log( 'Publish error: ', `button.${buttonName}` );
+          // eslint-disable-next-line no-console
+          console.log( 'promise_error: ', promise_error );
         } );
     } );
 
