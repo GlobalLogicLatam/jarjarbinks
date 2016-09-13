@@ -9,14 +9,16 @@
 	<link rel="manifest" type="text/manifest" href="./../manifest.json">
 </head>
 <body>
-	<nav class="navbar jjb-navbar hidden">
-		<div class="container-fluid">
-      <div class="navbar-header">
-        <span class="jjb-navbar__title"></span>
-        <ul class="jjb-navbar__action-buttons">
-        </ul>
-      </div>
-		</div>
+	<nav class="navbar js-jjb-navbar jjb-navbar hidden">
+    <div class="js-jjb-navbar__items jjb-navbar__items">
+      <ul class="jjb-navbar__action-buttons js-jjb-navbar__action-buttons-left jjb-navbar__action-buttons-left">
+      </ul>
+      <!--<div>-->
+        <span class="js-jjb-navbar__title jjb-navbar__title"></span>
+      <!--</div>-->
+      <ul class="jjb-navbar__action-buttons js-jjb-navbar__action-buttons-right jjb-navbar__action-buttons-right">
+      </ul>
+    </div>
 	</nav>
 	<div id="content-wrapper" class="app-wrapper"></div>
 

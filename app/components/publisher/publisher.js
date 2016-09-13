@@ -10,15 +10,20 @@ class Publisher {
   }
 
   publish( topic, args ) {
+    let topic_func_returns = [];
+
     if ( !topics[ topic ] ) {
       return false;
     }
 
-    topics[ topic ].map( function execute_func( item ) {
-      item.func.call( null, args )
+    // Execute all functions and catch results.
+    topics[ topic ].map( function get_funcs( item ) {
+      topic_func_returns.push( item.func( args ) );
     } );
 
-    return true;
+    // Execute publish callbacks to inform how and when it finished.
+    return Promise
+      .all( topic_func_returns );
   }
 
   subscribe( topic, func ) {

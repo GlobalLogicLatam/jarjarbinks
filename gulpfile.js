@@ -40,26 +40,26 @@ function createServer( openBrowser ) {
 }
 
 
-gulp.task( 'browser-sync', function() {
+gulp.task( 'browser-sync', function task_handler() {
   createServer( false );
 } );
 
-gulp.task( 'restart-server', function() {
+gulp.task( 'restart-server', function task_handler() {
   Promise
     .all( [ browserSync.exit() ] )
-    .then( function() {
+    .then( function create_server() {
       createServer( false );
     } )
 } );
 
-gulp.task( 'bootstrap-less', function() {
+gulp.task( 'bootstrap-less', function task_handler() {
   let processors = [
     autoprefixer
   ];
 
   return gulp.src( config.path.less + 'bootstrap.less' )
     .pipe( sourcemaps.init() )
-    .pipe( less().on( 'error', function( e ) {
+    .pipe( less().on( 'error', function err_handler( e ) {
       showError.call( this, e );
     } ) )
 		.pipe( postcss( processors ) )
@@ -68,13 +68,13 @@ gulp.task( 'bootstrap-less', function() {
 		.pipe( gulp.dest( config.path.output_folder_css ) );
 } );
 
-gulp.task( 'less', function() {
+gulp.task( 'less', function task_handler() {
   let processors = [
     autoprefixer
   ];
   return gulp.src( [ './app/routes/**/*.less' ] )
     .pipe( sourcemaps.init() )
-    .pipe( less().on( 'error', function( e ) {
+    .pipe( less().on( 'error', function error_handler( e ) {
       showError.call( this, e );
     } ) )
     .pipe( postcss( processors ) )
@@ -83,31 +83,31 @@ gulp.task( 'less', function() {
 } );
 
 // Moves html and mustache partials files to dist folder
-gulp.task( 'html', function() {
+gulp.task( 'html', function task_handler() {
   return gulp.src( [ './app/index.html' ] )
     .pipe( gulp.dest( config.path.output_folder ) );
 } );
 
 // Moves images files to dist folder
-gulp.task( 'images', function() {
+gulp.task( 'images', function task_handler() {
   return gulp.src( './app/images/**/' )
     .pipe( gulp.dest( config.path.output_folder_images ) );
 } );
 
 // Moves fonts files to dist folder
-gulp.task( 'fonts', function() {
+gulp.task( 'fonts', function task_handler() {
   return gulp.src( './app/fonts/**/' )
     .pipe( gulp.dest( config.path.output_folder_fonts ) );
 } );
 
 // Delete everything in /dist
-gulp.task( 'clean-dist', function() {
+gulp.task( 'clean-dist', function task_handler() {
   return gulp.src( 'dist/' )
     .pipe( clean() );
 } );
 
 // Create js bundle
-gulp.task( 'bundle', function() {
+gulp.task( 'bundle', function task_handler() {
   return gulp.src( 'app/app.js' )
     .pipe(
       webpack( require( './webpack.config' ) )
@@ -116,7 +116,7 @@ gulp.task( 'bundle', function() {
 } );
 
 // Run test with Karma
-gulp.task( 'test', function( done ) {
+gulp.task( 'test', function task_handler( done ) {
   new KarmaServer( {
     configFile: __dirname + '/karma.config.js',
     singleRun: true
@@ -137,10 +137,12 @@ gulp.task( 'eslint', () => {
     .pipe( eslint.failAfterError() );
 } );
 
-gulp.task( 'pre-commit', [ 'test', 'dirty-eslint' ] );
+gulp.task( 'pre-commit', function task_handler( ) {
+  runSequence( [ 'test' ], [ 'dirty-eslint' ] )
+} );
 
 // Run eslint over modified files instead of all of all files in the project.
-gulp.task( 'dirty-eslint', function() {
+gulp.task( 'dirty-eslint', function task_handler() {
   return guppy.stream( 'pre-commit' )
     .pipe( filter( [ '**/*.js' ] ) )
     .pipe( eslint() )
@@ -148,7 +150,7 @@ gulp.task( 'dirty-eslint', function() {
     .pipe( eslint.failAfterError() );
 } );
 
-gulp.task( 'serve', function( cb ) {
+gulp.task( 'serve', function task_handler( cb ) {
   runSequence( 'clean-dist', [ 'html', 'images', 'fonts', 'bootstrap-less', 'less' ], 'bundle', 'browser-sync', cb );
 
   // Watch for changes on css core.
@@ -160,7 +162,7 @@ gulp.task( 'serve', function( cb ) {
     .on( 'error', showError );
 
   // Watch changes for html.
-  gulp.watch( [ 'app/**/*.html', 'app/**/*.mustache' ], [ 'bundle', browserSync.reload ] )
+  gulp.watch( [ 'app/index.html', 'app/**/*.html', 'app/**/*.mustache' ], [ 'html', 'bundle', browserSync.reload ] )
   .on( 'error', showError );
 
   // Watch changes for images.

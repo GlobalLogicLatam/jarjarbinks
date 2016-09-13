@@ -1,24 +1,24 @@
-var url = require('url');
-var qs  = require('querystring');
-var Cookies = require( "cookies" );
+let url = require( 'url' ),
+  qs = require( 'querystring' ),
+  Cookies = require( 'cookies' );
 
 module.exports = [
-	{
-		route: '/api',
-		handle: function(req, res, next){
-			var cookies = new Cookies(req, res);
+  {
+    route: '/api',
+    handle: function set_cookies( req, res, next ) {
+      var cookies = new Cookies( req, res );
 
-			req.cookies = {
-				get: cookies.get.bind(cookies)
-			};
+      req.cookies = {
+        get: cookies.get.bind( cookies )
+      };
 
-			res.cookies = {
-				set: cookies.set.bind(cookies)
-			};
+      res.cookies = {
+        set: cookies.set.bind( cookies )
+      };
 
-			next();
-		}
-	},
+      next();
+    }
+  },
   {
     route: '/api',
     handle: function handleMethod( req, res, next ) {
@@ -46,7 +46,15 @@ module.exports = [
           }
         } );
         req.on( 'end', function addBodyToRequest() {
-          req.body = qs.parse( body );
+          let parsers,
+            content_type = req.headers[ 'content-type' ].split( ';' )[ 0 ].trim();
+
+          parsers = {
+            'application/x-www-form-urlencoded': qs.parse,
+            'application/json': JSON.parse
+          }
+
+          req.body = parsers[ content_type ]( body );
           next();
         } );
       }
@@ -55,17 +63,18 @@ module.exports = [
   },
   {
     route: '/api',
-    handle: function( req, res, next ) {
+    handle: function execute_controller( req, res, next ) {
       let parsedUrl,
         ctrlName,
         Ctrl,
-        ctrl,
-        method;
+        ctrl;
 
       // Parsing url
       // Removing query string
       parsedUrl = url.parse( req.url ).path.split( '?' );
-      parsedUrl = parsedUrl[ 0 ].split( '/' ).filter( function( n ) { return n != '' } );
+      parsedUrl = parsedUrl[ 0 ].split( '/' ).filter( function filter_params( n ) {
+        return n != ''
+      } );
       ctrlName = parsedUrl[ 0 ];
 
       // Decorate request with url params

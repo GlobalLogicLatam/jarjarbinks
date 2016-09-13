@@ -14,25 +14,21 @@ require( './components/card/device_card' )();
 // Custom events
 require( './components/customEvents/longClick' )();
 
-const router = require( './app.router' ),
-  navBar = require( './components/navBar/navBar' );
+const router = require( './app.router' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
+    let navBar = require( './components/navBar/navBar' )( this );
 
-    // Changes element wrapper to avoid show nav element when user is on login view.
-    this.around( function checkIfLogin( cb ) {
-      cb();
-    } );
+    // Set routes
+    router( this );
 
     // reset navBar before change the url
     this.before( navBar.reset );
 
-    // Set routes
-    router( this );
+    // set navBar after change the url
+    this.after( navBar.render );
   } );
-
   return sammy;
 }
-
 module.exports = App;

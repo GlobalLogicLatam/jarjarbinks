@@ -1,52 +1,69 @@
-function DeviceController() {
-  const navBar = require( '../../components/navBar/navBar' );
-  let self = this;
+let deviceService = require( '../../services/device.service' ),
+  publisher = require( '../../components/publisher/publisher' );
 
-  navBar.open(
-    {
-      title: 'Devices',
-      optionButton: { icon: 'glyphicon-menu-hamburger', action: () => {
-        // eslint-disable-next-line no-console
-        console.log( 'abriendo un menu' );
-      } },
-      actionButtons: [
-        { icon: 'glyphicon-filter', action: () => {
-          // eslint-disable-next-line no-console
-          console.log( 'Hola mundo' );
-        } },
-        { icon: 'glyphicon-calendar', action: () => {
-          // eslint-disable-next-line no-console
-          console.log( 'Hola mundo' );
-        } }
-      ]
-    }
-  );
+function DeviceController() {
+  let self = this,
+    subscribed = [];
 
 	//Public methods and attributes
   Object.assign( self, {
     link: link,
     unlink: unlink,
-    init: init,
-    name: 'myName'
+    init: init
   } );
-
   return self;
 
 	// //PUBLIC FUNCTIONS
 	// To bind elements
-  function link() {
-
+  function link( sammyContext ) {
+    $( '.js-card' )
+      .deviceCard( {} )
+      .on( 'click', function redirect() {
+        sammyContext.redirect( '#/notes' );
+      } );
   }
-
-	// To make calls to apis. It may returns a promise.
+  // To make calls to apis. It may returns a promise.
   function init() {
 
-  }
+    subscribed.push(
+      publisher.subscribe( 'button.back', function event_handler( ) {
+        let res = confirm( 'Are you sure you want to go back?' );
+        return new Promise( function promise_handler( resolve, reject ) {
+          if ( res ) {
+            resolve( 'user accept.' );
+          } else {
+            reject( 'user reject.' );
+          }
+        } );
+      } )
+    );
 
+    // Temporary call to create devices.
+    deviceService
+      .post( {
+        brand: 'Motorola',
+        id: '1234',
+        model: 'G3',
+        status: 'locked',
+        reservedBy: {
+          id: '992',
+          lastName: 'Smith',
+          name: 'John',
+          username: 'jsmith'
+        }
+      } );
+
+    return deviceService
+      .get()
+      .then( function show_devices( devices ) {
+        self.list = devices;
+      } );
+  }
   function unlink() {
-    // eslint-disable-next-line no-console
-    console.log( 'Unlink device!!' );
+    // Unsubscribe handlers
+    subscribed.map( function unsubscribe( id ) {
+      publisher.unsubscribe( id );
+    } )
   }
 }
-
 module.exports = DeviceController;

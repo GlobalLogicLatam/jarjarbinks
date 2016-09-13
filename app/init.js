@@ -1,9 +1,8 @@
-var App = require('./app');
+var App = require( './app' );
 
-function Init(){
-	// start the application
-	var app = App();
-	app.run('#/');
+function Init() {
+  // start the application
+  var app = App();
+  app.run( '#/' );
 }
-
 module.exports = Init();

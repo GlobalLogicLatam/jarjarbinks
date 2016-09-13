@@ -4,7 +4,8 @@ function card() {
     let self = this;
 
     // Open Card Options Menu
-    this.find( '.card__dropdown-button' ).on( 'click', function open_menu() {
+    this.find( '.card__dropdown-button' ).on( 'click', function open_menu( e ) {
+      e.stopPropagation();
       $( this ).addClass( 'card__dropdown--open' );
     } );
 
@@ -31,7 +32,6 @@ function card() {
     }
 
   };
-
 }
 
 module.exports = card

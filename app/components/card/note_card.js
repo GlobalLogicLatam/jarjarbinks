@@ -1,17 +1,16 @@
 function noteCard() {
 
-    $.fn.noteCard = function(config) {
-        //this = $(".js-card")
-        let self = this;
-        init();
+  $.fn.noteCard = function( config ) {
+    //this = $(".js-card")
+    let self = this;
+    init();
 
-        return this;
+    return this;
 
-        function init() {
-            self.card(config);
-        }
+    function init() {
+      self.card( config );
+    }
   };
-
 }
 
-module.exports = noteCard
+module.exports = noteCard;
