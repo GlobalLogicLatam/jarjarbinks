@@ -15,7 +15,7 @@ function NoteController() {
   // To bind elements
   function link( sammyContext ) {
     $( '.js-note-card' )
-      .noteCard( {} )
+      .noteCard( { selectable: true } )
       .on( 'click', function redirect() {
         sammyContext.redirect( `#/notes/${this.dataset.id}` );
       } );
