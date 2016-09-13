@@ -21,8 +21,12 @@ function NoteController() {
 
   // //PUBLIC FUNCTIONS
   // To bind elements
-  function link() {
-
+  function link( sammyContext ) {
+    $( '.js-note-card' )
+      .noteCard( { selectable: true } )
+      .on( 'click', function redirect() {
+        sammyContext.redirect( `#/notes/${this.dataset.id}` );
+      } );
   }
 
   // To make calls to apis. It may returns a promise.
