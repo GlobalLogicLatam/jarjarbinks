@@ -17,7 +17,7 @@ function NavBarSingleton( sammyContext ) {
  * @constructor
  */
 function NavBar( sammyContext ) {
-  let self = this,
+  let self = {},
     config,
     publisher = require( '../../components/publisher/publisher' );
 
@@ -41,10 +41,21 @@ function NavBar( sammyContext ) {
     config = {
       nav: navEle,
       navTitle: navEle.find( '.js-jjb-navbar__title' ),
-      routes: {},
+      navOptions: {},
       buttons: {},
       buttonsSelector: '.js-jjb-navbar__action-buttons-'
     };
+
+    // Change navbar state buttons based on number of selected item.
+    publisher.subscribe( 'cards.selection', function selection_handler( selected_num ) {
+      let states = {
+        '0': 'default',
+        '1': 'selected',
+        'default': 'multipleSelected'
+      }
+
+      renderState( states[ selected_num ] || states[ 'default' ] );
+    } );
 
     initButtons();
   }
@@ -57,15 +68,15 @@ function NavBar( sammyContext ) {
   }
 
   function renderNavbar() {
-    let current_route,
-      navOptions;
+    let current_route;
 
+    // Set navBar configuration according to current route.
     current_route = sammyContext.lookupRoute( 'get', location.hash );
-    navOptions = current_route.config.navOptions;
+    config.navOptions = current_route.config.navOptions;
 
-    if ( navOptions ) {
-      renderState( navOptions.states.default );
-      config.navTitle.html( navOptions.title );
+    if ( config.navOptions ) {
+      renderState( 'default' );
+      config.navTitle.html( config.navOptions.title );
       show();
     }
   }
@@ -79,10 +90,13 @@ function NavBar( sammyContext ) {
     $( '.js-jjb-navbar__items' ).find( 'li' ).detach();
   }
 
-  function renderState( state ) {
+  function renderState( state_name ) {
+    let state_list = config.navOptions.states;
+
     clearButtons();
-    for ( let i = 0; i < state.length; i++ ) {
-      addButton( config.buttons[ state[ i ] ] );
+
+    for ( let i = 0; i < state_list[ state_name ].length; i++ ) {
+      addButton( config.buttons[ state_list[ state_name ][ i ] ] );
     }
   }
 

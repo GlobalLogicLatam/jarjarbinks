@@ -1,10 +1,12 @@
-let noteService = require( '../../services/note.service' );
+let noteService = require( '../../services/note.service' ),
+  publisher = require( '../../components/publisher/publisher' ),
+  nav_bar = require( '../../components/navBar/navBar' )();
 
 function NoteController() {
   let self = this,
     selected_items = [];
 
-  //Public methods and attributes
+  // Public methods and attributes
   Object.assign( self, {
     link: link,
     init: init
@@ -12,7 +14,10 @@ function NoteController() {
 
   return self;
 
-  // //PUBLIC FUNCTIONS
+  /**
+   * PUBLIC FUNCTIONS
+   */
+
   // To bind elements
   function link( sammyContext ) {
     $( '.js-note-card' )
@@ -22,16 +27,26 @@ function NoteController() {
       } )
       .on( 'card.selected', function select_handler( event, id ) {
         selected_items.push( id );
+
+        publisher.publish( 'cards.selection', selected_items.length );
       } )
       .on( 'card.unselected', function unselect_handler( event, id ) {
         let index = selected_items.indexOf( id );
 
         selected_items.splice( index, 1 );
+        publisher.publish( 'cards.selection', selected_items.length );
       } );
   }
 
   // To make calls to apis. It may returns a promise.
   function init( sammyContext ) {
+
+    // On button cancel, rerender navbar and unselect all selected items.
+    publisher.subscribe( 'button.cancel', function cancel_handler() {
+      nav_bar.renderState( 'default' );
+      unselect_all_cards();
+    } );
+
     // Temporary call to create devices.
     noteService
       .post( {
@@ -52,6 +67,15 @@ function NoteController() {
       .then( function show_notes( notes ) {
         self.list = notes;
       } );
+  }
+
+    /**
+   * PRIVATE FUNCTIONS
+   */
+
+  function unselect_all_cards() {
+    selected_items = [];
+    $( '.card-selected' ).removeClass( 'card-selected' );
   }
 }
 
