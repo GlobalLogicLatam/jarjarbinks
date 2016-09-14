@@ -27,7 +27,16 @@ function card() {
     // Select Card on Long Press
     function select() {
       self.on( 'longclick', function on_selected() {
-        $( this ).toggleClass( 'card-selected' );
+        let card = $( this ),
+          id = card.data( 'id' );
+
+        if ( card.hasClass( 'card-selected' ) ) {
+          card.removeClass( 'card-selected' );
+          card.trigger( 'card.unselected', id );
+        } else {
+          card.addClass( 'card-selected' );
+          card.trigger( 'card.selected', id );
+        }
       } );
     }
 
