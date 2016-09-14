@@ -1,7 +1,8 @@
 let noteService = require( '../../services/note.service' );
 
 function NoteController() {
-  let self = this;
+  let self = this,
+    selected_items = [];
 
   //Public methods and attributes
   Object.assign( self, {
@@ -18,6 +19,14 @@ function NoteController() {
       .noteCard( { selectable: true } )
       .on( 'click', function redirect() {
         sammyContext.redirect( `#/notes/${this.dataset.id}` );
+      } )
+      .on( 'card.selected', function select_handler( event, id ) {
+        selected_items.push( id );
+      } )
+      .on( 'card.unselected', function unselect_handler( event, id ) {
+        let index = selected_items.indexOf( id );
+
+        selected_items.splice( index, 1 );
       } );
   }
 
