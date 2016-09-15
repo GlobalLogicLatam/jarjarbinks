@@ -1,5 +1,13 @@
+let path = require( 'path' );
+
 module.exports = {
   resolve: {
+    root: [
+      path.resolve( './app/' ),
+      path.resolve( './app/common/modules/' ),
+      path.resolve( './app/mobile/' ),
+      path.resolve( './app/desktop/' )
+    ],
     alias: {
       jquery: '../bower_components/jquery/dist/jquery.min.js',
       jquery_validation: '../bower_components/jquery-validation/dist/jquery.validate.min.js',
