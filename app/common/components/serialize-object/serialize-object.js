@@ -16,4 +16,4 @@ function serializeObject() {
     return json;
   };
 }
-module.exports = serializeObject
+module.exports = serializeObject();

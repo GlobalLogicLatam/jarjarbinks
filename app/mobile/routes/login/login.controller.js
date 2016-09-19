@@ -1,4 +1,5 @@
-let authenticationService = require( './../../services/authentication.service' )();
+let require_factory = require( 'modules/require-factory' ),
+  authentication_service = require_factory( 'modules/services/authentication-service' )();
 
 function LoginController() {
   let self = {},
@@ -51,10 +52,11 @@ function LoginController() {
     customErrorElement.html( '' );
     //convert data into json
     let formData = form.serializeObject();
-    $.when( authenticationService.logIn( formData ) )
+    $.when( authentication_service.logIn( formData ) )
     .then( function success() {
       sammyContext.redirect( '#/' );
     }, 	function error( error ) {
+
       customErrorElement.html( error.error_message );
     } );
   }

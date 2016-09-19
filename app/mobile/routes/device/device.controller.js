@@ -1,5 +1,6 @@
-let deviceService = require( '../../services/device.service' ),
-  publisher = require( '../../components/publisher/publisher' );
+let require_factory = require( 'modules/require-factory' ),
+  deviceService = require_factory( 'modules/services/device-service' ),
+  publisher = require_factory( 'modules/publisher' );
 
 function DeviceController() {
   let self = this,

@@ -1,38 +1,45 @@
-@import './../../less/variables.less';
+@import './../../../less/variables.less';
 
 .flex-container {
-	background-image: url('./../../images/login-bg.png');
-	background-size:cover;
+  display: flex;
+  flex: 1;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	background-image: url('./../../../images/login-bg.png');
+	background-size: cover;
+}
+
+.login{
+	flex:1;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
-	height:100%;
-}
-.login{		
-	flex:1;	
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	&__logo{
+
+  &__logo{
 		margin-bottom: 10%;
 		max-width: 40%;
 	}
-	&__text-logo{
+
+  &__text-logo{
 		margin-bottom: 10%;
 		max-width: 40%;
-	}	
+	}
 }
-.login-form{	
-	min-width:60%;	
-	&__group{
-		position:relative;
+
+.login-form{
+	min-width: 60%;
+
+  &__group{
+		position: relative;
 	}
-	&__input{
-		padding-left:41px;	
+
+  &__input{
+		padding-left: 41px;
 	}
-	&__icon{
+
+  &__icon{
 		left: 12px;
 		position: absolute;
 		width: 20px;

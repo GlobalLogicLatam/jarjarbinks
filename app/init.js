@@ -1,4 +1,5 @@
-var App = require( 'app' );
+let require_factory = require( 'modules/require-factory' ),
+  App = require_factory( 'modules/app' );
 
 function Init() {
   // start the application

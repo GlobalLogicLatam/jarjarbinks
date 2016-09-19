@@ -1,14 +1,14 @@
 const routes = [
   {
     url: '#/login',
-    template: './routes/login/login.template.mustache',
-    controller: './routes/login/login.controller',
+    template: 'routes/login/login.template.mustache',
+    controller: 'routes/login/login.controller',
     controllerAs: 'login'
   },
   {
     url: '#/',
-    template: './routes/device/device.template.mustache',
-    controller: './routes/device/device.controller',
+    template: 'routes/device/device.template.mustache',
+    controller: 'routes/device/device.controller',
     controllerAs: 'devices',
     navOptions: {
       title: 'Devices',
@@ -21,8 +21,8 @@ const routes = [
   },
   {
     url: '#/notes',
-    template: './routes/note/note.template.mustache',
-    controller: './routes/note/note.controller',
+    template: 'routes/note/note.template.mustache',
+    controller: 'routes/note/note.controller',
     controllerAs: 'notes',
     navOptions: {
       title: 'Notes',
@@ -35,8 +35,8 @@ const routes = [
   },
   {
     url: '#/notes/:id',
-    template: './routes/note/note.template.mustache',
-    controller: './routes/note/note.controller',
+    template: 'routes/note/note.template.mustache',
+    controller: 'routes/note/note.controller',
     controllerAs: 'notes',
     navOptions: {
       title: 'Notes',

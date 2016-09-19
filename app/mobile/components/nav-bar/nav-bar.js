@@ -1,7 +1,9 @@
+let require_factory = require( 'modules/require-factory' );
+
 /**
  * Created by gaston on 8/8/16.
  */
-var actionsButtons = require( './actions.js' ),
+var actionsButtons = require_factory( 'components/nav-bar/actions' ),
   navInst = undefined;
 
 function NavBarSingleton( sammyContext ) {
@@ -19,7 +21,7 @@ function NavBarSingleton( sammyContext ) {
 function NavBar( sammyContext ) {
   let self = {},
     config,
-    publisher = require( '../../components/publisher/publisher' );
+    publisher = require_factory( 'modules/publisher' );
 
   Object.assign( self, {
     render: renderNavbar,

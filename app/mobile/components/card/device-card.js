@@ -1,7 +1,6 @@
 function deviceCard() {
 
-  $.fn.deviceCard = function( config ) {
-    //this = $(".js-card")
+  $.fn.deviceCard = function device_component( config ) {
     let self = this;
     init();
 

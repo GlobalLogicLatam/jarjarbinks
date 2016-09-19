@@ -1,8 +1,8 @@
-var navigationHelper = require( './components/navigationHelper/navigationHelper' );
+let require_factory = require( 'modules/require-factory' ),
+  navigation_helper = require_factory( 'modules/navigation-helper' );
 
 function Router( SammyContext ) {
-  const config = require( './app.router.config' ),
-    req = require.context( './', true, /^(\.\/.*\.controller|\.\/.*\.mustache)/ );
+  const config = require_factory( 'modules/router-config' );
 
   let rejectPreviousPromise,
     previous_controller = {},
@@ -12,8 +12,8 @@ function Router( SammyContext ) {
     // Fetch template
     SammyContext.get( r.url, function routeHandler( context ) {
 
-      let Ctrl = req( r.controller ),
-        tmpl = req( r.template ),
+      let Ctrl = require_factory( r.controller ),
+        tmpl = require_factory( r.template ),
         renderedHtml,
         ctrl;
 
@@ -63,7 +63,7 @@ function Router( SammyContext ) {
     } );
   } );
   SammyContext.around( function navHelper( cb ) {
-    navigationHelper( SammyContext, this, cb );
+    navigation_helper( SammyContext, this, cb );
   } );
 }
 module.exports = Router
