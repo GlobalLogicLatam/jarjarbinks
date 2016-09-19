@@ -1,7 +1,6 @@
 function noteCard() {
 
-  $.fn.noteCard = function( config ) {
-    //this = $(".js-card")
+  $.fn.noteCard = function note_component( config ) {
     let self = this;
     init();
 

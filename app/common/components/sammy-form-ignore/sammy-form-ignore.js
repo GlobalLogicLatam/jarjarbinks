@@ -1,5 +1,5 @@
 function formIgnore() {
-  $( function() {
+  $( function remove_sammy_intervention() {
     Sammy = Sammy || {};
     Sammy.RegularFormSubmitFix = function formSubmitFix( app ) {
       app.defaultCheckFormSubmission = this._checkFormSubmission;
@@ -17,4 +17,4 @@ function formIgnore() {
     }
   } );
 }
-module.exports = formIgnore
+module.exports = formIgnore();

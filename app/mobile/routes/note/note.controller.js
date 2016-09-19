@@ -1,6 +1,7 @@
-let noteService = require( '../../services/note.service' ),
-  publisher = require( '../../components/publisher/publisher' ),
-  nav_bar = require( '../../components/navBar/navBar' )();
+let require_factory = require( 'modules/require-factory' ),
+  note_service = require_factory( 'modules/services/note-service' ),
+  publisher = require_factory( 'modules/publisher' ),
+  nav_bar = require_factory( 'components/nav-bar/nav-bar' )();
 
 function NoteController() {
   let self = this,
@@ -48,7 +49,7 @@ function NoteController() {
     } );
 
     // Temporary call to create devices.
-    noteService
+    note_service
       .post( {
         title: 'Titulo A',
         date: '15/02/2016',
@@ -62,7 +63,7 @@ function NoteController() {
         }
       } );
 
-    return noteService
+    return note_service
       .get( sammyContext.params )
       .then( function show_notes( notes ) {
         self.list = notes;

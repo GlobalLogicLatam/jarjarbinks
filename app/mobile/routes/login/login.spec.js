@@ -1,12 +1,12 @@
-describe( 'Login controller', function() {
+describe( 'Login controller', function controller_unit_test() {
   var authenticationServiceMock = {
       defaultPromise: Promise.resolve(),
-      logIn: function() {
+      logIn: function logIn_mock() {
         return this.defaultPromise;
       }
     },
     sammyContext_mock = {
-      redirect: function( str ) {
+      redirect: function redirect_mock( str ) {
         return str;
       }
     },
@@ -19,15 +19,23 @@ describe( 'Login controller', function() {
   function authentication_service_mock() {
     return authenticationServiceMock;
   }
+
   const CtrlInjector = require( 'inject!./login.controller' ),
-    template = require( '../../routes/login/login.template.mustache' ),
-    Ctrl = CtrlInjector( { './../../services/authentication.service': authentication_service_mock } );
+    Ctrl = CtrlInjector( {
+      'modules/require-factory': function require_factory_mock( path ) {
+        const mocks = {
+          'modules/services/authentication-service': authentication_service_mock
+        }
+        return mocks[ path ]
+      }
+    } ),
+    template = require( '../../routes/login/login.template.mustache' );
 
   let rendered_template,
     body,
     app_wrapper;
 
-  beforeEach( function() {
+  beforeEach( function create_app() {
     let ctrl = Ctrl();
     body = $( 'body' ).append( '<div id="content-wrapper" class="app-wrapper"></div>' );
     app_wrapper = body.find( '#content-wrapper' );
@@ -37,7 +45,7 @@ describe( 'Login controller', function() {
     ctrl.link();
   } );
 
-  it( 'should show error labels because empty form, not submit and not redirect', function( done ) {
+  it( 'should show error labels because empty form, not submit and not redirect', function test( done ) {
 
     spyOn( authenticationServiceMock, 'logIn' );
     spyOn( sammyContext_mock, 'redirect' );
@@ -46,7 +54,7 @@ describe( 'Login controller', function() {
       usernameLabelError,
       passwordLabelError,
 
-      domObserver = new MutationObserver( function() {
+      domObserver = new MutationObserver( function on_mutate() {
         usernameLabelError = document.getElementById( 'username-error' );
         passwordLabelError = document.getElementById( 'password-error' );
         //Labels must have the correct messages
@@ -63,7 +71,7 @@ describe( 'Login controller', function() {
 
     $( '#submitBtn' ).click();
   } );
-  it( 'should show error message at failed submit and not redirect', function( done ) {
+  it( 'should show error message at failed submit and not redirect', function test( done ) {
 
     authenticationServiceMock.defaultPromise = Promise.reject( { error_message: 'errorOnSubmit' } );
     spyOn( authenticationServiceMock, 'logIn' ).and.callThrough();
@@ -71,7 +79,7 @@ describe( 'Login controller', function() {
 
     let customErrorElement = document.getElementById( 'loginError' ),
 
-      domObserver = new MutationObserver( function() {
+      domObserver = new MutationObserver( function on_mutate() {
         //Label must show error from service
         expect( customErrorElement.innerText ).toBe( 'errorOnSubmit' );
         //Login service must have been called
@@ -88,7 +96,7 @@ describe( 'Login controller', function() {
     $( '#submitBtn' ).trigger( 'click' );
 
   } );
-  it( 'should redirect to Home if login success', function( done ) {
+  it( 'should redirect to Home if login success', function test( done ) {
 
     authenticationServiceMock.defaultPromise = Promise.resolve();
     spyOn( authenticationServiceMock, 'logIn' ).and.callThrough();
@@ -96,7 +104,7 @@ describe( 'Login controller', function() {
     $( 'input[name="username"]' ).val( 'usuario.test' );
     $( 'input[name="password"]' ).val( 'password1234' );
     $( '#submitBtn' ).trigger( 'click' );
-    spyOn( sammyContext_mock, 'redirect' ).and.callFake( function( resp ) {
+    spyOn( sammyContext_mock, 'redirect' ).and.callFake( function on_mutate( resp ) {
       expect( authenticationServiceMock.logIn ).toHaveBeenCalled();
       expect( resp ).toBe( '#/' );
       done();
