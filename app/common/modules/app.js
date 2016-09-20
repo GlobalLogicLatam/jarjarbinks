@@ -16,7 +16,15 @@ const router = require_factory( 'modules/router' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
-    let nav_bar = require_factory( 'components/nav-bar/nav-bar' )( this );
+    let nav_bar = require_factory( 'components/nav-bar/nav-bar' )( this ),
+      body = $( 'body' );
+
+    // Add css class for css based on client type (mobile / desktop)
+    if ( client_detector.is_mobile ) {
+      body.addClass( 'mobile' );
+    } else {
+      body.addClass( 'desktop' );
+    }
 
     // Set routes
     router( this );

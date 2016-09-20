@@ -1,17 +1,31 @@
 @import 'variables.less';
 
-body, html {
+html {
   display: flex;
   flex-direction: column;
-  background-color: @gray-lighter;
-}
-
-html {
   min-height: 100%;
 }
 
 body {
+  display: flex;
   flex: 1;
+  background-color: @gray-lighter;
+}
+
+/*
+  Specific styles for mobile
+  WARNING: This can be used just when media query is not a solution.
+*/
+body.mobile {
+  flex-direction: column;
+}
+
+/*
+  Specific styles for desktop
+  WARNING: This can be used just when media query is not a solution.
+*/
+body.desktop {
+  flex-direction: row;
 }
 
 .app-wrapper {
