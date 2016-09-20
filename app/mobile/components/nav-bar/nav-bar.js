@@ -1,9 +1,6 @@
-let require_factory = require( 'modules/require-factory' );
-
-/**
- * Created by gaston on 8/8/16.
- */
-var actionsButtons = require_factory( 'components/nav-bar/actions' ),
+let require_factory = require( 'modules/require-factory' ),
+  actionsButtons = require_factory( 'components/nav-bar/actions' ),
+  tmpl = require_factory( 'components/nav-bar/nav-bar.template.mustache' ),
   navInst = undefined;
 
 function NavBarSingleton( sammyContext ) {
@@ -38,11 +35,16 @@ function NavBar( sammyContext ) {
    * Init NavBar
    */
   function init() {
-    let navEle = $( '.js-jjb-navbar' );
+    let nav_el = $( '.js-nav-bar' ),
+      // Rendered menu template
+      rendered_html = $( Mustache.render( tmpl ) );
+
+    // Replaced menu container with menu.
+    nav_el.replaceWith( rendered_html );
 
     config = {
-      nav: navEle,
-      navTitle: navEle.find( '.js-jjb-navbar__title' ),
+      nav: rendered_html,
+      navTitle: rendered_html.find( '.js-jjb-navbar__title' ),
       navOptions: {},
       buttons: {},
       buttonsSelector: '.js-jjb-navbar__action-buttons-'
