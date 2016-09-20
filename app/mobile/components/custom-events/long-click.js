@@ -10,7 +10,7 @@ function longClick() {
 
       // Overwrite default with custom configurations.
       Object.assign( config, {
-        time: 100
+        time: 0
       }, event.data );
 
       // Run event handler when time is out.
