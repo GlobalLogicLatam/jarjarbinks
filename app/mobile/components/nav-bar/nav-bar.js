@@ -35,7 +35,7 @@ function NavBar( sammyContext ) {
    * Init NavBar
    */
   function init() {
-    let nav_el = $( '.js-nav-bar' ),
+    let nav_el = $( '.js-navbar-holder' ),
       // Rendered menu template
       rendered_html = $( Mustache.render( tmpl ) );
 
@@ -47,7 +47,7 @@ function NavBar( sammyContext ) {
       navTitle: rendered_html.find( '.js-jjb-navbar__title' ),
       navOptions: {},
       buttons: {},
-      buttonsSelector: '.js-jjb-navbar__action-buttons-'
+      buttonsSelector: '.js-navbar__list-'
     };
 
     // Change navbar state buttons based on number of selected item.
@@ -91,7 +91,7 @@ function NavBar( sammyContext ) {
   }
 
   function clearButtons() {
-    $( '.js-jjb-navbar__items' ).find( 'li' ).detach();
+    config.nav.find( 'li' ).detach();
   }
 
   function renderState( state_name ) {
@@ -105,14 +105,14 @@ function NavBar( sammyContext ) {
   }
 
   function addButton( button ) {
-    let li = $( '<li></li>' );
+    let li = $( '<li class="navbar__button-wrapper"></li>' );
     li.append( button.html );
     $( config.buttonsSelector + ( button.position || 'right' ) ).append( li );
   }
 
 
   function createButton( buttonName, actionButtonConfig ) {
-    let htmlButton = `<a><span class="glyphicon glyphicon-${actionButtonConfig.icon}"></span></a>`,
+    let htmlButton = `<span class="navbar__button glyphicon glyphicon-${actionButtonConfig.icon}"></span>`,
       action;
 
     action = $( actionButtonConfig.customHtml || htmlButton );
