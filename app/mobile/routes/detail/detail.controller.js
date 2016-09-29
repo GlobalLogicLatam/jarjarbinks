@@ -1,5 +1,5 @@
 let require_factory = require( 'modules/require-factory' ),
-  detailService = require_factory( 'modules/services/detail-service' ),
+  detailService = require_factory( 'modules/services/device-service' ),
   publisher = require_factory( 'modules/publisher' );
 
 function DetailsController() {

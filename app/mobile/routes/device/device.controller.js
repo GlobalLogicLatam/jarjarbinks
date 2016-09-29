@@ -6,7 +6,7 @@ function DeviceController() {
   let self = this,
     subscribed = [];
 
-	//Public methods and attributes
+  //Public methods and attributes
   Object.assign( self, {
     link: link,
     unlink: unlink,
@@ -14,8 +14,8 @@ function DeviceController() {
   } );
   return self;
 
-	// //PUBLIC FUNCTIONS
-	// To bind elements
+  // //PUBLIC FUNCTIONS
+  // To bind elements
 
   function link( sammyContext ) {
     $( '.js-card' )
@@ -25,11 +25,12 @@ function DeviceController() {
         sammyContext.redirect( '#/devices/' + id );
       } );
   }
+
   // To make calls to apis. It may returns a promise.
   function init() {
 
     subscribed.push(
-      publisher.subscribe( 'button.back', function event_handler( ) {
+      publisher.subscribe( 'button.back', function event_handler() {
         let res = confirm( 'Are you sure you want to go back?' );
         return new Promise( function promise_handler( resolve, reject ) {
           if ( res ) {
@@ -57,11 +58,12 @@ function DeviceController() {
       } );
 
     return deviceService
-      .get()
+      .get( )
       .then( function show_devices( devices ) {
         self.list = devices;
       } );
   }
+
   function unlink() {
     // Unsubscribe handlers
     subscribed.map( function unsubscribe( id ) {
