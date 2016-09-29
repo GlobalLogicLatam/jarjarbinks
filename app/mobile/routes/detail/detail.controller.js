@@ -1,8 +1,8 @@
 let require_factory = require( 'modules/require-factory' ),
-  deviceService = require_factory( 'modules/services/device-service' ),
+  detailService = require_factory( 'modules/services/detail-service' ),
   publisher = require_factory( 'modules/publisher' );
 
-function DeviceController() {
+function DetailsController() {
   let self = this,
     subscribed = [];
 
@@ -24,11 +24,11 @@ function DeviceController() {
       } );
   }
   // To make calls to apis. It may returns a promise.
-  function init() {
+  function init( sammyContext ) {
 
     subscribed.push(
       publisher.subscribe( 'button.back', function event_handler( ) {
-        let res = confirm( 'Are you sure you want to go back?' );
+        let res = confirm( 'Desea salir?' );
         return new Promise( function promise_handler( resolve, reject ) {
           if ( res ) {
             resolve( 'user accept.' );
@@ -39,25 +39,27 @@ function DeviceController() {
       } )
     );
 
-    // Temporary call to create devices.
-    deviceService
+    // Temporary call to create details.
+    detailService
       .post( {
         brand: 'Motorola',
         id: '1234',
         model: 'G3',
         status: 'locked',
-        reservedBy: {
-          id: '992',
-          lastName: 'Smith',
-          name: 'John',
-          username: 'jsmith'
-        }
+        tag: 'X-XX-XX',
+        serial: '152-225-525-151',
+        project: 'BCI006',
+        os: 'Android',
+        resolution: '1920x1080',
+        version: '10'
       } );
 
-    return deviceService
-      .get()
-      .then( function show_devices( devices ) {
-        self.list = devices;
+    return detailService
+      .get(
+        sammyContext.params
+      )
+      .then( function show_details( details ) {
+        self.data = details[ 2 ];
       } );
   }
   function unlink() {
@@ -67,4 +69,4 @@ function DeviceController() {
     } )
   }
 }
-module.exports = DeviceController;
+module.exports = DetailsController;

@@ -16,11 +16,13 @@ function DeviceController() {
 
 	// //PUBLIC FUNCTIONS
 	// To bind elements
+
   function link( sammyContext ) {
     $( '.js-card' )
       .deviceCard( {} )
       .on( 'click', function redirect() {
-        sammyContext.redirect( '#/notes' );
+        let id = $( this ).data( 'device-id' );
+        sammyContext.redirect( '#/devices/' + id );
       } );
   }
   // To make calls to apis. It may returns a promise.

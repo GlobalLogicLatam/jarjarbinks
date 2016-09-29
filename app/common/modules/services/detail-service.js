@@ -1,4 +1,4 @@
-function deviceService() {
+function detailService() {
   let self = {};
 
   Object.assign( self, {
@@ -9,7 +9,7 @@ function deviceService() {
   return self;
 
   function get() {
-    return $.get( '/api/devices' );
+    return $.get( '/api/devices/:id' );
   }
 
   function post( device ) {
@@ -24,4 +24,4 @@ function deviceService() {
   }
 }
 
-module.exports = deviceService()
+module.exports = detailService()

@@ -1,33 +1,12 @@
-<ul class="list-unstyled">
-  {{#devices.list}}
-  <li>
-    <!-- Device -->
-    <div class="js-card card device-{{ status }}">
-      <div class="card__image">
-        <i class="card__icon glyphicon glyphicon-unlock"></i>
-        <i class="card__icon glyphicon glyphicon-lock"></i>
-      </div>
-      <div class="card__content-wrapper">
-        <span class="card__title">
-          {{ brand }} {{ model }}
-        </span>
-        <span class="card__subtitle">
-          {{ reservedBy.name }} {{ reservedBy.lastName }}
-        </span>
-        <span class="card__footer">
-          Desde el xx/xx/xx al xx/xx/xx
-        </span>
+<!-- Details -->
 
-      </div>
-      <i class="card__dropdown-button">
-          <ul class="card__dropdown">
-            <li class="js-edit-button card__option">Editar</li>
-            <li class="js-delete-button card__option">Eliminar</li>
-          </ul>
-          <div class="card__dropdown-background">
-          </div>
-      </i>
-    </div>
-  </li>
-  {{/devices.list}}
-</ul>
+        <div><p class=" detail-title pull-left">Marca:</p> <p class="detail-value pull-right">{{ detail.data.brand }}</p></div>
+        <div><p  class="detail-title pull-left">Modelo:</p> <p class="detail-value pull-right">{{ detail.data.model }}</p></div>
+        <div><p  class="detail-title pull-left">Tag:</p> <p class="detail-value pull-right">{{ detail.data.tag }}</p></div>
+        <div><p  class="detail-title pull-left">Serial:</p> <p class="detail-value pull-right">{{ detail.data.serial }}</p></div>
+        <div><p  class="detail-title pull-left">Proyecto:</p> <p class="detail-value pull-right">{{ detail.data.project }}</p></div>
+        <div><p  class="detail-title pull-left">Sistema Operativo:</p> <p class="detail-value pull-right">{{ detail.data.os }}</p></div>
+        <div><p  class="detail-title pull-left">Versión:</p> <p class="detail-value pull-right">{{ detail.data.version }}</p></div>
+        <div><p  class="detail-title pull-left">Resolución:</p> <p class="detail-value pull-right">{{ detail.data.resolution }}</p></div>
+
+<!-- end Details -->

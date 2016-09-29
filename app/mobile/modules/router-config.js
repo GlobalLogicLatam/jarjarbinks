@@ -34,6 +34,18 @@ const routes = [
     }
   },
   {
+    url: '#/devices/:id',
+    template: 'routes/detail/detail.template.mustache',
+    controller: 'routes/detail/detail.controller',
+    controllerAs: 'detail',
+    navOptions: {
+      title: 'Detalle',
+      states: {
+        default: [ 'back' ]
+      }
+    }
+  },
+  {
     url: '#/notes/:id',
     template: 'routes/note/note.template.mustache',
     controller: 'routes/note/note.controller',
