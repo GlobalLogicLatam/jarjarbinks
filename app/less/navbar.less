@@ -1,58 +1,102 @@
-.jjb-navbar{
-  margin-bottom: 15px;
-  background-color: @brand-primary;
-  color : @white;
+/*
+* COMMON STYLES - You must use mixins.
+*/
+.navbar-common(){
+  display: flex;
+  background-color: @navbar-bg-color;
+  color : @navbar-color;
   font-size: @font-size-large;
+}
 
-  &__items{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
+.navbar__button-wrapper() {
+  display: flex;
+}
 
-    ul {
-      flex-grow: 1;
-      padding: 0;
-      margin: 0;
-      height: @navbar-height;
-    }
-  }
+.navbar__button-common(){
+  color: @navbar-color;
+  text-decoration: none;
+}
 
-  &__title{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
+/*
+* MOBILE VERSION
+*/
+.navbar.navbar-horizontal {
+  .navbar-common();
+  height: @navbar-height;
+  padding: @navbar-horizontal-padding;
 
-  &__action-buttons{
-    display: flex;
-    flex-direction: row;
-
-    &-left{
-      justify-content: flex-start;
-    }
-
-    &-right{
-      justify-content: flex-end;
-    }
-
-    .glyphicon {
-      height: @navbar-height;
+  .navbar {
+    &__title{
       display: flex;
       justify-content: center;
       flex-direction: column;
-      padding-left: @navbar-item-padding;
-      padding-right: @navbar-item-padding;
     }
 
-    li {
-      list-style: none;
-      a {
-        height: @navbar-height;
-        color : @white;
-        text-decoration: none;
+    &__list {
+      &-left, &-right{
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        .list-unstyled;
       }
+
+      &-left{
+        justify-content: flex-start;
+      }
+
+      &-right{
+        justify-content: flex-end;
+      }
+    }
+
+    &__button-wrapper {
+      .navbar__button-wrapper()
+    }
+
+    &__button {
+      .navbar__button-common();
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: @navbar-horizontal-icon-separation;
+    }
+  }
+}
+
+/*
+* DESKTOP VERSION
+*/
+.navbar.navbar-vertical {
+  .navbar-common();
+  box-sizing: border-box;
+  padding: @navbar-vertical-padding;
+
+  .navbar {
+    &__avatar {
+      width: 100%;
+      border-radius: 50%;
+    }
+
+    &__list {
+      .list-unstyled;
+    }
+
+    &__button-wrapper {
+      .navbar__button-wrapper();
+      justify-content: center;
+      margin-bottom: @navbar-vertical-icon-separation;
+      font-size: @navbar-vertical-icon-font-size;
+
+      &:first-child {
+        display: block;
+        font-size: @font-size-base;
+        text-align: center;
+        max-width: @navbar-avatar-width;
+      }
+    }
+
+    &__button {
+      .navbar__button-common();
     }
   }
 }

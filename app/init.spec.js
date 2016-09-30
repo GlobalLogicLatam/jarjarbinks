@@ -1,4 +1,6 @@
-var context = require.context( './', true, /.spec\.js$/ );
+const require_factory = require( 'modules/require-factory' ),
+  context = require.context( './', true, /.spec\.js$/ );
+
 context.keys().forEach( context );
 
 require( 'script!jquery' );
@@ -6,4 +8,4 @@ require( 'script!jquery_validation' );
 require( 'script!validation_additional_methods' );
 require( 'script!sammy' );
 require( 'script!mustache' );
-require( './components/serializeObject/serializeObject' )();
+require_factory( 'components/serialize-object/serialize-object' );

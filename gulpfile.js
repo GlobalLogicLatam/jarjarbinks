@@ -72,7 +72,7 @@ gulp.task( 'less', function task_handler() {
   let processors = [
     autoprefixer
   ];
-  return gulp.src( [ './app/routes/**/*.less' ] )
+  return gulp.src( [ './app/common/**/*.less', './app/mobile/**/*.less', './app/desktop/**/*.less' ] )
     .pipe( sourcemaps.init() )
     .pipe( less().on( 'error', function error_handler( e ) {
       showError.call( this, e );

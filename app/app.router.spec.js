@@ -1,5 +1,7 @@
 describe( 'Route', function unit_test() {
-  const router = require( './app.router' );
+  const require_factory = require( 'modules/require-factory' ),
+    router = require_factory( 'modules/router', 'mobile' );
+
   let app,
     body;
 
@@ -11,17 +13,20 @@ describe( 'Route', function unit_test() {
     } );
   } );
   describe( '#/login', function login_test() {
+
     beforeEach( function before_each_login_test( done ) {
       app.run( '#/login' );
       setTimeout( function async() {
         done();
       }, 0 );
     } );
+
     it( 'should has a form', function test( done ) {
       var form = body.find( 'form' );
       expect( form.length ).toBe( 1 );
       done();
     } );
+
     it( 'should have navigated to /login', function navigatedToLogin( done ) {
       expect( window.location.hash ).toBe( '#/login' );
       done();

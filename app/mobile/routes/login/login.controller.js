@@ -1,0 +1,69 @@
+let require_factory = require( 'modules/require-factory' ),
+  authentication_service = require_factory( 'modules/services/authentication-service' )();
+
+function LoginController() {
+  let self = {},
+    form = '',
+    customErrorElement = '',
+    sammyContext;
+
+	//Public methods and attributes
+  Object.assign( self, {
+    link: link,
+    init: init,
+    error: ''
+  } );
+
+  return self;
+
+	//PUBLIC FUNCTIONS
+	// To bind elements
+  function link() {
+    form = $( 'form' );
+
+    customErrorElement = $( '#loginError' );
+
+    form.validate( {
+      errorClass: 'error text-danger',
+      errorElement: 'span',
+      wrapper: 'p',
+      rules: {
+        username: 'required',
+        password: 'required'
+      },
+      messages: {
+        username: 'Debe ingresar un usuario.',
+        password: 'Debe ingresar una contraseña.'
+      },
+      onkeyup: false,
+      invalidHandler: invalidForm,
+      submitHandler: logIn
+    } );
+  }
+
+	// To make calls to apis. It may returns a promise.
+  function init( context ) {
+    sammyContext = context;
+  }
+
+	//PRIVATE FUNCTIONS
+  function logIn() {
+    event.preventDefault();
+    customErrorElement.html( '' );
+    //convert data into json
+    let formData = form.serializeObject();
+    $.when( authentication_service.logIn( formData ) )
+    .then( function success() {
+      sammyContext.redirect( '#/' );
+    }, 	function error( error ) {
+
+      customErrorElement.html( error.error_message );
+    } );
+  }
+
+  function invalidForm() {
+    customErrorElement.html( '' );
+  }
+}
+
+module.exports = LoginController
