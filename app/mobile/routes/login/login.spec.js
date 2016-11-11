@@ -1,4 +1,4 @@
-describe( 'Login controller', function controller_unit_test() {
+xdescribe( 'Login controller', function controller_unit_test() {
   var authenticationServiceMock = {
       defaultPromise: Promise.resolve(),
       logIn: function logIn_mock() {

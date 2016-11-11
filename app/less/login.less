@@ -1,12 +1,10 @@
-@import './../../../less/variables.less';
-
 .flex-container {
   display: flex;
   flex: 1;
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
-	background-image: url('./../../../images/login-bg.png');
+	background-image: url('@{images-path}login-bg.png');
 	background-size: cover;
 }
 
@@ -16,33 +14,20 @@
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
+	margin: 10% 0;
 
   &__logo{
-		margin-bottom: 10%;
+		margin-bottom: 5%;
 		max-width: 40%;
 	}
 
   &__text-logo{
 		margin-bottom: 10%;
-		max-width: 40%;
+		max-width: 55%;
 	}
 }
 
-.login-form{
-	min-width: 60%;
-
-  &__group{
-		position: relative;
-	}
-
-  &__input{
-		padding-left: 41px;
-	}
-
-  &__icon{
-		left: 12px;
-		position: absolute;
-		width: 20px;
-		top: 7px;
-	}
+.login__wrapper{
+	width: 80%;
+	max-width: 400px;
 }

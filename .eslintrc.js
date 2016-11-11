@@ -12,6 +12,7 @@ module.exports = {
     'Sammy': true,
     'Mustache': true,
     'describe': true,
+    'xdescribe': true,
     'beforeEach': true,
     '$j': true,
     'it': true,

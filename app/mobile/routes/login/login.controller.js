@@ -1,10 +1,10 @@
 let require_factory = require( 'modules/require-factory' ),
-  authentication_service = require_factory( 'modules/services/authentication-service' )();
+  authentication_service = require_factory( 'modules/services/authentication-service' )(),
+  modal_factory = require_factory( 'components/modal/modal.factory.js' );
 
 function LoginController() {
   let self = {},
     form = '',
-    customErrorElement = '',
     sammyContext;
 
 	//Public methods and attributes
@@ -20,8 +20,6 @@ function LoginController() {
 	// To bind elements
   function link() {
     form = $( 'form' );
-
-    customErrorElement = $( '#loginError' );
 
     form.validate( {
       errorClass: 'error text-danger',
@@ -49,20 +47,24 @@ function LoginController() {
 	//PRIVATE FUNCTIONS
   function logIn() {
     event.preventDefault();
-    customErrorElement.html( '' );
     //convert data into json
     let formData = form.serializeObject();
     $.when( authentication_service.logIn( formData ) )
     .then( function success() {
       sammyContext.redirect( '#/' );
     }, 	function error( error ) {
-
-      customErrorElement.html( error.error_message );
+      modal_factory.confirm( { content: error } )
+        .then( function success() {
+          //console.log('resolved');
+        } )
+        .catch( function error() {
+          //console.log('rejected');
+        } );
     } );
   }
 
   function invalidForm() {
-    customErrorElement.html( '' );
+    modal_factory.destroy();
   }
 }
 
