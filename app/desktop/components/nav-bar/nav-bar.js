@@ -5,7 +5,7 @@ function Nav_Bar() {
   init();
 
   function init() {
-    let nav_el = $( '.js-nav-bar' ),
+    let nav_el = $( '.js-navbar-holder' ),
       // Rendered menu template
       rendered_html = $( Mustache.render( tmpl ) );
 

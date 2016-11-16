@@ -25,7 +25,7 @@ const actions = {
    * Calendar button
    */
   calendar: {
-    customHtml: '<a href="#/calendar"><span class="glyphicon glyphicon-calendar"></span></a>',
+    customHtml: '<a href="#/calendar" class="navbar__button"><span class="glyphicon glyphicon-calendar"></span></a>',
     icon: 'remove',
     callback: () => {}
   },
