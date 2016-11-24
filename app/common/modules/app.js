@@ -21,9 +21,9 @@ function App() {
 
     // Add css class for css based on client type (mobile / desktop)
     if ( client_detector.is_mobile ) {
-      body.addClass( 'mobile' );
+      body.addClass( 'app--mobile' );
     } else {
-      body.addClass( 'desktop' );
+      body.addClass( 'app--desktop' );
     }
 
     // Set routes

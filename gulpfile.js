@@ -52,12 +52,12 @@ gulp.task( 'restart-server', function task_handler() {
     } )
 } );
 
-gulp.task( 'bootstrap-less', function task_handler() {
+gulp.task( 'less', function task_handler() {
   let processors = [
     autoprefixer
   ];
 
-  return gulp.src( config.path.less + 'bootstrap.less' )
+  return gulp.src( config.path.less + 'index.less' )
     .pipe( sourcemaps.init() )
     .pipe( less().on( 'error', function err_handler( e ) {
       showError.call( this, e );
@@ -68,19 +68,19 @@ gulp.task( 'bootstrap-less', function task_handler() {
 		.pipe( gulp.dest( config.path.output_folder_css ) );
 } );
 
-gulp.task( 'less', function task_handler() {
-  let processors = [
-    autoprefixer
-  ];
-  return gulp.src( [ './app/common/**/*.less', './app/mobile/**/*.less', './app/desktop/**/*.less' ] )
-    .pipe( sourcemaps.init() )
-    .pipe( less().on( 'error', function error_handler( e ) {
-      showError.call( this, e );
-    } ) )
-    .pipe( postcss( processors ) )
-    .pipe( sourcemaps.write( './maps' ) )
-    .pipe( gulp.dest( config.path.output_folder_css ) );
-} );
+// gulp.task( 'less', function task_handler() {
+//   let processors = [
+//     autoprefixer
+//   ];
+//   return gulp.src( [ './app/common/**/*.less', './app/mobile/**/*.less', './app/desktop/**/*.less' ] )
+//     .pipe( sourcemaps.init() )
+//     .pipe( less().on( 'error', function error_handler( e ) {
+//       showError.call( this, e );
+//     } ) )
+//     .pipe( postcss( processors ) )
+//     .pipe( sourcemaps.write( './maps' ) )
+//     .pipe( gulp.dest( config.path.output_folder_css ) );
+// } );
 
 // Moves html and mustache partials files to dist folder
 gulp.task( 'html', function task_handler() {
@@ -151,10 +151,10 @@ gulp.task( 'dirty-eslint', function task_handler() {
 } );
 
 gulp.task( 'serve', function task_handler( cb ) {
-  runSequence( 'clean-dist', [ 'html', 'images', 'fonts', 'bootstrap-less', 'less' ], 'bundle', 'browser-sync', cb );
+  runSequence( 'clean-dist', [ 'html', 'images', 'fonts', 'less' ], 'bundle', 'browser-sync', cb );
 
   // Watch for changes on css core.
-  gulp.watch( 'app/less/**/*.less', [ 'bootstrap-less', browserSync.reload ] )
+  gulp.watch( 'app/less/**/*.less', [ 'less', browserSync.reload ] )
     .on( 'error', showError );
 
   // Watch for changes on css components.
