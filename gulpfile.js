@@ -11,6 +11,7 @@ var gulp = require( 'gulp' ),
   eslint = require( 'gulp-eslint' ),
   guppy = require( 'git-guppy' )( gulp ),
   filter = require( 'gulp-filter' ),
+  proxy = require( 'http-proxy-middleware' ),
   config = {
     path: {
       less: './app/less/',
@@ -31,14 +32,16 @@ function showError( err ) {
 function createServer( openBrowser ) {
   browserSync.init( {
     server: {
-      baseDir: config.path.output_folder,
+      baseDir: config.path.output_folder
     },
     open: openBrowser,
     ghostMode: false,
-    middleware: require( './api/router' )
+    middleware: [ {
+      route: '/api',
+      handle: proxy( { target: 'http://172.17.201.149:8080/JarJarBinks-test/' } )
+    } ]
   } );
 }
-
 
 gulp.task( 'browser-sync', function task_handler() {
   createServer( false );
