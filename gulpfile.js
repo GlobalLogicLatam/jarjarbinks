@@ -13,6 +13,9 @@ var gulp = require( 'gulp' ),
   filter = require( 'gulp-filter' ),
   proxy = require( 'http-proxy-middleware' ),
   config = {
+    url: {
+      api: 'http://172.17.201.149:8080/JarJarBinks-test/'
+    },
     path: {
       less: './app/less/',
       output_folder: './dist/',
@@ -30,6 +33,7 @@ function showError( err ) {
 }
 
 function createServer( openBrowser ) {
+
   browserSync.init( {
     server: {
       baseDir: config.path.output_folder
@@ -38,7 +42,30 @@ function createServer( openBrowser ) {
     ghostMode: false,
     middleware: [ {
       route: '/api',
-      handle: proxy( { target: 'http://172.17.201.149:8080/JarJarBinks-test/' } )
+      handle: proxy( {
+        target: config.url.api,
+        logLevel: 'debug',
+        onProxyRes: function onProxyRes( proxyRes ) {
+
+          Object.keys( proxyRes.headers ).forEach( function setHeaders( key ) {
+            if ( key == 'set-cookie' ) {
+              // eslint-disable-next-line vars-on-top
+              var rc = proxyRes.headers[ key ],
+                new_cookies = [];
+
+              rc.forEach( function setCookie( original_cookie ) {
+                var original_cookie_parts = original_cookie.split( ';' )[ 0 ].split( '=' ),
+                  cookie = `${original_cookie_parts[ 0 ]}=${original_cookie_parts[ 1 ]}; domain=localhost; path=/;`;
+
+                new_cookies.push( cookie );
+              } );
+
+              proxyRes.headers[ key ] = new_cookies;
+            }
+          } );
+
+        }
+      } )
     } ]
   } );
 }
