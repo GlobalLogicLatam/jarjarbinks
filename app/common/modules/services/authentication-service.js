@@ -9,9 +9,9 @@ function authenticationService() {
 
   function logIn( user ) {
     var $q = $.Deferred();
-    $.post( '/api/sessions', { username: user.username, password: user.password } )
-    .then( function success() {
-      return $q.resolve();
+    $.post( '/api/login', { username: user.username, password: user.password } )
+    .then( function success( user ) {
+      return $q.resolve( user );
     },
     function error( error ) {
       return $q.reject( error.responseJSON );
@@ -20,4 +20,4 @@ function authenticationService() {
   }
 }
 
-module.exports = authenticationService
+module.exports = authenticationService;

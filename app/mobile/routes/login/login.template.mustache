@@ -1,23 +1,25 @@
-<section class="flex-container">
-	<div class="login">
+<section class="login flex flex--column flex--center">
 
-		<img class="login__logo" src="./../../images/jjb-logo.png" alt="logo">
-		<img class="login__text-logo" src="./../../images/jjb-text-logo.png" alt="text-logo">
+  <img class="login__logo" src="./../../images/jjb-logo.png" alt="logo">
+  <img class="login__text-logo" src="./../../images/jjb-text-logo.png" alt="text-logo">
 
-		<div class="login__wrapper">
-			<form id="form" method="post" name="form">
-				<div class="form-group">
-					<input type="text" name="username" class="form-control form__input" placeholder="Usuario">
-					<p class="help-block"></p>
-				</div>
-				<div class="form-group">
-					<input type="password" name="password" class="form-control form__input" placeholder="Contrase&ntilde;a">
-					<p class="help-block"></p>
-				</div>
-				<div class="form-group">
-					<button  type="submit" id="submitBtn" class="btn btn--primary btn--big">Iniciar Sesi&oacute;n</button>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="login-form">
+    <form id="form" method="post" name="form">
+      <p class="text-danger login-form__error" id="loginError">{{ login.error }}</p>
+      <div class="form-group login-form__group">
+        <input type="text" name="username" class="form-control login-form__input" placeholder="Usuario">
+        <img class="login-form__icon" src="./../../images/ic_user.svg" alt="ic_username">
+        <p class="help-block"></p>
+      </div>
+      <div class="form-group login-form__group">
+        <input type="password" name="password" class="form-control login-form__input" placeholder="Contrase&ntilde;a">
+        <img class="login-form__icon" src="./../../images/ic_password.svg" alt="ic_password">
+        <p class="help-block"></p>
+      </div>
+      <div class="form-group">
+        <button  type="submit" id="submitBtn" class="btn btn-primary btn-block">Iniciar Sesi&oacute;n</button>
+      </div>
+    </form>
+  </div>
+
 </section>

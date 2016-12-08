@@ -11,7 +11,11 @@ var gulp = require( 'gulp' ),
   eslint = require( 'gulp-eslint' ),
   guppy = require( 'git-guppy' )( gulp ),
   filter = require( 'gulp-filter' ),
+  proxy = require( 'http-proxy-middleware' ),
   config = {
+    url: {
+      api: 'http://172.17.201.149:8080/JarJarBinks-test/'
+    },
     path: {
       less: './app/less/',
       output_folder: './dist/',
@@ -29,16 +33,42 @@ function showError( err ) {
 }
 
 function createServer( openBrowser ) {
+
   browserSync.init( {
     server: {
-      baseDir: config.path.output_folder,
+      baseDir: config.path.output_folder
     },
     open: openBrowser,
     ghostMode: false,
-    middleware: require( './api/router' )
+    middleware: [ {
+      route: '/api',
+      handle: proxy( {
+        target: config.url.api,
+        logLevel: 'debug',
+        onProxyRes: function onProxyRes( proxyRes ) {
+
+          Object.keys( proxyRes.headers ).forEach( function setHeaders( key ) {
+            if ( key == 'set-cookie' ) {
+              // eslint-disable-next-line vars-on-top
+              var rc = proxyRes.headers[ key ],
+                new_cookies = [];
+
+              rc.forEach( function setCookie( original_cookie ) {
+                var original_cookie_parts = original_cookie.split( ';' )[ 0 ].split( '=' ),
+                  cookie = `${original_cookie_parts[ 0 ]}=${original_cookie_parts[ 1 ]}; domain=localhost; path=/;`;
+
+                new_cookies.push( cookie );
+              } );
+
+              proxyRes.headers[ key ] = new_cookies;
+            }
+          } );
+
+        }
+      } )
+    } ]
   } );
 }
-
 
 gulp.task( 'browser-sync', function task_handler() {
   createServer( false );
@@ -52,12 +82,12 @@ gulp.task( 'restart-server', function task_handler() {
     } )
 } );
 
-gulp.task( 'bootstrap-less', function task_handler() {
+gulp.task( 'less', function task_handler() {
   let processors = [
     autoprefixer
   ];
 
-  return gulp.src( config.path.less + 'bootstrap.less' )
+  return gulp.src( config.path.less + 'index.less' )
     .pipe( sourcemaps.init() )
     .pipe( less().on( 'error', function err_handler( e ) {
       showError.call( this, e );
@@ -68,19 +98,19 @@ gulp.task( 'bootstrap-less', function task_handler() {
 		.pipe( gulp.dest( config.path.output_folder_css ) );
 } );
 
-gulp.task( 'less', function task_handler() {
-  let processors = [
-    autoprefixer
-  ];
-  return gulp.src( [ './app/common/**/*.less', './app/mobile/**/*.less', './app/desktop/**/*.less' ] )
-    .pipe( sourcemaps.init() )
-    .pipe( less().on( 'error', function error_handler( e ) {
-      showError.call( this, e );
-    } ) )
-    .pipe( postcss( processors ) )
-    .pipe( sourcemaps.write( './maps' ) )
-    .pipe( gulp.dest( config.path.output_folder_css ) );
-} );
+// gulp.task( 'less', function task_handler() {
+//   let processors = [
+//     autoprefixer
+//   ];
+//   return gulp.src( [ './app/common/**/*.less', './app/mobile/**/*.less', './app/desktop/**/*.less' ] )
+//     .pipe( sourcemaps.init() )
+//     .pipe( less().on( 'error', function error_handler( e ) {
+//       showError.call( this, e );
+//     } ) )
+//     .pipe( postcss( processors ) )
+//     .pipe( sourcemaps.write( './maps' ) )
+//     .pipe( gulp.dest( config.path.output_folder_css ) );
+// } );
 
 // Moves html and mustache partials files to dist folder
 gulp.task( 'html', function task_handler() {
@@ -151,10 +181,10 @@ gulp.task( 'dirty-eslint', function task_handler() {
 } );
 
 gulp.task( 'serve', function task_handler( cb ) {
-  runSequence( 'clean-dist', [ 'html', 'images', 'fonts', 'bootstrap-less', 'less' ], 'bundle', 'browser-sync', cb );
+  runSequence( 'clean-dist', [ 'html', 'images', 'fonts', 'less' ], 'bundle', 'browser-sync', cb );
 
   // Watch for changes on css core.
-  gulp.watch( 'app/less/**/*.less', [ 'bootstrap-less', browserSync.reload ] )
+  gulp.watch( 'app/less/**/*.less', [ 'less', browserSync.reload ] )
     .on( 'error', showError );
 
   // Watch for changes on css components.

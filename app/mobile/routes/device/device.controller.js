@@ -39,21 +39,6 @@ function DeviceController() {
       } )
     );
 
-    // Temporary call to create devices.
-    deviceService
-      .post( {
-        brand: 'Motorola',
-        id: '1234',
-        model: 'G3',
-        status: 'locked',
-        reservedBy: {
-          id: '992',
-          lastName: 'Smith',
-          name: 'John',
-          username: 'jsmith'
-        }
-      } );
-
     return deviceService
       .get()
       .then( function show_devices( devices ) {
