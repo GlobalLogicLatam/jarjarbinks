@@ -1,10 +1,8 @@
 let require_factory = require( 'modules/require-factory' ),
-  authentication_service = require_factory( 'modules/services/authentication-service' )(),
-  modal_factory = require_factory( 'components/modal/modal.factory.js' );
+  authentication_service = require_factory( 'modules/services/authentication-service' )();
 
 function LoginController() {
   let self = {},
-    form = '',
     sammyContext;
 
 	//Public methods and attributes
@@ -16,27 +14,15 @@ function LoginController() {
 
   return self;
 
-	//PUBLIC FUNCTIONS
+	/*
+    PUBLIC FUNCTIONS
+  */
+
 	// To bind elements
   function link() {
-    form = $( 'form' );
+    var form = $( '.js-login-form' );
 
-    form.validate( {
-      errorClass: 'error text-danger',
-      errorElement: 'span',
-      wrapper: 'p',
-      rules: {
-        username: 'required',
-        password: 'required'
-      },
-      messages: {
-        username: 'Debe ingresar un usuario.',
-        password: 'Debe ingresar una contraseña.'
-      },
-      onkeyup: false,
-      invalidHandler: invalidForm,
-      submitHandler: logIn
-    } );
+    form.on( 'submit', submitForm.bind( this, form ) );
   }
 
 	// To make calls to apis. It may returns a promise.
@@ -44,28 +30,44 @@ function LoginController() {
     sammyContext = context;
   }
 
-	//PRIVATE FUNCTIONS
-  function logIn() {
-    event.preventDefault();
-    //convert data into json
-    let formData = form.serializeObject();
-    $.when( authentication_service.logIn( formData ) )
-    .then( function success() {
-      sammyContext.redirect( '#/' );
-    }, 	function error( error ) {
-      modal_factory.confirm( { content: error } )
-        .then( function success() {
-          //console.log('resolved');
+	/*
+    PRIVATE FUNCTIONS
+  */
+
+  // Handle login form validation and user authentication.
+  function submitForm( jqForm ) {
+    if ( isValidForm( jqForm ) ) {
+      authenticate( jqForm )
+        .then( function validUser() {
+          sammyContext.redirect( '#/' );
         } )
-        .catch( function error() {
-          //console.log('rejected');
+        .catch( function invalidUser() {
+          // console.log('invalid user');
         } );
-    } );
+    } else {
+      // console.log('invalid');
+    }
   }
 
-  function invalidForm() {
-    modal_factory.destroy();
+  // Check if inputs form have some value.
+  function isValidForm( form ) {
+    var inputs_el = form.find( 'input' ),
+      valid_el;
+
+    valid_el = inputs_el.filter( function filterValidValues() {
+      return !!this.value.trim();
+    } );
+
+    return inputs_el.length == valid_el.length;
   }
+
+  // Call to api for user authentication.
+  function authenticate( form ) {
+    var data = form.serializeObject();
+
+    return authentication_service.logIn( data );
+  }
+
 }
 
-module.exports = LoginController
+module.exports = LoginController;
