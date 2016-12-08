@@ -3,8 +3,6 @@ let require_factory = require( 'modules/require-factory' ),
 
 // Global libraries
 require( 'script!jquery' );
-require( 'script!jquery_validation' );
-require( 'script!validation_additional_methods' );
 require( 'script!sammy' );
 require( 'script!mustache' );
 

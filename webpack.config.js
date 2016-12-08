@@ -10,8 +10,6 @@ module.exports = {
     ],
     alias: {
       jquery: `${__dirname}/bower_components/jquery/dist/jquery.min.js`,
-      jquery_validation: `${__dirname}/bower_components/jquery-validation/dist/jquery.validate.min.js`,
-      validation_additional_methods: `${__dirname}/bower_components/jquery-validation/dist/additional-methods.min.js`,
       sammy: `${__dirname}/bower_components/sammy/lib/min/sammy-latest.min.js`,
       mustache: `${__dirname}/bower_components/mustache.js/mustache.min.js`
     }
