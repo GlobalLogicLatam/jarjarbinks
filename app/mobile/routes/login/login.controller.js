@@ -1,5 +1,6 @@
 let require_factory = require( 'modules/require-factory' ),
-  authentication_service = require_factory( 'modules/services/authentication-service' )();
+  authentication_service = require_factory( 'modules/services/authentication-service' )(),
+  modal_factory = require_factory( 'components/modal/modal.factory.js' );
 
 function LoginController() {
   let self = {},
@@ -42,10 +43,13 @@ function LoginController() {
           sammyContext.redirect( '#/' );
         } )
         .catch( function invalidUser() {
-          // console.log('invalid user');
+          // modal_factory.message();
         } );
     } else {
-      // console.log('invalid');
+      modal_factory.alert( {
+        message: 'Debe completar usuario y contraseña.',
+        title: 'Valores invalidos'
+      } );
     }
   }
 
