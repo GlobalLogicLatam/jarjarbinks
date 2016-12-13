@@ -1,13 +1,11 @@
-<div id="modal" class="modal">
-    <div class="modal__content">
-        {{ #title }}
-        <h3 class="modal__title">{{ title }}</h3>
-        {{ /title }}
-        <div class="modal__message">{{ message }}</div>
-        <div class="modal__buttons">
-          {{ #buttons.accept }}
-          <button class="{{ buttons.accept.classes }} {{ buttons.accept.selector }}">{{ buttons.accept.label }}</button>
-          {{ /buttons.accept }}
-        </div>
-    </div>
+<div class="modal__content">
+  {{ #title }}
+  <h3 class="modal__title">{{ title }}</h3>
+  {{ /title }}
+  <div class="modal__message">{{ message }}</div>
+  <div class="modal__buttons">
+    {{ #buttons.accept }}
+    <button class="{{ buttons.accept.classes }} {{ buttons.accept.selector }}">{{ buttons.accept.label }}</button>
+    {{ /buttons.accept }}
+  </div>
 </div>

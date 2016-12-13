@@ -107,7 +107,7 @@ function ModalFactory() {
 
   function _init() {
     if ( !modalWrapper ) {
-      modalWrapper = $( '<div id="modal-wrapper" class="modal-wrapper"></div>' );
+      modalWrapper = $( '<div class="modal modal__backdrop flex flex--column flex--v-center"></div>' );
       body.append( modalWrapper );
     }
   }
