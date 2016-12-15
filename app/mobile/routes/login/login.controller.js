@@ -42,8 +42,22 @@ function LoginController() {
         .then( function validUser() {
           sammyContext.redirect( '#/' );
         } )
-        .catch( function invalidUser() {
-          // modal_factory.message();
+        .catch( function invalidUser( error_msg, error_obj ) {
+          var config = {};
+
+          if ( error_obj.status == 401 ) {
+            config = {
+              message: 'Por favor revise el usuario y contraseña ingresados.',
+              title: 'Usuario o contraseña incorrecto'
+            };
+          } else {
+            config = {
+              // It is not receiving any error message from backend.
+              message: 'Error desconocido'
+            };
+          }
+
+          modal_factory.alert( config );
         } );
     } else {
       modal_factory.alert( {

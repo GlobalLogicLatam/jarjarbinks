@@ -14,7 +14,7 @@ function authenticationService() {
       return $q.resolve( user );
     },
     function error( error ) {
-      return $q.reject( error.responseJSON );
+      return $q.reject( error.responseJSON, error );
     } );
     return $q.promise();
   }
