@@ -5,7 +5,6 @@ let require_factory = require( 'modules/require-factory' ),
 
 function NavBarSingleton( sammyContext ) {
   if ( !navInst ) {
-    //console.log("Entrando");
     navInst = NavBar( sammyContext );
   }
 
@@ -17,7 +16,6 @@ function NavBarSingleton( sammyContext ) {
  * @constructor
  */
 function NavBar( sammyContext ) {
-
   let self = {},
     config,
     publisher = require_factory( 'modules/publisher' );

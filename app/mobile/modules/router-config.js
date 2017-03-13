@@ -60,6 +60,17 @@ const routes = [
         default: [ 'back' ]
       }
     }
+  }, {
+    url: '#/detail/:id',
+    template: 'routes/detail/detail.template.mustache',
+    controller: 'routes/detail/detail.controller',
+    controllerAs: 'detail',
+    navOptions: {
+      title: 'Detail',
+      states: {
+        default: [ 'back' ]
+      }
+    }
   }
 ];
 module.exports = routes;

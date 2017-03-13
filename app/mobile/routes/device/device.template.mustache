@@ -1,35 +1,57 @@
-<section class="flex flex--fit flex--column content">
+<section class="js-card flex flex--fit flex--column content">
   <ul class="list-unstyled">
-    {{#devices.list}}
-      <li>
-        <!-- Device -->
-        <div class="js-card card device-{{ status }}" data-id="{{id}}">
-          <div class="card__image">
-            <i class="card__icon glyphicon glyphicon-unlock"></i>
-            <i class="card__icon glyphicon glyphicon-lock"></i>
-          </div>
-          <div class="card__content-wrapper">
-            <span class="card__title">
-            {{ brand }} {{ model }}
-          </span>
-            <span class="card__subtitle">
-            {{ reservedBy.name }} {{ reservedBy.lastName }}
-          </span>
-            <span class="card__footer">
-            Desde el xx/xx/xx al xx/xx/xx - <p>{{id}}</p>
-          </span>
 
-          </div>
-          <i class="card__dropdown-button">
-            <ul class="card__dropdown">
-              <li class="js-edit-button card__option">Editar</li>
-              <li class="js-delete-button card__option">Eliminar</li>
-            </ul>
-            <div class="card__dropdown-background">
-            </div>
-        </i>
+    {{#devices.list.data}}
+    <!-- Collapse Bar -->
+      <div class="card card__collapse" data-ostoggle="{{ os }}">
+        <div class="card__content-wrapper">
+          <span> {{ os }} </span>
         </div>
-      </li>
-    {{/devices.list}}
+        <i class="glyphicon glyphicon-chevron-up" ></i>
+      </div>
+
+      {{#devices}}
+      <!-- Device -->
+        <li data-oscard="{{ os }}">
+          {{#reservedBy.id}}
+          <div class="card device-locked">
+          {{/reservedBy.id}}
+          {{^reservedBy.id}}
+          <div class="card device-unlocked">
+          {{/reservedBy.id}}
+            <div class="card__image">
+              <i class="card__icon glyphicon glyphicon-unlock"></i>
+              <i class="card__icon glyphicon glyphicon-lock"></i>
+            </div>
+            <div class="card__content-wrapper">
+                <span class="card__title">
+                  {{ brand }} - {{ model }}
+                </span>
+                <span class="card__subtitle">
+                  {{#reservedBy.id}}
+                    {{ devices.locked }}
+                  {{/reservedBy.id}}
+                  {{^reservedBy.id}}
+                    {{ devices.unlocked }}
+                  {{/reservedBy.id}}
+                </span>
+            </div>
+
+            <span class="js-card-note card__footer" data-card-id="{{ id }}">
+              <div class="card__image">
+                  <i class="card__icon glyphicon glyphicon-comment"></i>
+              </div>
+            </span>
+
+            <span class="js-card-detail card__footer" data-detail-id="{{ id }}">
+                <div class="card__image">
+                  <i class="card__icon glyphicon glyphicon-italic"></i>
+                </div>
+            </span>
+          </div>
+        </li>
+      {{/devices}}
+    {{/devices.list.data}}
+
   </ul>
 </section>
