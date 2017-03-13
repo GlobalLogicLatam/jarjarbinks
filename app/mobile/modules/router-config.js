@@ -4,8 +4,7 @@ const routes = [
     template: 'routes/login/login.template.mustache',
     controller: 'routes/login/login.controller',
     controllerAs: 'login'
-  },
-  {
+  }, {
     url: '#/',
     template: 'routes/device/device.template.mustache',
     controller: 'routes/device/device.controller',
@@ -13,13 +12,16 @@ const routes = [
     navOptions: {
       title: 'Devices',
       states: {
-        default: [ 'back', 'calendar', 'filter' ],
-        selected: [ 'cancel', 'edit', 'delete' ],
+        default: [
+          'back', 'calendar', 'filter'
+        ],
+        selected: [
+          'cancel', 'edit', 'delete'
+        ],
         multipleSelected: [ 'cancel', 'delete' ]
       }
     }
-  },
-  {
+  }, {
     url: '#/notes',
     template: 'routes/note/note.template.mustache',
     controller: 'routes/note/note.controller',
@@ -27,13 +29,16 @@ const routes = [
     navOptions: {
       title: 'Notes',
       states: {
-        default: [ 'back', 'info', 'add' ],
-        selected: [ 'cancel', 'edit', 'delete' ],
+        default: [
+          'back', 'info', 'add'
+        ],
+        selected: [
+          'cancel', 'edit', 'delete'
+        ],
         multipleSelected: [ 'cancel', 'delete' ]
       }
     }
-  },
-  {
+  }, {
     url: '#/notes/:id',
     template: 'routes/note/note.template.mustache',
     controller: 'routes/note/note.controller',
@@ -42,6 +47,17 @@ const routes = [
       title: 'Notes',
       states: {
         default: [ 'back', 'edit', 'delete' ]
+      }
+    }
+  }, {
+    url: '#/detail',
+    template: 'routes/detail/detail.template.mustache',
+    controller: 'routes/detail/detail.controller',
+    controllerAs: 'detail',
+    navOptions: {
+      title: 'Detail',
+      states: {
+        default: [ 'back' ]
       }
     }
   }
