@@ -1,23 +1,9 @@
 function adapter() {
   let self = {
-    formatDetail: formatDetail,
-    formatDevicesByOS: formatDevicesByOS
+    formatDetail: formatDetail
   };
 
   return self;
-
-  function formatDevicesByOS( devices ) {
-    let result = { os: [ ], data: [ ] }
-
-    for ( let [ k, v ] of Object.entries( devices ) ) {
-      if ( !result.os.includes( k ) ) {
-        result.os.push( k )
-        result.data.push( { os: k, devices: v } );
-      }
-    }
-    delete result[ 'os' ];
-    return result;
-  }
 
   function formatDetail( detail ) {
 

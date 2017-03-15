@@ -1,7 +1,6 @@
 let require_factory = require( 'modules/require-factory' ),
   deviceService = require_factory( 'modules/services/device-service' ),
-  publisher = require_factory( 'modules/publisher' ),
-  adapter = require_factory( 'modules/adapter' );
+  publisher = require_factory( 'modules/publisher' );
 
 function DeviceController() {
   let self = this,
@@ -52,7 +51,7 @@ function DeviceController() {
     return deviceService
       .getDevicesByOS()
       .then( function show_devices( devices ) {
-        self.list = adapter.formatDevicesByOS( devices );
+        self.os_list = devices;
       } );
   }
 

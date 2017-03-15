@@ -29,9 +29,11 @@ function deviceService() {
     return self
       .get()
       .then( function groupByOS( res ) {
-        let grouped_devices = {};
-        res.content.reduce( function group( buffer, device ) {
+        let grouped_devices_obj = {},
+          grouped_devices_arr = [];
 
+        // Grouping devices by OS
+        res.content.reduce( function group( buffer, device ) {
           if ( !buffer[ device.operatingSystem ] ) {
             buffer[ device.operatingSystem ] = [ ];
           }
@@ -39,10 +41,18 @@ function deviceService() {
           buffer[ device.operatingSystem ].push( device );
 
           return buffer;
+        }, grouped_devices_obj );
 
-        }, grouped_devices );
+        // Converting object to array for mustache rendering.
+        // eslint-disable-next-line one-var
+        for ( let os in grouped_devices_obj ) {
+          grouped_devices_arr.push( {
+            devices: grouped_devices_obj[ os ],
+            os: os
+          } )
+        }
 
-        return Promise.resolve( grouped_devices );
+        return Promise.resolve( grouped_devices_arr );
 
       } );
   }

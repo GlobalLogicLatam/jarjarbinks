@@ -1,7 +1,7 @@
 <section class="js-card flex flex--fit flex--column content">
   <ul class="list-unstyled">
 
-    {{#devices.list.data}}
+    {{#devices.os_list}}
     <!-- Collapse Bar -->
       <div class="card card__collapse" data-ostoggle="{{ os }}">
         <div class="card__content-wrapper">
@@ -51,7 +51,7 @@
           </div>
         </li>
       {{/devices}}
-    {{/devices.list.data}}
+    {{/devices.os_list}}
 
   </ul>
 </section>
