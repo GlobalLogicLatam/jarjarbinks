@@ -23,6 +23,7 @@ function detailService() {
         ];
       } );
   }
+
 }
 
 module.exports = detailService()

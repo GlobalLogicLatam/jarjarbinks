@@ -34,6 +34,7 @@ function deviceService() {
 
         // Grouping devices by OS
         res.content.reduce( function group( buffer, device ) {
+
           if ( !buffer[ device.operatingSystem ] ) {
             buffer[ device.operatingSystem ] = [ ];
           }
