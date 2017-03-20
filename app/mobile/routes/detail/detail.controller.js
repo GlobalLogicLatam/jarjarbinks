@@ -1,7 +1,6 @@
 let require_factory = require( 'modules/require-factory' ),
   detailServices = require_factory( 'modules/services/detail-service' ),
-  publisher = require_factory( 'modules/publisher' ),
-  adapter = require_factory( 'modules/adapter' );
+  publisher = require_factory( 'modules/publisher' );
 
 function DetailController() {
   let self = this,
@@ -29,7 +28,7 @@ function DetailController() {
     let nav_bar = require_factory( 'components/nav-bar/nav-bar' )( this );
     return detailServices.get( sammyContext.params ).then( function show_detail( detail ) {
       nav_bar.setTitle( detail.brand + ' ' + detail.model );
-      self.data = adapter.formatDetail( detail );
+      self.data = detail;
     } )
   }
 
