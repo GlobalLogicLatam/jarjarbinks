@@ -11,7 +11,7 @@ function navigationHelper( sammyContext, routeContext, callback ) {
 
   // Check if exists a token in cookies
   function isSessionActive() {
-    return ( document.cookie.indexOf( `${config.cookie_session_name}=` ) >= 0 );
+    return !!$.cookie( config.cookie_session_name ) == true;
   }
 
   // Changes element wrapper to avoid show nav element when user is on login view.

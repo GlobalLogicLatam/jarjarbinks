@@ -8,6 +8,19 @@
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
   margin: 7px 0;
 
+  &__collapse {
+    color: @gray-light;
+    font-size: @font-size-large;
+    font-family: @font-family-base;
+    font-weight: bold;
+    border-radius: 7px;
+    margin-top: 15px;
+
+    & i {
+      color: @brand-primary;
+    }
+  }
+
   &__icon {
     width: 100%;
     height: 100%;
@@ -20,11 +33,15 @@
 
     &.glyphicon-lock {
       display: none;
+      box-shadow: 2px 1px 4px #707070;
+      font-size: 1.4em;
       background-color: @lock-icon-bg-color;
     }
 
     &.glyphicon-unlock {
       display: none;
+      box-shadow: 2px 1px 4px #707070;
+      font-size: 1.4em;
       background-color: @unlock-icon-bg-color;
       &:before {
         content: "\e034";
@@ -36,10 +53,37 @@
       background-color: @selected-icon-bg-color;
       z-index: 1;
     }
+
+    &.glyphicon-comment {
+      background-color: #fff;
+      color: @brand-primary;
+      text-shadow: @card-glyphicon-shadow;
+      font-size: 2.8em;
+      position: absolute;
+      top: -7px;
+      &:before {
+        content: "\e111";
+      }
+    }
+
+    &.glyphicon-italic {
+      width: calc(36px);
+      height: calc(36px);
+      top: 3px;
+      box-shadow: @card-glyphicon-shadow;
+      text-shadow: @card-glyphicon-shadow;
+      background-color: @brand-primary;
+      color: #34767d;
+      font-size: 1.8em;
+      &:before {
+        content: "\e049";
+      }
+    }
+
   }
 
   &__image {
-    margin-right: 10px;
+    margin-right: 20px;
     width: calc(@card-height - (@card-height * .5));
     height: calc(@card-height - (@card-height * .5));
     position: relative;
@@ -54,7 +98,6 @@
       left: 0;
       user-select: none;
       pointer-events: none;
-
     }
   }
 

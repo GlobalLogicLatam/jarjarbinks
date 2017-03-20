@@ -1,6 +1,7 @@
 let require_factory = require( 'modules/require-factory' ),
   authentication_service = require_factory( 'modules/services/authentication-service' )(),
-  modal_factory = require_factory( 'components/modal/modal.factory.js' );
+  modal_factory = require_factory( 'components/modal/modal.factory.js' ),
+  config = require( 'modules/config' );
 
 function LoginController() {
   let self = {},
@@ -40,6 +41,9 @@ function LoginController() {
     if ( isValidForm( jqForm ) ) {
       authenticate( jqForm )
         .then( function validUser() {
+          // Set cookie for session control
+          $.cookie( config.cookie_session_name, true, { path: '/' } );
+
           sammyContext.redirect( '#/' );
         } )
         .catch( function invalidUser( error_msg, error_obj ) {

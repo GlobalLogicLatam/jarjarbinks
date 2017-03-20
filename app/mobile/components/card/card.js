@@ -3,6 +3,16 @@ function card() {
   $.fn.card = function card_component( config ) {
     let self = this;
 
+    // Toggle Card
+    this.find( '.card__collapse' ).on( 'click', function collapse_card( e ) {
+
+      let osToggle = e.currentTarget.dataset.ostoggle;
+
+      $( e.currentTarget ).find( 'i' ).toggleClass( 'glyphicon-chevron-up glyphicon-chevron-down' );
+      $( '[data-oscard=' + osToggle + ']' ).toggle( function collapse( ) { } );
+    } );
+
+
     // Open Card Options Menu
     this.find( '.card__dropdown-button' ).on( 'click', function open_menu( e ) {
       e.stopPropagation();

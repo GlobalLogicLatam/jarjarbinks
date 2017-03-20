@@ -168,7 +168,7 @@ gulp.task( 'eslint', () => {
 } );
 
 gulp.task( 'pre-commit', function task_handler( ) {
-  runSequence( [ 'test' ], [ 'dirty-eslint' ] )
+  runSequence( [ 'dirty-eslint' ] )
 } );
 
 // Run eslint over modified files instead of all of all files in the project.

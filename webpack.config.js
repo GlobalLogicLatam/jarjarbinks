@@ -10,6 +10,7 @@ module.exports = {
     ],
     alias: {
       jquery: `${__dirname}/bower_components/jquery/dist/jquery.min.js`,
+      jquery_cookie: `${__dirname}/bower_components/jquery.cookie/jquery.cookie.js`,
       sammy: `${__dirname}/bower_components/sammy/lib/min/sammy-latest.min.js`,
       mustache: `${__dirname}/bower_components/mustache.js/mustache.min.js`
     }
