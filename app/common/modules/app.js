@@ -15,8 +15,7 @@ const router = require_factory( 'modules/router' );
 
 function App() {
   var sammy = Sammy( '#content-wrapper', function appSammyHandler() {
-    let nav_bar = require_factory( 'components/nav-bar/nav-bar' )( this ),
-      body = $( 'body' );
+    let body = $( 'body' );
 
     // Intercepts ajax call
     require_factory( 'components/jquery-ajax-interceptor/jquery-ajax-interceptor' )( this )
@@ -32,6 +31,7 @@ function App() {
     router( this );
 
     if ( client_detector.is_mobile ) {
+      let nav_bar = require_factory( 'components/nav-bar/nav-bar' )();
 
       // Specific components for mobile.
       require_factory( 'components/card/card' )();

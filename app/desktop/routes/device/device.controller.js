@@ -8,7 +8,9 @@ function DeviceController() {
   Object.assign( self, {
     link: link,
     unlink: unlink,
-    init: init
+    init: init,
+    unlocked: 'Desbloqueado',
+    locked: 'Bloqueado'
   } );
   return self;
 
@@ -20,27 +22,16 @@ function DeviceController() {
 
   // To make calls to apis. It may returns a promise.
   function init() {
-    // Temporary call to create devices.
-    deviceService
-      .post( {
-        brand: 'Motorola',
-        id: '1234',
-        model: 'G3',
-        status: 'locked',
-        reservedBy: {
-          id: '992',
-          lastName: 'Smith',
-          name: 'John',
-          username: 'jsmith'
-        }
-      } );
+    // Init nav bar
+    require_factory( 'components/nav-bar/nav-bar' )();
 
     return deviceService
-      .get()
+      .getDevicesByOS()
       .then( function show_devices( devices ) {
-        self.list = devices;
+        self.os_list = devices;
       } );
   }
+
   function unlink() {
 
   }

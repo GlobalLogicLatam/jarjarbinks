@@ -40,9 +40,12 @@ function LoginController() {
   function submitForm( jqForm ) {
     if ( isValidForm( jqForm ) ) {
       authenticate( jqForm )
-        .then( function validUser() {
+        .then( function validUser( user ) {
           // Set cookie for session control
           $.cookie( config.cookie_session_name, true, { path: '/' } );
+          $.cookie( 'logged_user', JSON.stringify( user ), { path: '/' } );
+
+          require_factory( 'modules/user' )();
 
           sammyContext.redirect( '#/' );
         } )

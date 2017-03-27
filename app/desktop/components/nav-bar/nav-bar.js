@@ -5,9 +5,14 @@ function Nav_Bar() {
   init();
 
   function init() {
-    let nav_el = $( '.js-navbar-holder' ),
+    let user = require_factory( 'modules/user' )(),
+      nav_el = $( '.js-navbar-holder' ),
       // Rendered menu template
       rendered_html = $( Mustache.render( tmpl ) );
+
+    rendered_html
+      .find( '.js-avatar' )
+      .attr( 'src', user.profileAvatar );
 
     // Replaced menu container with menu.
     nav_el.replaceWith( rendered_html );
