@@ -1,7 +1,7 @@
 let config = require( 'modules/config' );
 
 function navigationHelper( sammyContext, routeContext, callback ) {
-  var nav_el = $( '.js-nav' ),
+  var nav_el = $( '.js-jjb-navbar' ),
     default_uri = '/#/login';
 
   // Handler for invalid route
