@@ -1,18 +1,28 @@
-.login{
+.login-wrapper{
+  flex: 1;
   background-image: url('./../../../images/login-bg.png');
 	background-size: cover;
+}
+
+.login{
+  max-width: 400px;
+  text-align: center;
 
   &__logo{
-		margin-bottom: 10%;
+    display: block;
+		margin: 0 auto 10% auto;
 		max-width: 40%;
 	}
 
   &__text-logo {
-		margin-bottom: 10%;
+    display: block;
+		margin: 0 auto 10% auto;
 		max-width: 40%;
 	}
 
+
   &__form {
-    width: 80%;
-  }
+    max-width: 300px;
+    margin: 0 auto;
+	}
 }
