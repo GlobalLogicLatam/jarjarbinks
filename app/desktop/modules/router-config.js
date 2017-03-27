@@ -6,6 +6,11 @@ const routes = [
     controllerAs: 'login'
   },
   {
+    url: '#/logout',
+    template: 'routes/logout/logout.template.mustache',
+    controller: 'routes/logout/logout.controller'
+  },
+  {
     url: '#/',
     template: 'routes/device/device.template.mustache',
     controller: 'routes/device/device.controller',

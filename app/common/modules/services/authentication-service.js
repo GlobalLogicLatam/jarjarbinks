@@ -2,7 +2,8 @@ function authenticationService() {
   let self = {};
 
   Object.assign( self, {
-    logIn: logIn
+    logIn: logIn,
+    logOut: logOut
   } );
 
   return self;
@@ -17,6 +18,10 @@ function authenticationService() {
       return $q.reject( error.responseJSON, error );
     } );
     return $q.promise();
+  }
+
+  function logOut(){
+    return $.post( '/api/logout' )
   }
 }
 
