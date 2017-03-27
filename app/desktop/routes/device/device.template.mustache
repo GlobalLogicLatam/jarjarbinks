@@ -1,64 +1,66 @@
-<div style="background-color: #ddd; width: 100%;">
+<div class="devices-wrapper flex">
 
-<section class="js-card flex flex--fit flex--column content">
-  <ul class="list-unstyled">
+  <section class="js-card flex flex--fit flex--column content">
+    <ul class="list-unstyled">
 
-    {{#devices.os_list}}
-    <!-- Collapse Bar -->
-      <div class="card card__collapse" data-ostoggle="{{ os }}">
-        <div class="card__content-wrapper">
-          <span> {{ os }} </span>
-        </div>
-        <i class="glyphicon glyphicon-chevron-up" ></i>
-      </div>
-
-      {{#devices}}
-      <!-- Device -->
-        <li data-oscard="{{ os }}">
-          {{#reservedBy.id}}
-          <div class="card device-locked">
-          {{/reservedBy.id}}
-          {{^reservedBy.id}}
-          <div class="card device-unlocked">
-          {{/reservedBy.id}}
-            <div class="card__image">
-              <i class="card__icon glyphicon glyphicon-unlock"></i>
-              <i class="card__icon glyphicon glyphicon-lock"></i>
-            </div>
-            <div class="card__content-wrapper">
-                <span class="card__title">
-                  {{ brand }} - {{ model }}
-                </span>
-                <span class="card__subtitle">
-                  {{#reservedBy.id}}
-                    {{ devices.locked }}
-                  {{/reservedBy.id}}
-                  {{^reservedBy.id}}
-                    {{ devices.unlocked }}
-                  {{/reservedBy.id}}
-                </span>
-            </div>
-
-            <!--
-            <span class="js-card-note card__footer" data-card-id="{{ id }}">
-              <div class="card__image">
-                  <i class="card__icon glyphicon glyphicon-comment"></i>
-              </div>
-            </span>
-            -->
-
-            <span class="js-card-detail card__footer" data-detail-id="{{ id }}">
-                <div class="card__image">
-                  <i class="card__icon glyphicon glyphicon-italic"></i>
-                </div>
-            </span>
+      {{#devices.os_list}}
+      <!-- Collapse Bar -->
+        <div class="card card__collapse" data-ostoggle="{{ os }}">
+          <div class="card__content-wrapper">
+            <span> {{ os }} </span>
           </div>
-        </li>
-      {{/devices}}
-    {{/devices.os_list}}
+          <i class="glyphicon glyphicon-chevron-up" ></i>
+        </div>
 
-  </ul>
-</section>
+        {{#devices}}
+        <!-- Device -->
+          <li data-oscard="{{ os }}">
+            {{#reservedBy.id}}
+            <div class="card device-locked">
+            {{/reservedBy.id}}
+            {{^reservedBy.id}}
+            <div class="card device-unlocked">
+            {{/reservedBy.id}}
+              <div class="card__image">
+                <i class="card__icon glyphicon glyphicon-unlock"></i>
+                <i class="card__icon glyphicon glyphicon-lock"></i>
+              </div>
+              <div class="card__content-wrapper">
+                  <span class="card__title">
+                    {{ brand }} - {{ model }}
+                  </span>
+                  <span class="card__subtitle">
+                    {{#reservedBy.id}}
+                      {{ devices.locked }}
+                    {{/reservedBy.id}}
+                    {{^reservedBy.id}}
+                      {{ devices.unlocked }}
+                    {{/reservedBy.id}}
+                  </span>
+              </div>
 
+              <!--
+              <span class="js-card-note card__footer" data-card-id="{{ id }}">
+                <div class="card__image">
+                    <i class="card__icon glyphicon glyphicon-comment"></i>
+                </div>
+              </span>
+              -->
+
+              <span class="js-card-detail card__footer" data-detail-id="{{ id }}">
+                  <div class="card__image">
+                    <i class="card__icon glyphicon glyphicon-italic"></i>
+                  </div>
+              </span>
+            </div>
+          </li>
+        {{/devices}}
+      {{/devices.os_list}}
+
+    </ul>
+  </section>
+
+  <section class="flex flex--fit flex--column content js-device-detail">
+  </section>
 
 </div>
